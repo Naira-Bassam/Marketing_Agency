@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Content Studio</title>
+<style>
+:root{--bg:#f2f4f7;--sf:#fff;--tx:#101828;--mu:#5b6677;--bd:#d9dee6;--ac:#2a4bd7;--on:#fff;--c1:#7a8494;--c2:#b7791f;--c3:#2a4bd7;--c4:#2b7a3d;--c5:#c0392b;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--sf:#171d2c;--tx:#e8ecf4;--mu:#9aa5b8;--bd:#2c3547;--ac:#8aa0ff;--on:#0f1420;--c1:#8f99ab;--c2:#e0a84a;--c3:#8aa0ff;--c4:#6cc084;--c5:#ef7b6e}}
+:root[data-theme="dark"]{--bg:#0f1420;--sf:#171d2c;--tx:#e8ecf4;--mu:#9aa5b8;--bd:#2c3547;--ac:#8aa0ff;--on:#0f1420;--c1:#8f99ab;--c2:#e0a84a;--c3:#8aa0ff;--c4:#6cc084;--c5:#ef7b6e}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:600;margin:0}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--bd);background:var(--sf)}
+h1{font-size:20px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{border:0;background:none;color:var(--mu);padding:8px 14px;border-radius:8px;font:inherit;cursor:pointer}
+nav button.on{background:var(--bg);color:var(--tx);font-weight:600}
+main{max-width:1000px;margin:0 auto;padding:20px}
+h2{font-size:22px;margin-bottom:4px}
+.sub{color:var(--mu);margin:0 0 16px}
+button,input,select,textarea{font:inherit;color:var(--tx)}
+input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--sf)}
+textarea{resize:vertical;min-height:90px}
+label{display:block;font-size:13px;color:var(--mu);margin:12px 0 4px}
+.btn{border:1px solid var(--bd);background:var(--sf);padding:9px 16px;border-radius:8px;cursor:pointer}
+.btn.p{background:var(--ac);border-color:var(--ac);color:var(--on);font-weight:600}
+.btn.d{color:var(--c5)}
+.btn:focus-visible,nav button:focus-visible,.chip:focus-visible,.row:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--sf);border:1px solid var(--bd);border-left:4px solid var(--c1);border-radius:8px;margin-bottom:8px;cursor:pointer}
+.row small{color:var(--mu)}
+.row .mid{flex:1;min-width:0}
+.snip{font-size:13px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.thumb{width:56px;height:56px;border-radius:6px;object-fit:cover;flex:none;background:var(--bg)}
+.pill{font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.s-generating{--k:var(--c2)}.s-needs_review{--k:var(--c3)}.s-approved{--k:var(--c4)}.s-rejected{--k:var(--c5)}.s-idea{--k:var(--c1)}.s-new,.s-stopped{--k:var(--c1)}.s-drafted{--k:var(--c3)}.s-sent{--k:var(--c4)}.s-replied{--k:var(--c2)}.s-answered{--k:var(--c4)}
+.row,.chip{border-left-color:var(--k,var(--c1))}.pill{color:var(--k,var(--c1))}
+.bar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.bar b{min-width:150px;text-align:center}
+.f{border:1px solid var(--bd);background:var(--sf);border-radius:99px;padding:5px 13px;cursor:pointer;font-size:14px}
+.f.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.wrap{overflow-x:auto}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(90px,1fr));min-width:640px;gap:1px;background:var(--bd);border:1px solid var(--bd)}
+.dh{background:var(--bg);padding:6px;font-size:13px;color:var(--mu)}
+.cell{background:var(--sf);min-height:92px;padding:4px}
+.cell i{font-style:normal;font-size:12px;color:var(--mu)}
+.chip{display:block;margin-top:3px;padding:3px 6px;font-size:12px;background:var(--bg);border-left:3px solid var(--c1);border-radius:4px;cursor:grab;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 12px}
+@media(max-width:640px){.g2,.g3{grid-template-columns:1fr}}
+.panel{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:18px}
+dialog{width:min(1100px,96vw);max-height:94vh;overflow:auto;background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.pv{position:sticky;top:0}
+@media(max-width:860px){.ed{grid-template-columns:1fr}.pv{position:static}}
+.card{border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:var(--sf)}
+.card .ph{padding:9px 14px;font-size:13px;color:var(--mu);border-bottom:1px solid var(--bd)}
+.card img{display:block;width:100%;height:auto;max-height:440px;object-fit:contain;background:var(--bg)}
+.card .none{padding:34px 14px;text-align:center;color:var(--mu);background:var(--bg);font-size:13px}
+.card .tx{padding:14px;white-space:pre-wrap;word-break:break-word}
+.card .tg{padding:0 14px 14px;color:var(--ac);word-break:break-word}
+.hint{font-size:13px;color:var(--mu)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+fieldset{border:1px solid var(--bd);border-radius:8px;margin:14px 0 0;padding:6px 14px 14px}
+legend{font-size:13px;color:var(--mu);padding:0 6px}
+.card{position:relative}.card.busy img,.card.busy .none{opacity:.35}.imgload{position:absolute;left:12px;right:12px;top:48px;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;border-radius:8px;background:var(--tx);color:var(--bg);font-weight:600;font-size:14px;z-index:2}.sp{width:16px;height:16px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;flex:none}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sp{animation:none}}button:disabled{opacity:.55;cursor:not-allowed}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:99}
+#toast.on{opacity:1}
+</style></head><body>
+<header><h1>Content Studio</h1>
+<nav id="nav"><button data-v="ideas">Ideas</button><button data-v="posts">Posts</button><button data-v="cal">Calendar</button><button data-v="sales">Sales</button><button data-v="cp">Control panel</button></nav></header>
+<main id="m"></main><dialog id="ed"></dialog><div id="toast" role="status"></div>
+<script>
+const $=s=>document.querySelector(s),v=s=>{const e=$(s);return e?e.value:""};
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ttl=p=>String(p.idea||"").split("\n")[0].slice(0,120);
+const ST={idea:"Idea",generating:"Writing…",needs_review:"Needs review",approved:"Approved",rejected:"Rejected"};
+const TONES=["Professional and warm","Friendly","Playful","Formal","Inspiring"],LANGS=["English","Arabic"],PLAT=["LinkedIn","Instagram","Facebook"];
+let D={platform:"LinkedIn",tone:"Professional and warm",lang:"English",len:"80",tags:"3",cta:"Contact us to learn more",ban:"revolutionary, best, #1",extra:"",img_on:"true",style:"candid photo, natural window light, 35mm lens, shallow depth of field, real textures, muted warm colors, slight film grain"};
+const ip=p=>`A scene based on the post: “${ttl(p)}”. ${D.style}.`;
+let posts=[];
+const API="https://phoenix-careers-experienced-serves.trycloudflare.com/webhook"; // n8n Cloud: "https://YOUR-NAME.app.n8n.cloud/webhook" // production URL (workflows must be Active)
+const api=(p,b)=>fetch(API+"/"+p,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{}).then(r=>{if(!r.ok)throw new Error(p+" "+r.status);return r.text()}).then(t=>t?JSON.parse(t):null);
+const fail=e=>{console.error(e);toast("Could not reach n8n. Check the workflow is active and CORS is on.")};
+const fromRow=r=>({id:r.id,idea:r.idea,platform:r.platform||"LinkedIn",status:r.status||"idea",date:String(r.scheduled_at||"").slice(0,10),text:r.post_text||"",tags:r.hashtags||"",len:r.length==null?"":String(r.length),lang:r.language||"",tone:r.tone||"",mode:r.image_mode||"ai",prompt:r.image_prompt||"",img:r.image_url||"",note:r.review_comment||"",ver:r.version||1});
+const toRow=p=>({id:p.id,idea:p.idea,platform:p.platform,status:p.status,scheduled_at:p.date||null,post_text:p.text,hashtags:p.tags,length:p.len?+p.len:null,language:p.lang||null,tone:p.tone||null,image_mode:p.mode,image_prompt:p.prompt,image_url:p.img,review_comment:p.note||null,version:p.ver});
+const save=p=>api("post-update",toRow(p));
+async function load(first){try{const r=await api("posts-list");posts=(Array.isArray(r)?r:r?[r]:[]).map(fromRow);
+if(first){const x=await api("settings-get").catch(()=>null),d=Array.isArray(x)?x[0]:x;if(d&&d.tone){const s={};for(const k of Object.keys(D)){if(d[k]!==undefined&&d[k]!==null&&String(d[k]).trim()!=="")s[k]=String(d[k])}D={...D,...s}}}
+if(!$("#ed").open&&(view==="posts"||view==="cal"))render()}catch(e){fail(e)}}
+setInterval(()=>{if(posts.some(p=>p.status==="generating"))load()},4000);
+let sel=null,view="ideas",flt="all",cal=new Date(),drag=0,isrc=null,ideasTxt="";
+const toast=t=>{const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2600)};
+function show(x){view=x;if(x==="sales")loadLeads(!leads.length);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===x));render()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.v));
+
+/* ---------- read text from txt / docx / pdf (libraries load only when needed) ---------- */
+const MAMMOTH="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js";
+const PDFJS="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+const PDFW="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const LIB={};
+const loadJs=u=>LIB[u]||(LIB[u]=new Promise((res,rej)=>{const s=document.createElement("script");s.src=u;s.onload=res;s.onerror=()=>rej(new Error("Could not load "+u));document.head.appendChild(s)}));
+async function readFile(f){const n=f.name.toLowerCase();
+if(/\.(txt|md)$/.test(n))return f.text();
+if(n.endsWith(".docx")){await loadJs(MAMMOTH);return (await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()})).value}
+if(n.endsWith(".pdf")){await loadJs(PDFJS);pdfjsLib.GlobalWorkerOptions.workerSrc=PDFW;const d=await pdfjsLib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;let t="";for(let i=1;i<=d.numPages&&t.length<20000;i++){const c=await (await d.getPage(i)).getTextContent();t+=c.items.map(x=>x.str).join(" ")+"\n"}return t}
+throw new Error("Unsupported file type. Use .txt, .docx or .pdf")}
+async function takeFile(input){const f=input.files[0];if(!f)return null;toast("Reading file…");
+try{const t=(await readFile(f)).replace(/[ \t]+\n/g,"\n").replace(/\n{3,}/g,"\n\n").trim();
+if(!t){toast("No text found in this file (a scanned PDF has no text)");return null}
+return{name:f.name,text:t.slice(0,6000),cut:t.length>6000}}catch(e){console.error(e);toast(String(e.message||"Could not read this file"));return null}}
+const srcLine=s=>`Source material from file "${s.name}" (you may use its facts):\n${s.text}`;
+
+/* ---------- lists ---------- */
+const row=p=>`<div class="row s-${p.status}" tabindex="0" onclick="edit(${p.id})" onkeydown="if(event.key==='Enter')edit(${p.id})">${p.img&&p.mode!=="none"?`<img class="thumb" src="${esc(p.img)}" alt="">`:""}<div class="mid"><b>${esc(ttl(p))}</b><br><small>${p.platform}${p.date?" · "+p.date:" · not scheduled"}${p.tone?" · custom tone":""}</small>${p.text?`<div class="snip" dir="auto">${esc(p.text.replace(/\s+/g," ").slice(0,140))}</div>`:""}</div><span class="pill">${ST[p.status]}</span></div>`;
+const idHint=()=>isrc?`Using <b>${esc(isrc.name)}</b> (${isrc.text.length} characters${isrc.cut?", cut to the first 6000":""}) <button class="btn" onclick="isrc=null;$('#sfi').innerHTML=''">Remove</button>`:"";
+function render(){const m=$("#m");
+if(view==="ideas")m.innerHTML=`<h2>Ideas</h2><p class="sub">Add one idea per line. The AI writes a post for each.</p><div class="panel"><label for="ideas">Post ideas</label><textarea id="ideas" rows="7" oninput="ideasTxt=this.value" placeholder="Why creativity needs measuring\nA day in a NEOMI classroom\nHow teachers use the AR kit">${esc(ideasTxt)}</textarea><label for="sf0">Or take the idea from a file (Word, PDF or text)</label><input id="sf0" type="file" accept=".txt,.md,.docx,.pdf" onchange="srcIdea(this)"><div id="sfi" class="hint">${idHint()}</div><p class="hint">The file text is given to the AI as source material for every idea above. If the box is empty, one post is made from the file.</p><div class="g2"><div><label for="pl">Platform</label><select id="pl">${PLAT.map(x=>`<option ${x===D.platform?"selected":""}>${x}</option>`).join("")}</select></div></div><div class="acts"><button class="btn p" onclick="create()">Create posts</button></div><p class="hint">You can change the tone or length of any single post afterwards.</p></div>`;
+else if(view==="posts"){const L=posts.filter(p=>flt==="all"||p.status===flt);m.innerHTML=`<h2>Posts</h2><p class="sub">Open a post to see it as a whole, edit, review, or schedule it.</p><div class="bar">${["all",...Object.keys(ST)].map(k=>`<button class="f ${flt===k?"on":""}" onclick="flt='${k}';render()">${k==="all"?"All":ST[k]} (${k==="all"?posts.length:posts.filter(p=>p.status===k).length})</button>`).join("")}</div>${L.map(row).join("")||'<p class="hint">No posts here yet. Add ideas to get started.</p>'}`}
+else if(view==="cal")m.innerHTML=calH();
+else if(view==="sales")m.innerHTML=salesH();
+else m.innerHTML=`<h2>Control panel</h2><p class="sub">Defaults for every post. A single post can override them.</p><div class="panel">
+<div class="g3"><div><label for="c_plat">Default platform</label><select id="c_plat">${PLAT.map(t=>`<option ${t===D.platform?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="c_tone">Tone</label><select id="c_tone">${TONES.map(t=>`<option ${t===D.tone?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="c_lang">Language</label><select id="c_lang">${LANGS.map(t=>`<option ${t===D.lang?"selected":""}>${t}</option>`).join("")}</select></div></div>
+<div class="g3"><div><label for="c_len">Length (words)</label><input id="c_len" type="number" value="${esc(D.len)}"></div><div><label for="c_tags">Hashtags per post</label><input id="c_tags" type="number" value="${esc(D.tags)}"></div><div><label for="c_img">Images</label><select id="c_img"><option value="true" ${String(D.img_on)!=="false"?"selected":""}>On</option><option value="false" ${String(D.img_on)==="false"?"selected":""}>Off</option></select></div></div>
+<div class="g2"><div><label for="c_cta">Closing line (call to action)</label><input id="c_cta" value="${esc(D.cta)}"></div><div><label for="c_ban">Words to avoid</label><input id="c_ban" value="${esc(D.ban)}"></div></div>
+<label for="c_extra">Extra rules</label><textarea id="c_extra" rows="3" placeholder="For example: always mention the school visit, never compare with other companies">${esc(D.extra)}</textarea>
+<label for="c_style">Image style</label><input id="c_style" value="${esc(D.style)}">
+<p class="hint">${posts.filter(p=>p.tone||p.len||p.lang).length} posts currently override these defaults.</p><div class="acts"><button class="btn p" onclick="saveCP()">Save defaults</button></div></div>`}
+async function srcIdea(i){const s=await takeFile(i);if(s){isrc=s;$("#sfi").innerHTML=idHint()}}
+async function saveCP(){D={platform:v("#c_plat"),tone:v("#c_tone"),lang:v("#c_lang"),len:v("#c_len"),tags:v("#c_tags"),cta:v("#c_cta"),ban:v("#c_ban"),extra:v("#c_extra"),img_on:v("#c_img"),style:v("#c_style")};try{await api("settings-save",D);toast("Defaults saved")}catch(e){fail(e)}}
+async function create(){let L=v("#ideas").split("\n").map(s=>s.trim()).filter(Boolean);
+if(!L.length&&isrc)L=["Post based on "+isrc.name];
+if(!L.length)return toast("Add at least one idea or a file");
+if(isrc)L=L.map(x=>x+"\n\n"+srcLine(isrc));
+try{await api("ideas-add",{platform:v("#pl"),ideas:L});toast(L.length+" posts are being written");isrc=null;ideasTxt="";await load();show("posts")}catch(e){fail(e)}}
+function mv(n){cal=new Date(cal.getFullYear(),cal.getMonth()+n,1);render()}
+async function drop(k){const p=posts.find(x=>x.id===drag);if(!p)return;if(p.status==="generating")return toast("Still being written");p.date=k;try{await save(p);toast("Moved to "+k);render()}catch(e){fail(e)}}
+function calH(){const y=cal.getFullYear(),mo=cal.getMonth(),f=new Date(y,mo,1).getDay(),n=new Date(y,mo+1,0).getDate();
+let h=`<h2>Calendar</h2><p class="sub">Drag a post to another day to reschedule it.</p><div class="bar"><button class="btn" onclick="mv(-1)" aria-label="Previous month">‹</button><b>${cal.toLocaleString("en",{month:"long",year:"numeric"})}</b><button class="btn" onclick="mv(1)" aria-label="Next month">›</button></div><div class="wrap"><div class="cal">`+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="dh">${d}</div>`).join("");
+for(let i=0;i<f;i++)h+='<div class="cell"></div>';
+for(let d=1;d<=n;d++){const k=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;h+=`<div class="cell" ondragover="event.preventDefault()" ondrop="drop('${k}')"><i>${d}</i>`+posts.filter(p=>p.date===k).map(p=>`<span class="chip s-${p.status}" tabindex="0" draggable="true" ondragstart="drag=${p.id}" onclick="edit(${p.id})" onkeydown="if(event.key==='Enter')edit(${p.id})">${esc(ttl(p))}</span>`).join("")+"</div>"}
+const u=posts.filter(p=>!p.date);return h+`</div></div><h2 style="margin-top:22px;font-size:18px">Not scheduled</h2>${u.map(row).join("")||'<p class="hint">Every post has a date.</p>'}`}
+
+/* ---------- post editor: preview on the left, settings on the right ---------- */
+function pv(p){const hasImg=p.img&&p.mode!=="none";
+return `<div class="card"><div class="ph">${esc(p.platform)} · preview</div>${hasImg?`<img src="${esc(p.img)}" alt="Post image">`:`<div class="none">${p.mode==="none"?"This post has no image":"No image yet"}</div>`}<div class="tx" id="pvt" dir="auto">${p.text?esc(p.text):'<span class="hint">The post text will appear here.</span>'}</div><div class="tg" id="pvh" dir="auto">${esc(p.tags)}</div></div>${hasImg?`<p class="hint"><a href="${esc(p.img)}" download="post-image.jpg">Download image</a></p>`:""}`}
+function edit(id){sel=posts.find(p=>p.id===id);const p=sel;const o=(a,x,d)=>`<option value="">Default (${esc(d)})</option>`+a.map(t=>`<option ${t===x?"selected":""}>${t}</option>`).join("");
+const written=!(p.status==="idea"||p.status==="generating");
+$("#ed").innerHTML=`<div class="bar" style="justify-content:space-between"><h2 style="font-size:19px">${esc(ttl(p))}</h2><span class="pill s-${p.status}">${ST[p.status]}</span></div>
+<div class="ed"><div class="pv">${pv(p)}
+<div class="acts"><button class="btn p" onclick="act('approved')">Approve</button><button class="btn" onclick="regen()">Rewrite post</button><button class="btn" onclick="act(sel.status)">Save changes</button><button class="btn d" onclick="act('rejected')">Reject</button><button class="btn d" onclick="delPost()">Delete</button><button class="btn" onclick="$('#ed').close()">Close</button></div></div>
+<div>
+${written?`<label for="t" style="margin-top:0">Post text</label><textarea id="t" rows="10" dir="auto" oninput="$('#pvt').textContent=this.value">${esc(p.text)}</textarea><label for="hs">Hashtags</label><input id="hs" dir="auto" value="${esc(p.tags)}" oninput="$('#pvh').textContent=this.value">`:'<p class="hint">This post has not been written yet. You can still attach a file below and press Rewrite post.</p>'}
+<fieldset><legend>Settings for this post only</legend><div class="g3"><div><label for="tn">Tone</label><select id="tn">${o(TONES,p.tone,D.tone)}</select></div><div><label for="lg">Language</label><select id="lg">${o(LANGS,p.lang,D.lang)}</select></div><div><label for="ln">Length (words)</label><input id="ln" type="number" value="${esc(p.len||"")}" placeholder="Default (${esc(D.len)})"></div></div></fieldset>
+<fieldset><legend>Use a file (Word, PDF or text)</legend><input id="sf" type="file" accept=".txt,.md,.docx,.pdf" onchange="srcFile(this)">
+${p.src?`<p class="hint">Using <b>${esc(p.src.name)}</b> (${p.src.text.length} characters${p.src.cut?", cut to the first 6000":""}). Press <b>Rewrite post</b> and the AI will write or edit the post from it.</p><div class="acts" style="margin-top:6px"><button class="btn" onclick="insertSrc()">Put the file text in the post box</button><button class="btn" onclick="clearSrc()">Remove file</button></div>`:'<p class="hint">Pick a file, then press Rewrite post. The AI takes the idea or the facts from it.</p>'}</fieldset>
+<fieldset><legend>Image</legend><label style="display:inline;margin-right:14px"><input type="radio" name="m" value="ai" ${p.mode==="ai"?"checked":""} onchange="sel.mode='ai';keep()" style="width:auto"> Generate with AI</label><label style="display:inline;margin-right:14px"><input type="radio" name="m" value="upload" ${p.mode==="upload"?"checked":""} onchange="sel.mode='upload';keep()" style="width:auto"> Upload my own</label><label style="display:inline"><input type="radio" name="m" value="none" ${p.mode==="none"?"checked":""} onchange="sel.mode='none';keep()" style="width:auto"> No image</label>
+${p.mode==="ai"?`<label for="pr">Image description (written from the post)</label><textarea id="pr" rows="3">${esc(p.prompt||ip(p))}</textarea><div class="acts"><button class="btn p" data-img onclick="imgFromPost()">New image from the post</button><button class="btn" data-img onclick="newImg()">Regenerate image</button></div><p class="hint">“New image from the post” reads the post text, writes a fitting description, then makes the image.</p>`:p.mode==="upload"?`<label for="up">Image file</label><input id="up" type="file" accept="image/*" onchange="upl(this)">`:'<p class="hint">This post will go out without an image.</p>'}</fieldset>
+<div class="g2"><div><label for="dt">Publish date</label><input id="dt" type="date" value="${p.date}"></div><div><label for="cm">Note for a rewrite</label><input id="cm" placeholder="For example: make it shorter"></div></div>
+</div></div>`;
+if(!$("#ed").open)$("#ed").showModal()}
+function keep(){collect();edit(sel.id)}
+function collect(){const p=sel;if($("#t")){p.text=v("#t");p.tags=v("#hs")}p.tone=v("#tn");p.lang=v("#lg");p.len=v("#ln");p.date=v("#dt");if($("#pr"))p.prompt=v("#pr")}
+async function srcFile(i){const s=await takeFile(i);if(!s)return;collect();sel.src=s;edit(sel.id)}
+function clearSrc(){collect();sel.src=null;edit(sel.id)}
+function insertSrc(){collect();sel.text=(sel.text?sel.text+"\n\n":"")+sel.src.text;if(sel.status==="idea")sel.status="needs_review";edit(sel.id);toast("File text added. You can edit it now")}
+function imgBusy(on,msg){const c=document.querySelector("#ed .card");let o=$("#imgload");
+if(on){if(c){c.classList.add("busy");if(!o){o=document.createElement("div");o.id="imgload";o.className="imgload";o.setAttribute("role","status");c.appendChild(o)}o.innerHTML='<span class="sp"></span>'+esc(msg||"Creating image…")}}
+else{if(o)o.remove();if(c)c.classList.remove("busy")}
+document.querySelectorAll("#ed [data-img]").forEach(b=>b.disabled=on)}
+async function newImg(){collect();imgBusy(true,"Creating the image… about 10 to 20 seconds");try{const r=await api("image-regenerate",{id:sel.id,image_prompt:sel.prompt}),x=Array.isArray(r)?r[0]:r;if(x&&x.error){imgBusy(false);return toast(x.error)}if(!x||!x.image_url){imgBusy(false);return toast("No new image came back. Check the n8n execution.")}sel.img=x.image_url;imgBusy(false);if($("#ed").open)edit(sel.id);else render();toast("Image ready")}catch(e){imgBusy(false);fail(e)}}
+async function imgFromPost(){collect();if(!sel.text)return toast("Write the post first");imgBusy(true,"Reading the post…");try{const r=await api("image-prompt",{post_text:sel.text,platform:sel.platform,style:D.style}),x=Array.isArray(r)?r[0]:r;if(!x||!x.image_prompt){imgBusy(false);return toast((x&&x.error)||"No description returned")}$("#pr").value=x.image_prompt;await newImg()}catch(e){imgBusy(false);fail(e)}}
+async function delPost(){if(!sel||!confirm("Delete this post? This cannot be undone."))return;try{await api("post-delete",{id:sel.id});posts=posts.filter(p=>p.id!==sel.id);$("#ed").close();render();toast("Post deleted")}catch(e){fail(e)}}
+function upl(i){const f=i.files[0];if(!f)return;collect();const m=new Image();m.onload=()=>{const k=Math.min(1,1024/Math.max(m.width,m.height)),c=document.createElement("canvas");c.width=m.width*k;c.height=m.height*k;c.getContext("2d").drawImage(m,0,0,c.width,c.height);sel.img=c.toDataURL("image/jpeg",.82);edit(sel.id)};m.src=URL.createObjectURL(f)}
+async function act(s){if(sel.status==="generating"){$("#ed").close();return}if(sel.status==="idea")s="idea";collect();sel.status=s;try{await save(sel);$("#ed").close();render();toast(s==="approved"?"Approved":s==="rejected"?"Rejected":"Saved")}catch(e){fail(e)}}
+async function regen(){if(sel.status==="generating")return;if(!sel.text&&!sel.src)return toast("Nothing to rewrite yet. Attach a file first");
+collect();const c=v("#cm");
+sel.note=[c||(sel.src?"Write the post from the source material below.":""),sel.src?srcLine(sel.src):""].filter(Boolean).join("\n\n");
+sel.status="generating";try{await api("post-regenerate",toRow(sel));sel.src=null;$("#ed").close();await load();render();toast("Rewriting…")}catch(e){fail(e)}}
+show("ideas");load(true);
+/* ---------- sales: leads, AI emails, replies ---------- */
+const LS={new:"New",drafted:"Draft ready",sent:"Sent",replied:"Replied",answered:"Answered",stopped:"Stopped"};
+let leads=[],lsel=null,lflt="all",SD={offer:"",sig:""};
+const fl=r=>({id:r.id,name:r.name||"",email:r.email||"",company:r.company||"",notes:r.notes||"",status:r.status||"new",subject:r.subject||"",body:r.body||"",thread:r.thread_id||"",msg:r.msg_id||"",reply:r.reply_text||"",draft:r.reply_draft||"",sent:r.sent_at||"",rat:r.replied_at||""});
+const tl=l=>({id:l.id,name:l.name,email:l.email,company:l.company,notes:l.notes,status:l.status,subject:l.subject,body:l.body,thread_id:l.thread,msg_id:l.msg,reply_text:l.reply,reply_draft:l.draft,sent_at:l.sent,replied_at:l.rat});
+const one=r=>Array.isArray(r)?r[0]:r;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function loadLeads(first){try{const r=await api("leads-list");leads=(Array.isArray(r)?r:r?[r]:[]).map(fl);
+if(first){const s=one(await api("sales-settings-get").catch(()=>null));if(s&&(s.offer||s.sig))SD={offer:s.offer||"",sig:s.sig||""}}
+if(!$("#ed").open&&view==="sales")render()}catch(e){fail(e)}}
+const lrow=l=>`<div class="row s-${l.status}" tabindex="0" onclick="editLead(${l.id})" onkeydown="if(event.key==='Enter')editLead(${l.id})"><div class="mid"><b>${esc(l.name||l.email)}</b><br><small>${esc(l.email)}${l.company?" · "+esc(l.company):""}</small>${l.reply?`<div class="snip" dir="auto">↩ ${esc(l.reply.replace(/\s+/g," ").slice(0,140))}</div>`:l.subject?`<div class="snip" dir="auto">${esc(l.subject)}</div>`:""}</div><span class="pill">${LS[l.status]||l.status}</span></div>`;
+function salesH(){const L=leads.filter(l=>lflt==="all"||l.status===lflt),n=s=>leads.filter(l=>l.status===s).length;
+return `<h2>Sales</h2><p class="sub">Add leads, let the AI write each email, send it, and answer their replies. Nothing is sent until you press send.</p>
+<div class="panel"><label for="ld">Add leads (one per line: name, email, company)</label><textarea id="ld" rows="4" placeholder="Sara Ali, sara@school.com, Future School"></textarea>
+<div class="acts"><button class="btn p" onclick="addLeads()">Add leads</button><button class="btn" onclick="bulk('draft')">Write all new emails (${n("new")})</button><button class="btn" onclick="bulk('send')">Send all ready (${n("drafted")})</button><button class="btn" onclick="loadLeads()">Refresh replies</button></div></div>
+<fieldset><legend>What the AI knows about us</legend><label for="so" style="margin-top:0">What we offer (the AI uses only these facts)</label><textarea id="so" rows="4" placeholder="What the company does, who it helps, prices or offers you allow it to mention">${esc(SD.offer)}</textarea><label for="sg">Email signature</label><textarea id="sg" rows="3">${esc(SD.sig)}</textarea><div class="acts"><button class="btn" onclick="saveSD()">Save</button></div></fieldset>
+<div class="bar" style="margin-top:16px">${["all",...Object.keys(LS)].map(k=>`<button class="f ${lflt===k?"on":""}" onclick="lflt='${k}';render()">${k==="all"?"All":LS[k]} (${k==="all"?leads.length:n(k)})</button>`).join("")}</div>
+${L.map(lrow).join("")||'<p class="hint">No leads here yet.</p>'}`}
+async function saveSD(){SD={offer:v("#so"),sig:v("#sg")};try{await api("sales-settings-save",SD);toast("Saved")}catch(e){fail(e)}}
+async function addLeads(){const L=v("#ld").split("\n").map(s=>s.split(",").map(x=>x.trim())).filter(a=>/^\S+@\S+\.\S+$/.test(a[1]||a[0])).map(a=>/@/.test(a[0])?{name:"",email:a[0],company:a[1]||""}:{name:a[0],email:a[1],company:a[2]||""});
+if(!L.length)return toast("Use: name, email, company (one per line)");
+try{await api("leads-add",{leads:L});toast(L.length+" leads added");await loadLeads()}catch(e){fail(e)}}
+function editLead(id){lsel=leads.find(l=>l.id===id);const l=lsel;
+$("#ed").innerHTML=`<div class="bar" style="justify-content:space-between"><h2 style="font-size:19px">${esc(l.name||l.email)}</h2><span class="pill s-${l.status}">${LS[l.status]||l.status}</span></div>
+<p class="hint">${esc(l.email)}${l.company?" · "+esc(l.company):""}${l.sent?" · sent "+esc(String(l.sent).slice(0,16).replace("T"," ")):""}</p>
+<label for="ln_">What do we know about them? (the AI uses this)</label><textarea id="ln_" rows="2" dir="auto">${esc(l.notes)}</textarea>
+<fieldset><legend>First email</legend><label for="ls_" style="margin-top:0">Subject</label><input id="ls_" dir="auto" value="${esc(l.subject)}"><label for="lb_">Message</label><textarea id="lb_" rows="7" dir="auto">${esc(l.body)}</textarea>
+<div class="acts"><button class="btn" onclick="leadDraft('first')">Write with AI</button><button class="btn" onclick="leadSave()">Save</button><button class="btn p" onclick="leadSend('first')">Send email</button></div></fieldset>
+${l.reply?`<fieldset><legend>Their reply</legend><div class="card"><div class="tx" dir="auto">${esc(l.reply)}</div></div><label for="lr_">Your answer</label><textarea id="lr_" rows="6" dir="auto">${esc(l.draft)}</textarea><div class="acts"><button class="btn" onclick="leadDraft('reply')">Write answer with AI</button><button class="btn p" onclick="leadSend('reply')">Send answer</button></div></fieldset>`:""}
+<div class="acts"><button class="btn d" onclick="leadStop()">Stop contacting</button><button class="btn" onclick="$('#ed').close()">Close</button></div>`;
+if(!$("#ed").open)$("#ed").showModal()}
+function lcollect(){lsel.notes=v("#ln_");lsel.subject=v("#ls_");lsel.body=v("#lb_");if($("#lr_"))lsel.draft=v("#lr_")}
+async function leadSave(){lcollect();if(lsel.status==="new"&&lsel.subject&&lsel.body)lsel.status="drafted";try{await api("lead-update",tl(lsel));$("#ed").close();render();toast("Saved")}catch(e){fail(e)}}
+async function draftReq(l,kind){const x=one(await api("lead-draft",{kind,name:l.name,email:l.email,company:l.company,notes:l.notes,subject:l.subject,body:l.body,reply:l.reply,offer:SD.offer,sig:SD.sig,lang:D.lang,tone:D.tone}));
+if(!x||x.error||!x.body)throw new Error((x&&x.error)||"No email returned");return x}
+async function leadDraft(kind){lcollect();toast("Writing…");try{const x=await draftReq(lsel,kind);
+if(kind==="first"){lsel.subject=x.subject;lsel.body=x.body;if(lsel.status==="new")lsel.status="drafted"}else lsel.draft=x.body;
+await api("lead-update",tl(lsel));editLead(lsel.id)}catch(e){console.error(e);toast(e.message||"Could not write the email")}}
+async function leadSend(kind){lcollect();const msg=kind==="first"?lsel.body:lsel.draft;
+if(!msg.trim()||(kind==="first"&&!lsel.subject.trim()))return toast("Add a subject and a message first");
+if(!confirm("Send to "+lsel.email+"?"))return;
+try{const x=one(await api("lead-send",{...tl(lsel),kind,message:msg}));if(x&&x.ok===false)return toast("Not sent: "+(x.error||"error"));
+$("#ed").close();toast("Sent");await loadLeads()}catch(e){fail(e)}}
+async function leadStop(){lcollect();lsel.status="stopped";try{await api("lead-update",tl(lsel));$("#ed").close();render()}catch(e){fail(e)}}
+async function bulk(k){const L=leads.filter(l=>l.status===(k==="draft"?"new":"drafted"));if(!L.length)return toast("Nothing to do");
+if(!confirm((k==="draft"?"Write ":"Send ")+L.length+" emails?"))return;let ok=0;
+for(const l of L){try{if(k==="draft"){const x=await draftReq(l,"first");l.subject=x.subject;l.body=x.body;l.status="drafted";await api("lead-update",tl(l))}
+else{const x=one(await api("lead-send",{...tl(l),kind:"first",message:l.body}));if(x&&x.ok===false)throw new Error(x.error||"not sent")}
+ok++;toast(ok+" / "+L.length)}catch(e){console.error(e);toast("Stopped: "+(e.message||"error"));break}
+if(k==="send")await wait(2500)}
+await loadLeads()}
+
+</script></body></html>
