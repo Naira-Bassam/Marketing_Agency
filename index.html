@@ -1,97 +1,236 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Content Studio</title>
+<title>Just to Learn · Content Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f2f4f7;--sf:#fff;--tx:#101828;--mu:#5b6677;--bd:#d9dee6;--ac:#2a4bd7;--on:#fff;--c1:#7a8494;--c2:#b7791f;--c3:#2a4bd7;--c4:#2b7a3d;--c5:#c0392b;color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--sf:#171d2c;--tx:#e8ecf4;--mu:#9aa5b8;--bd:#2c3547;--ac:#8aa0ff;--on:#0f1420;--c1:#8f99ab;--c2:#e0a84a;--c3:#8aa0ff;--c4:#6cc084;--c5:#ef7b6e}}
-:root[data-theme="dark"]{--bg:#0f1420;--sf:#171d2c;--tx:#e8ecf4;--mu:#9aa5b8;--bd:#2c3547;--ac:#8aa0ff;--on:#0f1420;--c1:#8f99ab;--c2:#e0a84a;--c3:#8aa0ff;--c4:#6cc084;--c5:#ef7b6e}
+:root{--bg:#f5f8f9;--sf:#fff;--sf2:#eef3f5;--tx:#12263a;--mu:#5a6b7d;--bd:#dbe4ea;--ac:#0e7c86;--ac2:#0a5f67;--on:#fff;--acs:#e1f2f3;--hl:#f2a33a;--c1:#7a8a9b;--c2:#c27a12;--c3:#0e7c86;--c4:#2b7a3d;--c5:#c0392b;--r:12px;--sh:0 1px 2px rgba(18,38,58,.05),0 8px 24px rgba(18,38,58,.05);--font:"Plus Jakarta Sans","Cairo",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a24;--sf:#14232f;--sf2:#1a2d3b;--tx:#e6eef3;--mu:#98aab8;--bd:#273a49;--ac:#4cc3cd;--ac2:#7bd6de;--on:#06232a;--acs:#14343b;--hl:#f2b35a;--c1:#8ea0b0;--c2:#e0a84a;--c3:#4cc3cd;--c4:#6cc084;--c5:#ef7b6e;--sh:0 1px 2px rgba(0,0,0,.3)}}
+:root[data-theme="dark"]{--bg:#0e1a24;--sf:#14232f;--sf2:#1a2d3b;--tx:#e6eef3;--mu:#98aab8;--bd:#273a49;--ac:#4cc3cd;--ac2:#7bd6de;--on:#06232a;--acs:#14343b;--hl:#f2b35a;--c1:#8ea0b0;--c2:#e0a84a;--c3:#4cc3cd;--c4:#6cc084;--c5:#ef7b6e;--sh:0 1px 2px rgba(0,0,0,.3)}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
-h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:600;margin:0}
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--bd);background:var(--sf)}
-h1{font-size:20px}
-nav{display:flex;gap:4px;flex-wrap:wrap}
-nav button{border:0;background:none;color:var(--mu);padding:8px 14px;border-radius:8px;font:inherit;cursor:pointer}
-nav button.on{background:var(--bg);color:var(--tx);font-weight:600}
-main{max-width:1000px;margin:0 auto;padding:20px}
-h2{font-size:22px;margin-bottom:4px}
-.sub{color:var(--mu);margin:0 0 16px}
+body{background:var(--bg);color:var(--tx);font:15px/1.55 var(--font)}
+h1,h2,h3{font-family:var(--font);font-weight:700;margin:0;letter-spacing:-.01em}
+h2{font-size:27px;margin-bottom:4px}
+h3{font-size:16px;margin:18px 0 6px}
+a{color:var(--ac2)}
+.shell{display:grid;grid-template-columns:244px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;background:var(--sf);border-right:1px solid var(--bd);padding:22px 14px;display:flex;flex-direction:column;gap:22px;overflow:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:0 8px}
+.brand b{display:block;font-size:17px;line-height:1.15}
+.brand small{color:var(--mu);font-size:12px}
+.mark{width:38px;height:38px;display:grid;grid-template-columns:1fr 1fr;gap:3px;flex:none}
+.mark i{border-radius:6px;background:var(--ac)}.mark i:nth-child(2){background:var(--hl)}.mark i:nth-child(3){background:#2b7a8e}.mark i:nth-child(4){background:var(--tx);opacity:.85}
+nav{display:flex;flex-direction:column;gap:2px}
+nav button{display:flex;align-items:center;gap:10px;border:0;background:none;color:var(--mu);padding:10px 12px;border-radius:10px;font:inherit;font-weight:500;cursor:pointer;text-align:left;white-space:nowrap}
+nav button::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--bd);flex:none}
+nav button:hover{background:var(--sf2);color:var(--tx)}
+nav button.on{background:var(--acs);color:var(--ac2);font-weight:700}
+nav button.on::before{background:var(--ac)}
+main{width:100%;max-width:1120px;margin:0 auto;padding:30px clamp(16px,4vw,44px) 60px}
+.sub{color:var(--mu);margin:0 0 20px;max-width:70ch}
 button,input,select,textarea{font:inherit;color:var(--tx)}
-input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:8px;background:var(--sf)}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--sf);transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px var(--acs)}
 textarea{resize:vertical;min-height:90px}
-label{display:block;font-size:13px;color:var(--mu);margin:12px 0 4px}
-.btn{border:1px solid var(--bd);background:var(--sf);padding:9px 16px;border-radius:8px;cursor:pointer}
+label{display:block;font-size:13px;font-weight:500;color:var(--mu);margin:14px 0 5px}
+.btn{border:1px solid var(--bd);background:var(--sf);padding:9px 16px;border-radius:10px;cursor:pointer;font-weight:500;transition:border-color .15s,background .15s}
+.btn:hover{border-color:var(--ac);background:var(--acs)}
 .btn.p{background:var(--ac);border-color:var(--ac);color:var(--on);font-weight:600}
+.btn.p:hover{background:var(--ac2);border-color:var(--ac2)}
 .btn.d{color:var(--c5)}
-.btn:focus-visible,nav button:focus-visible,.chip:focus-visible,.row:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-.row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--sf);border:1px solid var(--bd);border-left:4px solid var(--c1);border-radius:8px;margin-bottom:8px;cursor:pointer}
+.btn:focus-visible,nav button:focus-visible,.chip:focus-visible,.row:focus-visible,.aicard:focus-visible,.mode:focus-within{outline:2px solid var(--ac);outline-offset:2px}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:13px 15px;background:var(--sf);border:1px solid var(--bd);border-left:4px solid var(--c1);border-radius:var(--r);margin-bottom:9px;cursor:pointer;box-shadow:var(--sh)}
 .row small{color:var(--mu)}
 .row .mid{flex:1;min-width:0}
 .snip{font-size:13px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.thumb{width:56px;height:56px;border-radius:6px;object-fit:cover;flex:none;background:var(--bg)}
-.pill{font-size:12px;padding:2px 9px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.thumb{width:58px;height:58px;border-radius:9px;object-fit:cover;flex:none;background:var(--bg)}
+.pill{font-size:12px;font-weight:600;padding:2px 10px;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:6px;background:var(--sf2);color:var(--mu);margin-right:4px}
+.tag.val{background:var(--acs);color:var(--ac2)}.tag.promo{background:#fdebd2;color:#8a5200}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag.promo{background:#3d2d12;color:#f2c27b}}
 .s-generating{--k:var(--c2)}.s-needs_review{--k:var(--c3)}.s-approved{--k:var(--c4)}.s-rejected{--k:var(--c5)}.s-idea{--k:var(--c1)}.s-new,.s-stopped{--k:var(--c1)}.s-drafted{--k:var(--c3)}.s-sent{--k:var(--c4)}.s-replied{--k:var(--c2)}.s-answered{--k:var(--c4)}
 .row,.chip{border-left-color:var(--k,var(--c1))}.pill{color:var(--k,var(--c1))}
 .bar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
 .bar b{min-width:150px;text-align:center}
-.f{border:1px solid var(--bd);background:var(--sf);border-radius:99px;padding:5px 13px;cursor:pointer;font-size:14px}
+.f{border:1px solid var(--bd);background:var(--sf);border-radius:99px;padding:5px 14px;cursor:pointer;font-size:14px;font-weight:500}
+.f:hover{border-color:var(--ac)}
 .f.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
 .wrap{overflow-x:auto}
-.cal{display:grid;grid-template-columns:repeat(7,minmax(90px,1fr));min-width:640px;gap:1px;background:var(--bd);border:1px solid var(--bd)}
-.dh{background:var(--bg);padding:6px;font-size:13px;color:var(--mu)}
-.cell{background:var(--sf);min-height:92px;padding:4px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(90px,1fr));min-width:640px;gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.dh{background:var(--sf2);padding:7px;font-size:13px;color:var(--mu);font-weight:600}
+.cell{background:var(--sf);min-height:96px;padding:5px}
 .cell i{font-style:normal;font-size:12px;color:var(--mu)}
-.chip{display:block;margin-top:3px;padding:3px 6px;font-size:12px;background:var(--bg);border-left:3px solid var(--c1);border-radius:4px;cursor:grab;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip{display:block;margin-top:3px;padding:3px 7px;font-size:12px;background:var(--sf2);border-left:3px solid var(--c1);border-radius:5px;cursor:grab;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 12px}
 @media(max-width:640px){.g2,.g3{grid-template-columns:1fr}}
-.panel{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:18px}
-dialog{width:min(1100px,96vw);max-height:94vh;overflow:auto;background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px}
-dialog::backdrop{background:rgba(0,0,0,.45)}
-.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:22px;box-shadow:var(--sh);margin-bottom:18px}
+.panel>h3:first-child{margin-top:0}
+dialog{width:min(1100px,96vw);max-height:94vh;overflow:auto;background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:18px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(10,25,38,.5)}
+.ed{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
 .pv{position:sticky;top:0}
 @media(max-width:860px){.ed{grid-template-columns:1fr}.pv{position:static}}
-.card{border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:var(--sf)}
-.card .ph{padding:9px 14px;font-size:13px;color:var(--mu);border-bottom:1px solid var(--bd)}
+.card{border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:var(--sf)}
+.card .ph{padding:10px 14px;font-size:13px;color:var(--mu);border-bottom:1px solid var(--bd);font-weight:600}
 .card img{display:block;width:100%;height:auto;max-height:440px;object-fit:contain;background:var(--bg)}
 .card .none{padding:34px 14px;text-align:center;color:var(--mu);background:var(--bg);font-size:13px}
 .card .tx{padding:14px;white-space:pre-wrap;word-break:break-word}
-.card .tg{padding:0 14px 14px;color:var(--ac);word-break:break-word}
+.card .tg{padding:0 14px 14px;color:var(--ac2);word-break:break-word}
+.more{font-weight:700;color:var(--ac2);cursor:pointer;text-decoration:none}
 .hint{font-size:13px;color:var(--mu)}
+.warn{color:var(--c5)}
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-fieldset{border:1px solid var(--bd);border-radius:8px;margin:14px 0 0;padding:6px 14px 14px}
-legend{font-size:13px;color:var(--mu);padding:0 6px}
-.card{position:relative}.card.busy img,.card.busy .none{opacity:.35}.imgload{position:absolute;left:12px;right:12px;top:48px;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;border-radius:8px;background:var(--tx);color:var(--bg);font-weight:600;font-size:14px;z-index:2}.sp{width:16px;height:16px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;flex:none}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sp{animation:none}}button:disabled{opacity:.55;cursor:not-allowed}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:99}
+fieldset{border:1px solid var(--bd);border-radius:12px;margin:16px 0 0;padding:6px 16px 16px;background:var(--sf)}
+legend{font-size:13px;font-weight:600;color:var(--mu);padding:0 6px}
+details{margin-top:12px}summary{cursor:pointer;color:var(--mu);font-weight:500}
+.card{position:relative}.card.busy img,.card.busy .none{opacity:.35}.imgload{position:absolute;left:12px;right:12px;top:48px;display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--tx);color:var(--bg);font-weight:600;font-size:14px;z-index:2}.sp{width:16px;height:16px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;flex:none}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.sp{animation:none}}button:disabled{opacity:.55;cursor:not-allowed}
+.mode{display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--sf);cursor:pointer;margin:8px 0 0;font-size:14px;font-weight:400;color:var(--tx)}
+.mode input{width:auto;margin-top:4px}
+.mode small{display:block;color:var(--mu);font-size:13px}
+.mode.on{border-color:var(--ac);background:var(--acs)}
+.chk{display:inline-flex;gap:7px;align-items:center;margin:0 14px 0 0;color:var(--tx);font-size:14px;font-weight:400}
+.chk input{width:auto}
+.stats{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.stats b{font-size:22px}
+.meter{height:10px;border-radius:99px;background:var(--sf2);overflow:hidden;display:flex;min-width:180px;flex:1}
+.meter i{display:block;height:100%}.meter .v{background:var(--ac)}.meter .p{background:var(--hl)}
+.aigrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:8px}
+.aicard{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:16px;cursor:pointer;box-shadow:var(--sh);display:flex;flex-direction:column;gap:8px;transition:border-color .15s,transform .15s}
+.aicard:hover{border-color:var(--ac);transform:translateY(-1px)}
+.aicard .top{display:flex;align-items:center;gap:11px}
+.aicard .top b{display:block;line-height:1.2}
+.aicard .top small{color:var(--mu)}
+.aicard p{margin:0;font-size:13.5px;color:var(--mu);flex:1}
+.aimark{width:38px;height:38px;border-radius:11px;background:var(--acs);color:var(--ac2);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.top .pill{margin-left:auto;font-size:11px}
+table.kv{width:100%;border-collapse:collapse;font-size:14px}
+table.kv th,table.kv td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--bd);vertical-align:top}
+table.kv th{font-size:12px;color:var(--mu);font-weight:600}
+table.kv input{padding:7px 9px}
+pre.fx{white-space:pre-wrap;font-size:12.5px;background:var(--sf2);border-radius:10px;padding:12px;margin:8px 0 0}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:11px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:99;max-width:90vw}
 #toast.on{opacity:1}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:column;gap:12px;padding:12px 14px;border-right:0;border-bottom:1px solid var(--bd)}nav{flex-direction:row;overflow-x:auto;padding-bottom:2px}nav button{padding:8px 12px}main{padding-top:20px}}
+
+
+.pi{display:inline-block;width:20px;height:20px;vertical-align:-5px;flex:none}
+.pn{display:inline-flex;align-items:center;gap:7px;font-weight:600;white-space:nowrap}
+.aimark .pi{width:38px;height:38px}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+table.cl{width:100%;border-collapse:separate;border-spacing:0;background:var(--sf);border:1px solid var(--bd);border-radius:14px;overflow:hidden;font-size:14px;box-shadow:var(--sh);min-width:860px}
+table.cl th{background:var(--acs);color:var(--ac2);text-align:left;font-size:13px;padding:11px 12px;font-weight:700;white-space:nowrap}
+table.cl td{padding:10px 12px;border-top:1px solid var(--bd);vertical-align:middle}
+table.cl tr.clr{cursor:pointer}table.cl tr.clr:hover td{background:var(--sf2)}
+table.cl tr.clr:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
+.dt b{display:block;line-height:1.2}.dt small{color:var(--mu);white-space:nowrap}
+.vis{width:78px;height:54px;border-radius:8px;object-fit:cover;background:var(--sf2);display:grid;place-items:center;color:var(--mu);font-size:11px;text-align:center;overflow:hidden;line-height:1.15;padding:3px}
+.vis.cv{background:var(--ac);color:var(--on);font-weight:700}
+.bdg{--k:var(--c1);display:inline-block;padding:3px 12px;border-radius:7px;font-weight:700;font-size:13px;white-space:nowrap;background:color-mix(in srgb,var(--k) 16%,transparent);color:var(--k)}
+.k-idea{--k:#6b5bd2}.k-draft{--k:#b7791f}.k-appr{--k:#2a79c9}.k-sched{--k:#2b7a3d}.k-gen{--k:#c27a12}.k-rej{--k:#c0392b}
+.q3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media(max-width:900px){.q3{grid-template-columns:1fr}}
+.mini{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px;box-shadow:var(--sh)}
+.mini h4{margin:0 0 8px;font-size:14px}
+.mg{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:11px;text-align:center}
+.mg i{font-style:normal;color:var(--mu);font-weight:600}
+.md{min-height:36px;border-radius:7px;padding:2px;background:var(--sf2);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px}
+.md.has{background:var(--acs);cursor:pointer;font-weight:700}
+.md .dots{display:flex;gap:2px;flex-wrap:wrap;justify-content:center}.md .dots .pi{width:11px;height:11px;vertical-align:0}
+.chip .pi{width:14px;height:14px;vertical-align:-3px;margin-right:3px}
+.slides{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:8px}
+.slimg{width:100%;border-radius:8px;border:1px solid var(--bd);cursor:pointer;display:block;background:var(--sf2);aspect-ratio:4/5}
+ul.ck{list-style:none;margin:6px 0 0;padding:0}ul.ck li{padding:3px 0;font-size:14px}ul.ck li.ok{color:var(--c4)}ul.ck li.no{color:var(--c5);font-weight:600}
+.df{white-space:pre-wrap;word-break:break-word;font-size:14px;line-height:1.7;padding:10px 12px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;margin:8px 0}
+.df del{background:rgba(192,57,43,.22);text-decoration:line-through;border-radius:3px}
+.df ins{background:rgba(43,122,61,.26);text-decoration:none;border-radius:3px}
+.gap{color:var(--c2,#b7791f);font-size:13px;margin-top:4px}
+.ng{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);padding:16px 12px 4px;font-weight:700}
+.ng:first-child{padding-top:0}
+.stp{display:flex;gap:10px;align-items:center;font-size:17px;margin:26px 0 6px}
+.stp .n{width:27px;height:27px;border-radius:50%;background:var(--ac);color:var(--on);display:grid;place-items:center;font-size:13px;font-weight:700;flex:none}
+.stp:first-of-type{margin-top:4px}
+.adv{margin-top:22px;border:1px dashed var(--bd);border-radius:12px;padding:4px 14px 14px}
+.adv>summary{padding:10px 0;color:var(--tx);font-weight:600}
+.adv>summary small{color:var(--mu);font-weight:400;margin-left:6px}
+.bkpv{width:100%;max-width:360px;border-radius:10px;border:1px solid var(--bd);display:block}
+@media(max-width:900px){.ng{display:none}}
+
+/* creative month calendar */
+.cal{gap:8px;background:transparent;border:0;border-radius:0;min-width:760px}
+.dh{background:transparent;text-align:center;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 0 4px}
+.cell{background:var(--sf2);border:1px solid var(--bd);border-radius:14px;min-height:132px;padding:7px;display:flex;flex-direction:column;gap:6px}
+.cell.mt{background:transparent;border-style:dashed;opacity:.45}
+.cell.td{border-color:var(--ac);box-shadow:0 0 0 2px var(--acs)}
+.cell>i{font-weight:700;font-size:13px;color:inherit;opacity:.75}
+.cell.td>i{color:var(--ac);opacity:1}
+.pc{display:flex;flex-direction:column;gap:5px;background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:7px 8px;cursor:grab;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:transform .12s,box-shadow .12s}
+.pc:hover,.pc:focus-visible{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.14);outline:0}
+.pc-h{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.pc-h .pi{width:18px;height:18px}
+.pc-t{font-size:12px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-f{align-self:flex-start;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;color:var(--fc);background:color-mix(in srgb,var(--fc) 14%,transparent)}
+.st{font-style:normal;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:rgba(100,116,139,.16);color:#64748b}
+.st-sched{background:rgba(22,163,74,.16);color:#16a34a}.st-appr{background:rgba(14,124,134,.16);color:#0e7c86}
+.st-draft{background:rgba(245,158,11,.18);color:#d97706}.st-gen{background:rgba(124,58,237,.16);color:#7c3aed}
+.st-rej{background:rgba(220,38,38,.14);color:#dc2626}
+.camp{border-left:4px solid var(--ac)}.camp-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:16px}
+.camp-w{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:10px 0}
+.camp-wk{display:flex;flex-direction:column;gap:3px;padding:8px 10px;border:1px solid var(--bd);border-top:3px solid var(--fc);border-radius:10px;background:var(--sf2);font-size:13px}
+.camp-wk .st{color:var(--fc);background:color-mix(in srgb,var(--fc) 14%,transparent)}
+.camp-nl{margin-top:10px;padding:10px 12px;border:1px dashed var(--bd);border-radius:10px;font-size:13px}
+
+
+.srcs{margin:10px 0 4px;padding:10px 12px;border:1px solid var(--bd);border-radius:12px;background:var(--sf2);font-size:13px}
+.srow{display:flex;gap:10px;align-items:flex-start;padding:5px 0;border-top:1px solid var(--bd)}.srow:first-of-type{border-top:0;margin-top:6px}
+.sb{flex:none;max-width:44%;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;white-space:normal;line-height:1.3}
+.sb-k{background:rgba(14,124,134,.15);color:#0e7c86}.sb-a{background:rgba(242,163,58,.2);color:#b86e00}.sb-r{background:rgba(37,99,235,.14);color:#2563eb}.sb-u{background:rgba(100,116,139,.18);color:#64748b}
+.stx{line-height:1.4}
 </style></head><body>
-<header><h1>Content Studio</h1>
-<nav id="nav"><button data-v="ideas">Ideas</button><button data-v="posts">Posts</button><button data-v="cal">Calendar</button><button data-v="sales">Sales</button><button data-v="cp">Control panel</button></nav></header>
-<main id="m"></main><dialog id="ed"></dialog><div id="toast" role="status"></div>
+<svg class="defs" aria-hidden="true"><defs><linearGradient id="igg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset=".25" stop-color="#fa7e1e"/><stop offset=".5" stop-color="#d62976"/><stop offset=".75" stop-color="#962fbf"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs></svg>
+<div class="shell"><aside class="side"><div class="brand"><img id="logo" src="https://justtolearn.com/assets/j2l-logo-horizontal-BW_aX1s-.webp" alt="Just to Learn" style="height:36px;max-width:120px;object-fit:contain" onerror="this.style.display='none';this.nextElementSibling.style.display=''"><span class="mark" style="display:none"><i></i><i></i><i></i><i></i></span><div><b>Content Studio</b><small>Plan, write, publish</small></div></div>
+<nav id="nav"><span class="ng">Create</span><button data-v="ideas" title="Write or ask for ideas, or plan a month">Ideas</button><button data-v="posts" title="All your posts">Posts</button><button data-v="cal" title="What goes out and when">Calendar</button><span class="ng">What the AI knows</span><button data-v="kn" title="Facts about your company">Knowledge</button><button data-v="bk" title="Logo, colours, voice">Brand kit</button><button data-v="comp" title="Companies like yours">Competitors</button><span class="ng">Sell</span><button data-v="sales" title="Leads and emails">Sales</button><span class="ng">Settings</span><button data-v="cp" title="Defaults, pillars, platform formats">Control panel</button><button data-v="ai" title="See and edit what the AI is told">AI models</button><button data-v="act" title="Who did what">Activity</button></nav><div id="whoami" style="margin-top:auto;padding:0 10px;font-size:12px;color:var(--mu)"></div></aside>
+<main id="m"></main></div><dialog id="ed"></dialog><div id="toast" role="status"></div>
 <script>
 const $=s=>document.querySelector(s),v=s=>{const e=$(s);return e?e.value:""};
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const ttl=p=>String(p.idea||"").split("\n")[0].slice(0,120);
 const ST={idea:"Idea",generating:"Writing…",needs_review:"Needs review",approved:"Approved",rejected:"Rejected"};
-const TONES=["Professional and warm","Friendly","Playful","Formal","Inspiring"],LANGS=["English","Arabic"],PLAT=["LinkedIn","Instagram","Facebook"];
+const TONES=["Professional and warm","Friendly","Playful","Formal","Inspiring"],LANGS=["English","Arabic"],PLAT=["LinkedIn","Instagram","Facebook","X"],PLAT2=[...PLAT,"Newsletter"],FMT=["Text","Image","Carousel"];
+const GOALS=["Awareness","Education","Trust","Leads","Social proof","Engagement"],TRL=["English","Arabic (clear Modern Standard)","Arabic (Egyptian)","Arabic (Saudi)","French"],BRAND="Just to Learn";
+const PIS={
+LinkedIn:'<svg class="pi" viewBox="0 0 24 24" role="img" aria-label="LinkedIn"><rect width="24" height="24" rx="5" fill="#0A66C2"/><rect x="4.6" y="9.4" width="3" height="9.8" fill="#fff"/><circle cx="6.1" cy="5.9" r="1.8" fill="#fff"/><path fill="#fff" d="M10.2 9.4h2.9v1.4c.5-.9 1.7-1.7 3.3-1.7 3.1 0 3.9 2 3.9 4.7v5.4h-3v-4.8c0-1.3-.3-2.3-1.7-2.3-1.5 0-2.4 1-2.4 2.5v4.6h-3z"/></svg>',
+Facebook:'<svg class="pi" viewBox="0 0 24 24" role="img" aria-label="Facebook"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M16.7 15.5l.6-3.5h-3.4V9.7c0-1 .5-1.9 2-1.9h1.6V4.8s-1.4-.3-2.8-.3c-2.9 0-4.7 1.7-4.7 4.8V12H6.8v3.5h3.2V24h3.9v-8.5z"/></svg>',
+Instagram:'<svg class="pi" viewBox="0 0 24 24" role="img" aria-label="Instagram"><rect width="24" height="24" rx="6.5" fill="url(#igg)"/><rect x="5.2" y="5.2" width="13.6" height="13.6" rx="4" fill="none" stroke="#fff" stroke-width="1.7"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="1.7"/><circle cx="16.2" cy="7.8" r="1" fill="#fff"/></svg>',
+X:'<svg class="pi" viewBox="0 0 24 24" role="img" aria-label="X"><rect width="24" height="24" rx="5" fill="#000"/><path fill="#fff" transform="translate(4.6 4.6) scale(.62)" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>',
+Newsletter:'<svg class="pi" viewBox="0 0 24 24" role="img" aria-label="Newsletter"><rect width="24" height="24" rx="5" fill="#0e7c86"/><rect x="5" y="7.6" width="14" height="9.2" rx="1.6" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M5.6 8.6l6.4 4.9 6.4-4.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>'};
+const pi=(p,z)=>{const x=PIS[p];return x?(z?x.replace('<svg class="pi"',`<svg class="pi" style="width:${z}px;height:${z}px"`):x):""};
+const pn=p=>`<span class="pn">${pi(p)}${esc(p)}</span>`;
+const pm=t=>{try{const o=JSON.parse(t||"{}");return o&&typeof o==="object"&&!Array.isArray(o)?o:{}}catch(e){return{}}};
+
 let D={platform:"LinkedIn",tone:"Professional and warm",lang:"English",len:"80",tags:"3",cta:"Contact us to learn more",ban:"revolutionary, best, #1",extra:"",img_on:"true",style:"candid photo, natural window light, 35mm lens, shallow depth of field, real textures, muted warm colors, slight film grain"};
 const ip=p=>`A scene based on the post: “${ttl(p)}”. ${D.style}.`;
 let posts=[];
-const API="https://phoenix-careers-experienced-serves.trycloudflare.com/webhook"; // n8n Cloud: "https://YOUR-NAME.app.n8n.cloud/webhook" // production URL (workflows must be Active)
+const API="https://rendering-situated-pro-easier.trycloudflare.com/webhook"; // when you move n8n to a server or Cloud: "https://YOUR-DOMAIN/webhook"
 const api=(p,b)=>fetch(API+"/"+p,b?{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}:{}).then(r=>{if(!r.ok)throw new Error(p+" "+r.status);return r.text()}).then(t=>t?JSON.parse(t):null);
-const fail=e=>{console.error(e);toast("Could not reach n8n. Check the workflow is active and CORS is on.")};
-const fromRow=r=>({id:r.id,idea:r.idea,platform:r.platform||"LinkedIn",status:r.status||"idea",date:String(r.scheduled_at||"").slice(0,10),text:r.post_text||"",tags:r.hashtags||"",len:r.length==null?"":String(r.length),lang:r.language||"",tone:r.tone||"",mode:r.image_mode||"ai",prompt:r.image_prompt||"",img:r.image_url||"",note:r.review_comment||"",ver:r.version||1});
-const toRow=p=>({id:p.id,idea:p.idea,platform:p.platform,status:p.status,scheduled_at:p.date||null,post_text:p.text,hashtags:p.tags,length:p.len?+p.len:null,language:p.lang||null,tone:p.tone||null,image_mode:p.mode,image_prompt:p.prompt,image_url:p.img,review_comment:p.note||null,version:p.ver});
+const fail=e=>{console.error(e);const m=String(e&&e.message||""),k=m.match(/^(\S+) (\d{3})/);const ai=/^(post-create|post-regenerate|post-repurpose|post-translate|ideas-suggest|ideas-links|image-regenerate|image-prompt)/.test(m);toast(k&&ai&&/^(429|503|502|504)$/.test(k[2])?"The AI service is busy or failed ("+k[1]+" "+k[2]+"). The backup model should take over; if not, try again in a minute.":k?"Server error ("+k[1]+" "+k[2]+"). Open the failed run in n8n Executions: usually a data table or credential is missing.":"Could not reach n8n. Check the workflow is active and CORS is on.")};
+const fromRow=r=>({id:r.id,idea:r.idea,platform:r.platform||"LinkedIn",status:r.status||"idea",date:String(r.scheduled_at||"").slice(0,10),text:r.post_text||"",tags:r.hashtags||"",len:r.length==null?"":String(r.length),lang:r.language||"",tone:r.tone||"",mode:r.image_mode||"ai",prompt:r.image_prompt||"",img:r.image_url==="pending"?"":r.image_url||"",imgBusy:r.image_url==="pending",note:r.review_comment||"",ver:r.version||1,pillar:r.pillar||"",format:r.format||"",parked:String(r.parked)==="true",meta:pm(r.meta)});
+const toRow=p=>({id:p.id,idea:p.idea,platform:p.platform,status:p.status,scheduled_at:p.date||null,post_text:p.text,hashtags:p.tags,length:p.len?+p.len:null,language:p.lang||null,tone:p.tone||null,image_mode:p.mode,image_prompt:p.prompt,image_url:p.imgBusy&&!p.img?"pending":p.img,review_comment:p.note||null,version:p.ver,pillar:p.pillar||"",format:p.format||"",parked:!!p.parked,meta:(srcSync(p),JSON.stringify(p.meta||{}))});
 const save=p=>api("post-update",toRow(p));
-async function load(first){try{const r=await api("posts-list");posts=(Array.isArray(r)?r:r?[r]:[]).map(fromRow);
+async function load(first){try{const r=await api("posts-list"),R=(Array.isArray(r)?r:r?[r]:[]).filter(x=>x&&x.id!=null);HASX=!R.length||("pillar" in R[0]&&"parked" in R[0]&&"meta" in R[0]);posts=R.map(fromRow);syncBanner();
 if(first){const x=await api("settings-get").catch(()=>null),d=Array.isArray(x)?x[0]:x;if(d&&d.tone){const s={};for(const k of Object.keys(D)){if(d[k]!==undefined&&d[k]!==null&&String(d[k]).trim()!=="")s[k]=String(d[k])}D={...D,...s}}}
-if(!$("#ed").open&&(view==="posts"||view==="cal"))render()}catch(e){fail(e)}}
-setInterval(()=>{if(posts.some(p=>p.status==="generating"))load()},4000);
+if(!document.querySelector("dialog[open]")&&(view==="posts"||view==="cal"))render()}catch(e){fail(e)}}
+setInterval(()=>{if(posts.some(p=>p.status==="generating"||p.imgBusy))load()},4000);
+const csv=s=>String(s||"").split(",").map(x=>x.trim()).filter(Boolean);
 let sel=null,view="ideas",flt="all",cal=new Date(),drag=0,isrc=null,ideasTxt="";
+let PLANSUM=null,SUG=null,SUGN=0,IMODE="write",ADV=false;
+let HASX=true,OUT="split",BT="",BP="",BF="",BG="",BL="",RPW="",RCW="",CM="week",TR=null,PF="all",FF="all",PSEL=null,SEE=false,LIVE="",IMGO=[],slT=0;
+let PIL={value:csv("Education tips, Inside the classroom, Myths and facts, Why creativity matters, Questions from parents and teachers"),promo:csv("Product spotlight, Offers and demos")};
+let DEFS={},ASR=[],AI=[];
 const toast=t=>{const e=$("#toast");e.textContent=t;e.classList.add("on");setTimeout(()=>e.classList.remove("on"),2600)};
-function show(x){view=x;if(x==="sales")loadLeads(!leads.length);document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===x));render()}
+function show(x){view=x;if(x==="sales")loadLeads(!leads.length);if(x==="comp")loadComps();if(x==="kn")loadKn();if(x==="ideas"){if(!kn.length)loadKn();loadRules()}if(x==="cp"){loadRules();loadAS()}if(x==="ai"){loadAI();loadRules()}if(x==="bk")loadBK();if(x==="act")loadAct();document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.v===x));render();window.scrollTo(0,0)}
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>show(b.dataset.v));
 
 /* ---------- read text from txt / docx / pdf (libraries load only when needed) ---------- */
@@ -112,55 +251,141 @@ return{name:f.name,text:t.slice(0,6000),cut:t.length>6000}}catch(e){console.erro
 const srcLine=s=>`Source material from file "${s.name}" (you may use its facts):\n${s.text}`;
 
 /* ---------- lists ---------- */
-const row=p=>`<div class="row s-${p.status}" tabindex="0" onclick="edit(${p.id})" onkeydown="if(event.key==='Enter')edit(${p.id})">${p.img&&p.mode!=="none"?`<img class="thumb" src="${esc(p.img)}" alt="">`:""}<div class="mid"><b>${esc(ttl(p))}</b><br><small>${p.platform}${p.date?" · "+p.date:" · not scheduled"}${p.tone?" · custom tone":""}</small>${p.text?`<div class="snip" dir="auto">${esc(p.text.replace(/\s+/g," ").slice(0,140))}</div>`:""}</div><span class="pill">${ST[p.status]}</span></div>`;
+const isPromo=p=>PIL.promo.some(x=>x.toLowerCase()===String(p.pillar).toLowerCase());
+const isValue=p=>PIL.value.some(x=>x.toLowerCase()===String(p.pillar).toLowerCase());
+const fmtOf=p=>p.format||(p.img&&p.mode!=="none"?"Image":"Text");
+const row=p=>`<div class="row s-${p.status}" tabindex="0" onclick="openP(${p.id})" onkeydown="if(event.key==='Enter')openP(${p.id})">${p.img&&p.mode!=="none"?`<img class="thumb" src="${esc(p.img)}" alt="">`:""}<div class="mid"><b>${esc(ttl(p))}</b><br><small>${pn(p.platform)}${p.parked?" · later"+(p.date?" · planned "+p.date:""):p.date?" · "+p.date:" · not scheduled"}${p.tone?" · custom tone":""}</small> <span class="tag">${fmtOf(p)}</span>${p.pillar?`<span class="tag ${isPromo(p)?"promo":"val"}">${esc(p.pillar)}</span>`:""}${p.text?`<div class="snip" dir="auto">${esc(p.text.replace(/\s+/g," ").slice(0,140))}</div>`:""}${p.note&&p.status!=="generating"?`<div class="snip" style="color:var(--c5)">⚠ ${esc(p.note)}</div>`:""}</div><span class="pill">${ST[p.status]}</span></div>`;
 const idHint=()=>isrc?`Using <b>${esc(isrc.name)}</b> (${isrc.text.length} characters${isrc.cut?", cut to the first 6000":""}) <button class="btn" onclick="isrc=null;$('#sfi').innerHTML=''">Remove</button>`:"";
+const pickP=()=>[...document.querySelectorAll(".pl:checked")].map(x=>x.value);
+function syncP(){PSEL=pickP()}
 function render(){const m=$("#m");
-if(view==="ideas")m.innerHTML=`<h2>Ideas</h2><p class="sub">Add one idea per line. The AI writes a post for each.</p><div class="panel"><label for="ideas">Post ideas</label><textarea id="ideas" rows="7" oninput="ideasTxt=this.value" placeholder="Why creativity needs measuring\nA day in a NEOMI classroom\nHow teachers use the AR kit">${esc(ideasTxt)}</textarea><label for="sf0">Or take the idea from a file (Word, PDF or text)</label><input id="sf0" type="file" accept=".txt,.md,.docx,.pdf" onchange="srcIdea(this)"><div id="sfi" class="hint">${idHint()}</div><p class="hint">The file text is given to the AI as source material for every idea above. If the box is empty, one post is made from the file.</p><div class="g2"><div><label for="pl">Platform</label><select id="pl">${PLAT.map(x=>`<option ${x===D.platform?"selected":""}>${x}</option>`).join("")}</select></div></div><div class="acts"><button class="btn p" onclick="create()">Create posts</button></div><p class="hint">You can change the tone or length of any single post afterwards.</p></div>`;
-else if(view==="posts"){const L=posts.filter(p=>flt==="all"||p.status===flt);m.innerHTML=`<h2>Posts</h2><p class="sub">Open a post to see it as a whole, edit, review, or schedule it.</p><div class="bar">${["all",...Object.keys(ST)].map(k=>`<button class="f ${flt===k?"on":""}" onclick="flt='${k}';render()">${k==="all"?"All":ST[k]} (${k==="all"?posts.length:posts.filter(p=>p.status===k).length})</button>`).join("")}</div>${L.map(row).join("")||'<p class="hint">No posts here yet. Add ideas to get started.</p>'}`}
+if(view==="ideas")m.innerHTML=ideasH();
+else if(view==="posts")m.innerHTML=postsH();
 else if(view==="cal")m.innerHTML=calH();
 else if(view==="sales")m.innerHTML=salesH();
-else m.innerHTML=`<h2>Control panel</h2><p class="sub">Defaults for every post. A single post can override them.</p><div class="panel">
+else if(view==="comp")m.innerHTML=compH();
+else if(view==="kn")m.innerHTML=knH();
+else if(view==="ai")m.innerHTML=aiH();
+else if(view==="bk"){m.innerHTML=bkH();setTimeout(()=>{bkPrev();["bk_logo_pos","bk_logo_size"].forEach(id=>{const e=$("#"+id);if(e)e.oninput=bkPrev;if(e)e.onchange=bkPrev})},0)}
+else if(view==="act")m.innerHTML=actH();
+else m.innerHTML=cpH();syncBanner()}
+function syncBanner(){const m=$("#m"),b=$("#colb");if(HASX){if(b)b.remove();return}if(!b&&m)m.insertAdjacentHTML("afterbegin",colBanner())}
+const colBanner=()=>`<div id="colb" class="panel" style="border-color:var(--c2,#b7791f);margin-bottom:16px"><b>One small step to finish.</b> <span class="hint">In n8n open <b>Data tables</b> → <b>posts</b> → add four columns of type <b>text</b>: <b>pillar</b>, <b>format</b>, <b>parked</b> and <b>meta</b>. Until you do, pillars, formats, carousel slides, goals, the Parking lot and the change history are not saved.</span></div>`
+function ideasH(){const nl=OUT==="newsletter",P=PSEL||[D.platform],M=IMODE,mon0=new Date().toISOString().slice(0,7);
+const st=(k,t,x,f)=>`<label class="mode ${M===k?"on":""}"><input type="radio" name="imode" ${M===k?"checked":""} onchange="${f||""}IMODE='${k}';render()"><span><b>${t}</b><small>${x}</small></span></label>`;
+const md=(k,t,x)=>`<label class="mode ${OUT===k?"on":""}"><input type="radio" name="out" value="${k}" ${OUT===k?"checked":""} onchange="OUT='${k}';PLAN=null;render()"><span><b>${t}</b><small>${x}</small></span></label>`;
+const box=(lab)=>`<label for="ideas" style="margin-top:14px">${lab}</label><textarea id="ideas" rows="6" oninput="ideasTxt=this.value;PLAN=null;$('#plan').innerHTML=''" placeholder="Why creativity needs measuring [Inspiring]\nA day in a NEOMI classroom\nHow teachers use the AR kit [Friendly]">${esc(ideasTxt)}</textarea><p class="hint">One idea per line. To choose the tone of one idea, end its line with the tone in brackets, like <b>[Friendly]</b>.</p>`;
+const file=`<label for="sf0">Or take the idea from a file (Word, PDF or text)</label><input id="sf0" type="file" accept=".txt,.md,.docx,.pdf" onchange="srcIdea(this)"><div id="sfi" class="hint">${idHint()}</div>`;
+const sugBox=`<div class="g3"><div><label for="isrc">Based on</label><select id="isrc"><option value="company">Our company and services</option><option value="product">A specific product or content</option><option value="competitors">Competitors (approved ones)</option><option value="seasons">School seasons</option><option value="questions">Parent and teacher questions</option><option value="mix">A mix of all</option></select></div><div><label for="icnt">How many ideas (exactly)</label><input id="icnt" type="number" min="1" max="30" value="5"></div><div><label for="ifoc">Specific product or topic (optional)</label><input id="ifoc" list="kn_titles" placeholder="e.g. the AR kit"><datalist id="kn_titles">${kn.filter(isOn).map(k=>`<option value="${esc(k.title)}">`).join("")}</datalist></div></div><label for="iprod">Company product (pick one, or type a topic above)</label><select id="iprod"><option value="">None</option>${prods().map(n=>`<option>${esc(n)}</option>`).join("")}</select><div class="acts"><button class="btn p" onclick="suggest()">Suggest ideas</button></div><div id="sug">${sugH()}</div>`;
+const planBox=`<p class="hint" style="margin-top:8px">The AI reads your Knowledge and your pillars, then plans the whole month: what each week is for, which platform, which pillar and which format. You check the plan and the dates before anything is written.</p><div class="g3"><div><label for="pmon">Month</label><input id="pmon" type="month" value="${mon0}"></div><div><label for="ppw">Posts per week</label><input id="ppw" type="number" min="1" max="7" value="3"></div><div><label for="pcw">Carousels per week (at most)</label><input id="pcw" type="number" min="0" max="5" value="1"></div></div><label for="pgoal">What matters this month? (optional)</label><input id="pgoal" placeholder="For example: school open day, new term, book demos"><label class="chk" style="margin-top:12px"><input type="checkbox" id="psk" checked> Skip Friday and Saturday</label><div class="acts"><button class="btn p" onclick="aiPlan()">Suggest a plan</button></div>`;
+const plats=`<label style="margin-top:14px">Platforms (pick one or more)</label><div class="bar">${PLAT.map(x=>`<label class="chk"><input type="checkbox" class="pl" value="${x}" ${P.includes(x)?"checked":""} onchange="syncP();PLAN=null;$('#plan').innerHTML=''"> ${pi(x)} ${x}</label>`).join("")}</div><select id="pl" style="display:none">${PLAT.map(x=>`<option ${x===D.platform?"selected":""}>${x}</option>`).join("")}</select>`;
+const nlBox=`<div class="g2"><div><label for="smon2">Month</label><input id="smon2" type="month" value="${$("#smon2")?v("#smon2"):mon0}"></div><div><label class="chk" style="margin-top:30px"><input type="checkbox" id="nlposts" checked> Also use the titles of my posts scheduled in this month</label></div></div>`;
+const s1=M==="write"?box("Your ideas")+file:M==="suggest"?sugBox+box("Your ideas (the ones you tick above are added here)")+file:planBox;
+const s2=M==="plan"?`<p class="hint" style="margin-top:0">The plan uses the platforms you tick.</p>${plats}`:`${md("split","Posts, spread across the platforms I tick","Each idea is written once and given to one platform. Example: 5 ideas on 2 platforms gives 3 + 2 posts.")}${md("same","The same idea on every platform I tick","One version of each idea for every platform.")}${md("newsletter","A monthly newsletter","One email newsletter for the month. Your ideas become its topics.")}${nl?nlBox:plats+`<div class="g3"><div><label for="npost">${OUT==="same"?"Number of ideas":"Total number of posts"}</label><input id="npost" type="number" min="1" max="30" placeholder="empty = one per idea line" value="${NP}" oninput="NP=this.value"></div></div>${OUT==="split"?`<p class="hint">Asking for more posts than ideas: the AI thinks of the extra ideas. Fewer: the first ideas are used.</p>`:""}`}`;
+const adv=`<details class="adv" ${ADV?"open":""} ontoggle="ADV=this.open"><summary>More options<small>tone, pillar, goal, link, calendar, links, style per platform</small></summary>
+<div class="g3"><div><label for="btone">Tone for this batch</label><select id="btone" onchange="BT=this.value"><option value="">Default (${esc(D.tone)})</option>${TONES.map(t=>`<option ${t===BT?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="bpil">Pillar</label><select id="bpil" onchange="BP=this.value">${pilOpts(BP,"The AI picks one")}</select></div><div><label for="bfmt">Content type</label><select id="bfmt" onchange="BF=this.value"><option value="">Mix (the weekly rhythm decides)</option>${FMT.map(x=>`<option ${x===BF?"selected":""}>${x}</option>`).join("")}</select></div></div>
+<div class="g2"><div><label for="bgoal">Goal of these posts</label><select id="bgoal" onchange="BG=this.value"><option value="">Not set</option>${GOALS.map(x=>`<option ${x===BG?"selected":""}>${x}</option>`).join("")}</select></div><div><label for="blink">Link the posts send people to</label><input id="blink" value="${esc(BL)}" oninput="BL=this.value" placeholder="/blog/renovation-mistakes"></div></div>
+${nl?"":`<fieldset><legend>Spread new posts over a month</legend><label class="chk"><input type="checkbox" id="sch"> Give the new posts dates in a month</label><div class="g2"><div><label for="smon">Month</label><input id="smon" type="month" value="${mon0}"></div><div><label class="chk" style="margin-top:30px"><input type="checkbox" id="sk" checked> Skip Friday and Saturday</label></div></div><div class="g3"><div><label for="rpw">Posts per week</label><input id="rpw" type="number" min="1" max="7" placeholder="empty = spread evenly" value="${esc(RPW)}" oninput="RPW=this.value"></div><div><label for="rcw">Of them carousels</label><input id="rcw" type="number" min="0" max="5" placeholder="for example 2" value="${esc(RCW)}" oninput="RCW=this.value"></div><div class="hint" style="margin-top:30px">3 posts a week with 2 carousels: the AI writes the slides of each carousel.</div></div><div class="acts"><button class="btn" onclick="preview()">Preview the dates</button></div></fieldset>`}
+<fieldset><legend>Take ideas from a link</legend><label for="lnk" style="margin-top:6px">Links (one per line, up to 5)</label><textarea id="lnk" rows="3" placeholder="https://..."></textarea><div class="acts"><button class="btn" onclick="fromLinks()">Get ideas from links</button></div><p class="hint">The AI reads each page and writes an idea of its own (it never copies the text). A summary is saved in Knowledge marked "From website", and the AI will not use it for posts until you turn it on.</p></fieldset>
+<details><summary>Style for each platform in this batch</summary>${PLAT2.map(p=>`<label>${pn(p)}</label><textarea rows="2" oninput="BS['${p}']=this.value" placeholder="${esc((PR[p.toLowerCase()]||{}).style||(DEFS[p.toLowerCase()]||{}).style||"The saved style is used")}">${esc(BS[p]||"")}</textarea>`).join("")}</details></details>`;
+return `<h2>Ideas</h2><p class="sub">Three steps: choose how to start, choose where it goes, then create. The AI writes each post.</p>
+<div class="panel"><h3 class="stp"><span class="n">1</span> How do you want to start?</h3>
+${st("write","I have ideas","Type or paste them, or take them from a file.")}${st("suggest","Suggest ideas for me","The AI proposes ideas from your company facts. You choose which to keep.")}${st("plan","Plan my month","The AI plans a whole month: what each week is for, with dates.","if(OUT==='newsletter')OUT='split';")}
+${s1}
+<h3 class="stp"><span class="n">2</span> ${M==="plan"?"Where should it go?":"What should I make, and where?"}</h3>${s2}
+<h3 class="stp"><span class="n">3</span> Create</h3><div id="plan">${planH()}</div>
+<div class="acts"><button class="btn p" onclick="create()">${nl?"Create the newsletter":M==="plan"?"Create all the posts in the plan":"Create posts"}</button>${M==="plan"?"":`<button class="btn" onclick="parkIdeas()" title="Save the ideas without writing them">Save ideas to the Parking lot</button>`}</div><p class="hint">You can change the tone, length or image of any single post afterwards.</p>
+${adv}</div>`}
+const pilOpts=(cur,none)=>`<option value="">${none}</option><optgroup label="Value">${PIL.value.map(x=>`<option ${x===cur?"selected":""}>${esc(x)}</option>`).join("")}</optgroup><optgroup label="Promo">${PIL.promo.map(x=>`<option ${x===cur?"selected":""}>${esc(x)}</option>`).join("")}</optgroup>`;
+function postsH(){const live=posts.filter(p=>!p.parked),park=posts.filter(p=>p.parked),base=live.filter(p=>p.status!=="rejected");
+const L=posts.filter(p=>(flt==="parked"?p.parked:!p.parked&&(flt==="all"||p.status===flt))&&(PF==="all"||(PF==="none"?!p.pillar:p.pillar===PF))&&(FF==="all"||fmtOf(p)===FF));
+const nv=base.filter(isValue).length,np=base.filter(isPromo).length,nc=nv+np,pv_=nc?Math.round(nv*100/nc):0,pp_=nc?100-pv_:0,none=base.filter(p=>!isValue(p)&&!isPromo(p)).length;
+const fc=k=>base.filter(p=>fmtOf(p)===k).length;
+const chips=[["all","All",live.length],...Object.keys(ST).map(k=>[k,ST[k],live.filter(p=>p.status===k).length]),["parked","Parking lot",park.length]];
+return `<h2>Posts</h2><p class="sub">Open a post to see it as a whole, edit, review, or schedule it.</p>
+
+<div class="panel"><div class="stats"><div><b>${nv}</b> <span class="hint">value</span></div><div><b>${np}</b> <span class="hint">promo</span></div><div class="meter" title="Value ${pv_}% · Promo ${pp_}%"><i class="v" style="width:${pv_}%"></i><i class="p" style="width:${pp_}%"></i></div><div><b>${nc?pv_+" / "+pp_:"–"}</b> <span class="hint">value / promo %, goal 80 / 20</span></div></div>
+<p class="hint" style="margin:10px 0 0">${nc?(pp_>25?`<span class="warn">Promo is ${pp_}% of your posts. Add more value posts to get close to 80 / 20.</span> `:"")+"":"Give your posts a pillar to see the balance. New posts get one from the AI automatically. "}${none&&nc?none+" posts have no pillar. ":""}Formats: Carousel ${fc("Carousel")} · Image ${fc("Image")} · Text ${fc("Text")}. Carousels do best on LinkedIn.</p></div>
+<div class="bar">${chips.map(c=>`<button class="f ${flt===c[0]?"on":""}" onclick="flt='${c[0]}';render()">${c[1]} (${c[2]})</button>`).join("")}</div>
+<div class="bar"><select style="width:auto" onchange="PF=this.value;render()" aria-label="Filter by pillar"><option value="all">All pillars</option><option value="none" ${PF==="none"?"selected":""}>No pillar</option>${[...PIL.value,...PIL.promo].map(x=>`<option ${PF===x?"selected":""}>${esc(x)}</option>`).join("")}</select><select style="width:auto" onchange="FF=this.value;render()" aria-label="Filter by format"><option value="all">All formats</option>${FMT.map(x=>`<option ${FF===x?"selected":""}>${x}</option>`).join("")}</select></div>
+${flt==="parked"?`<p class="hint">The Parking lot keeps saved ideas and backup posts that are not tied to a date. Open one to write it, schedule it, or take it out.</p>`:""}
+${L.map(row).join("")||'<p class="hint">Nothing here yet. Add ideas to get started.</p>'}`}
+function cpH(){return `<h2>Control panel</h2><p class="sub">Everything the AI uses, in one place. A single post can override the defaults.</p><div class="panel"><h3>Defaults for every post</h3>
 <div class="g3"><div><label for="c_plat">Default platform</label><select id="c_plat">${PLAT.map(t=>`<option ${t===D.platform?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="c_tone">Tone</label><select id="c_tone">${TONES.map(t=>`<option ${t===D.tone?"selected":""}>${t}</option>`).join("")}</select></div><div><label for="c_lang">Language</label><select id="c_lang">${LANGS.map(t=>`<option ${t===D.lang?"selected":""}>${t}</option>`).join("")}</select></div></div>
 <div class="g3"><div><label for="c_len">Length (words)</label><input id="c_len" type="number" value="${esc(D.len)}"></div><div><label for="c_tags">Hashtags per post</label><input id="c_tags" type="number" value="${esc(D.tags)}"></div><div><label for="c_img">Images</label><select id="c_img"><option value="true" ${String(D.img_on)!=="false"?"selected":""}>On</option><option value="false" ${String(D.img_on)==="false"?"selected":""}>Off</option></select></div></div>
 <div class="g2"><div><label for="c_cta">Closing line (call to action)</label><input id="c_cta" value="${esc(D.cta)}"></div><div><label for="c_ban">Words to avoid</label><input id="c_ban" value="${esc(D.ban)}"></div></div>
 <label for="c_extra">Extra rules</label><textarea id="c_extra" rows="3" placeholder="For example: always mention the school visit, never compare with other companies">${esc(D.extra)}</textarea>
 <label for="c_style">Image style</label><input id="c_style" value="${esc(D.style)}">
-<p class="hint">${posts.filter(p=>p.tone||p.len||p.lang).length} posts currently override these defaults.</p><div class="acts"><button class="btn p" onclick="saveCP()">Save defaults</button></div></div>`}
+<p class="hint">${posts.filter(p=>p.tone||p.len||p.lang).length} posts currently override these defaults.</p><div class="acts"><button class="btn p" onclick="saveCP()">Save defaults</button></div></div>
+<div class="panel"><h3>Platform formats</h3>${ruleH()}</div>
+<div class="panel"><h3>Content pillars</h3><p class="hint">Pillars are the themes of your content. Value pillars teach or help people. Promo pillars sell. The Posts page shows your balance against the 80 / 20 rule. The AI picks one pillar for every new post.</p><label for="pv">Value pillars (comma separated)</label><input id="pv" value="${esc(PIL.value.join(", "))}"><label for="pp">Promo pillars (comma separated)</label><input id="pp" value="${esc(PIL.promo.join(", "))}"><div class="acts"><button class="btn p" onclick="savePil()">Save pillars</button></div></div>
+<div class="panel"><h3>All settings (the app_settings table)</h3>${asH()}</div>
+<div class="panel"><h3>Where your data lives</h3><table class="kv"><tr><th>Table</th><th>What it holds</th><th>Where to manage it</th></tr><tr><td>posts</td><td>Every idea and post (the meta column keeps goal, link, closing line and carousel slides)</td><td>Posts, Calendar and the Parking lot</td></tr><tr><td>ui_settings</td><td>Defaults for every post</td><td>Control panel, first box</td></tr><tr><td>app_settings</td><td>Platform formats, pillars, prompts, other switches</td><td>This page and AI Models</td></tr><tr><td>knowledge_sources</td><td>Facts the AI may use</td><td>Knowledge</td></tr><tr><td>competitors</td><td>Companies like yours</td><td>Competitors</td></tr><tr><td>leads</td><td>Sales contacts and emails</td><td>Sales</td></tr></table></div>`}
 async function srcIdea(i){const s=await takeFile(i);if(s){isrc=s;$("#sfi").innerHTML=idHint()}}
 async function saveCP(){D={platform:v("#c_plat"),tone:v("#c_tone"),lang:v("#c_lang"),len:v("#c_len"),tags:v("#c_tags"),cta:v("#c_cta"),ban:v("#c_ban"),extra:v("#c_extra"),img_on:v("#c_img"),style:v("#c_style")};try{await api("settings-save",D);toast("Defaults saved")}catch(e){fail(e)}}
-async function create(){let L=v("#ideas").split("\n").map(s=>s.trim()).filter(Boolean);
+const parseLine=s=>{const m=/^(.*?)\s*\[([^\]]{2,40})\]\s*$/.exec(s);if(m){const t=TONES.find(x=>x.toLowerCase()===m[2].trim().toLowerCase());if(t)return{idea:m[1].trim(),tone:t}}return{idea:s,tone:""}};
+const dstr=x=>x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");
+function spread(it,mon,skip){const[y,m]=mon.split("-").map(Number),days=[],t=new Date();t.setHours(0,0,0,0);for(let d=1;d<=new Date(y,m,0).getDate();d++){const x=new Date(y,m-1,d);if(x<=t||(skip&&(x.getDay()===5||x.getDay()===6)))continue;days.push(x)}
+if(!days.length)return[];const n=it.length;return it.map((o,k)=>({...o,date:dstr(days[n===1?0:Math.round(k*(days.length-1)/(n-1))])}))}
+const monName=m=>{const[y,mo]=m.split("-").map(Number);return new Date(y,mo-1,1).toLocaleString("en",{month:"long",year:"numeric"})};
+async function buildItems(){let L=v("#ideas").split("\n").map(s=>s.trim()).filter(Boolean);
 if(!L.length&&isrc)L=["Post based on "+isrc.name];
-if(!L.length)return toast("Add at least one idea or a file");
-if(isrc)L=L.map(x=>x+"\n\n"+srcLine(isrc));
-try{await api("ideas-add",{platform:v("#pl"),ideas:L});toast(L.length+" posts are being written");isrc=null;ideasTxt="";await load();show("posts")}catch(e){fail(e)}}
-function mv(n){cal=new Date(cal.getFullYear(),cal.getMonth()+n,1);render()}
-async function drop(k){const p=posts.find(x=>x.id===drag);if(!p)return;if(p.status==="generating")return toast("Still being written");p.date=k;try{await save(p);toast("Moved to "+k);render()}catch(e){fail(e)}}
-function calH(){const y=cal.getFullYear(),mo=cal.getMonth(),f=new Date(y,mo,1).getDay(),n=new Date(y,mo+1,0).getDate();
-let h=`<h2>Calendar</h2><p class="sub">Drag a post to another day to reschedule it.</p><div class="bar"><button class="btn" onclick="mv(-1)" aria-label="Previous month">‹</button><b>${cal.toLocaleString("en",{month:"long",year:"numeric"})}</b><button class="btn" onclick="mv(1)" aria-label="Next month">›</button></div><div class="wrap"><div class="cal">`+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="dh">${d}</div>`).join("");
-for(let i=0;i<f;i++)h+='<div class="cell"></div>';
-for(let d=1;d<=n;d++){const k=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;h+=`<div class="cell" ondragover="event.preventDefault()" ondrop="drop('${k}')"><i>${d}</i>`+posts.filter(p=>p.date===k).map(p=>`<span class="chip s-${p.status}" tabindex="0" draggable="true" ondragstart="drag=${p.id}" onclick="edit(${p.id})" onkeydown="if(event.key==='Enter')edit(${p.id})">${esc(ttl(p))}</span>`).join("")+"</div>"}
-const u=posts.filter(p=>!p.date);return h+`</div></div><h2 style="margin-top:22px;font-size:18px">Not scheduled</h2>${u.map(row).join("")||'<p class="hint">Every post has a date.</p>'}`}
+if(!L.length)return toast("Add at least one idea or a file"),null;
+const src=x=>isrc?x+"\n\n"+srcLine(isrc):x;
+if(OUT==="newsletter"){const mon=v("#smon2")||new Date().toISOString().slice(0,7),T=L.map(s=>parseLine(s).idea);
+if($("#nlposts")&&$("#nlposts").checked)posts.filter(p=>!p.parked&&p.date&&p.date.slice(0,7)===mon&&p.platform!=="Newsletter").forEach(p=>T.push(ttl(p)));
+const top=[...new Set(T)].slice(0,12);
+return[{idea:src("Monthly newsletter for "+monName(mon)+".\nTopics to cover:\n"+top.map(x=>"- "+x).join("\n")+note("Newsletter")),platform:"Newsletter",tone:BT||"",pillar:BP||"",format:"Text",goal:BG,link:BL}]}
+const P=pickP();if(!P.length)return toast("Pick at least one platform"),null;
+L=await expand(L);const R=L.map(parseLine);let it=[];
+if(OUT==="same")R.forEach(r=>P.forEach(p=>it.push({idea:src(r.idea)+note(p),platform:p,tone:r.tone||BT,pillar:BP,format:BF,goal:BG,link:BL})));
+else it=R.map((r,k)=>{const p=P[k%P.length];return{idea:src(r.idea)+note(p),platform:p,tone:r.tone||BT,pillar:BP,format:BF,goal:BG,link:BL}});
+return it}
+async function create(){await needWho();let it=PLAN&&PLAN.length?PLAN:null;const sch=$("#sch")&&$("#sch").checked&&OUT!=="newsletter";
+if(sch&&!it){await preview();return}
+if(!it){it=await buildItems();if(!it)return}
+try{await api("ideas-add",{items:it.map(o=>({idea:o.idea,platform:o.platform,date:o.date||null,tone:o.tone||"",pillar:o.pillar||"",format:o.format||"",goal:o.goal||"",link:o.link||""}))});logAct("created",0,it.length+" post(s): "+String(it[0].idea||"").replace(/\s+/g," ").slice(0,90));const dated=!!(it[0]&&it[0].date);toast(it.length+(it.length>1?" posts are":" post is")+" being written"+(dated?" and scheduled in the Calendar":""));isrc=null;ideasTxt="";PLAN=null;NP="";await load();if(dated){cal=new Date(it.map(o=>o.date).filter(Boolean).sort()[0]+"T00:00:00");CM="month";show("cal")}else{flt="all";show("posts")}}catch(e){fail(e)}}
+async function parkIdeas(){const L=v("#ideas").split("\n").map(s=>s.trim()).filter(Boolean);if(!L.length)return toast("Write at least one idea first");const p=(pickP()[0])||D.platform;
+try{await api("ideas-park",{items:L.map(s=>({idea:parseLine(s).idea,platform:p==="Newsletter"?"LinkedIn":p,pillar:BP}))});toast(L.length+" ideas saved in the Parking lot");ideasTxt="";PLAN=null;await load();flt="parked";show("posts")}catch(e){fail(e)}}
+function openP(id){IMGO=[];SEE=false;TR=null;edit(id)}
+async function drop(k){const p=posts.find(x=>x.id===drag);if(!p)return;if(p.status==="generating")return toast("Still being written");p.date=k;p.parked=false;try{await save(p);logAct("moved",p.id,k);toast("Moved to "+k);render()}catch(e){fail(e)}}
 
 /* ---------- post editor: preview on the left, settings on the right ---------- */
+const hookOf=pl=>+((PR[pl.toLowerCase()]||{}).hook_chars||(DEFS[pl.toLowerCase()]||{}).hook_chars)||0;
+const maxOf=pl=>+((PR[pl.toLowerCase()]||{}).max_chars||(DEFS[pl.toLowerCase()]||{}).max_chars)||0;
+function cutHook(t,n){if(t.length<=n)return t;let c=t.slice(0,n);const nl=c.lastIndexOf("\n");if(nl>n*.5)c=c.slice(0,nl);else{const sp=c.lastIndexOf(" ");if(sp>n*.6)c=c.slice(0,sp)}return c.replace(/\s+$/,"")}
+function pvTxt(p){const t=p.text||"";if(!t)return '<span class="hint">The post text will appear here.</span>';const n=hookOf(p.platform);
+if(p.platform==="Newsletter"||!n||SEE||t.length<=n)return esc(t)+(n&&SEE&&t.length>n&&p.platform!=="Newsletter"?` <a class="more" href="#" onclick="SEE=false;$('#pvt').innerHTML=pvTxt(sel);return false">Show less</a>`:"");
+return esc(cutHook(t,n))+`… <a class="more" href="#" onclick="SEE=true;$('#pvt').innerHTML=pvTxt(sel);return false">See more</a>`}
+const SRCL={k:["📚","Knowledge"],r:["📝","Your request"],a:["🤖","AI"],u:["✏️","You"]};
+const nrm=t=>String(t||"").replace(/\s+/g," ").trim();
+function srcRows(p){const src=(p.meta&&Array.isArray(p.meta.src))?p.meta.src:null;if(!src)return null;const used=new Set();return String(p.text||"").split("\n").map(nrm).filter(Boolean).map(t=>{let i=src.findIndex((x,j)=>!used.has(j)&&nrm(x.t)===t),ed=false;if(i<0){const w=new Set(t.toLowerCase().split(" "));let best=0;src.forEach((x,j)=>{if(used.has(j))return;const v=new Set(nrm(x.t).toLowerCase().split(" "));let c=0;w.forEach(z=>{if(v.has(z))c++});const sc=c/Math.max(1,new Set([...w,...v]).size);if(sc>best&&sc>=.5){best=sc;i=j}});ed=i>=0}if(i>=0)used.add(i);return i>=0?{t,f:src[i].f,s:src[i].s||"",ed}:{t,f:"u",s:"",ed:false}})}
+function srcSync(p){const r=srcRows(p);if(r)p.meta.src=r.map(x=>({t:x.t,f:x.f,s:x.s}))}
+function srcH(p){const r=srcRows(p);if(!r)return"";return `<div class="srcs"><b>Where each line came from</b>${r.map(x=>{const L=SRCL[x.f]||SRCL.a;return `<div class="srow"><span class="sb sb-${x.f}" title="${esc(x.s||L[1])}">${L[0]} ${x.f==="k"&&x.s?esc(x.s):L[1]}${x.ed?" · edited":""}</span><span class="stx" dir="auto">${esc(x.t)}</span></div>`}).join("")}<p class="hint">The AI labels its own lines, so check the important ones. Edit the text above as usual; lines you change or add show as “You”.</p></div>`}
+function cnt(p){const t=p.text||"",n=hookOf(p.platform),mx=maxOf(p.platform),over=mx&&t.length>mx;return `${t.length}${mx?" / "+mx:""} characters${n&&p.platform!=="Newsletter"?` · the first ${n} show before “See more”${t.length>n?"":" (the whole post fits)"}`:""}`}
 function pv(p){const hasImg=p.img&&p.mode!=="none";
-return `<div class="card"><div class="ph">${esc(p.platform)} · preview</div>${hasImg?`<img src="${esc(p.img)}" alt="Post image">`:`<div class="none">${p.mode==="none"?"This post has no image":"No image yet"}</div>`}<div class="tx" id="pvt" dir="auto">${p.text?esc(p.text):'<span class="hint">The post text will appear here.</span>'}</div><div class="tg" id="pvh" dir="auto">${esc(p.tags)}</div></div>${hasImg?`<p class="hint"><a href="${esc(p.img)}" download="post-image.jpg">Download image</a></p>`:""}`}
-function edit(id){sel=posts.find(p=>p.id===id);const p=sel;const o=(a,x,d)=>`<option value="">Default (${esc(d)})</option>`+a.map(t=>`<option ${t===x?"selected":""}>${t}</option>`).join("");
-const written=!(p.status==="idea"||p.status==="generating");
-$("#ed").innerHTML=`<div class="bar" style="justify-content:space-between"><h2 style="font-size:19px">${esc(ttl(p))}</h2><span class="pill s-${p.status}">${ST[p.status]}</span></div>
+return `<div class="card"><div class="ph">${pn(p.platform)} · preview</div>${hasImg?`<img src="${esc(p.img)}" alt="Post image">`:`<div class="none">${p.mode==="none"?"This post has no image":(p.imgBusy?"Generating image…":"No image yet")}</div>`}<div class="tx" id="pvt" dir="auto">${pvTxt(p)}</div><div class="tg" id="pvh" dir="auto">${esc(p.tags)}</div></div>${hasImg?`<p class="hint"><a href="${esc(p.img)}" download="post-image.jpg">Download image</a></p><div class="acts" style="margin-top:4px;align-items:center"><button class="btn ${p.meta&&p.meta.logo?"":"p"}" onclick="addLogo()" ${p.meta&&p.meta.logo?"disabled":""}>${p.meta&&p.meta.logo?"Logo added ✓":"Add my logo to the image"}</button>${p.meta&&p.meta.logo&&p.imgRaw?`<button class="btn" onclick="noLogo()">Remove logo</button>`:""}</div><p class="hint">${p.meta&&p.meta.logo?"Press Save changes to keep the logo.":"Position and size come from Brand kit."}</p>`:""}`}
+const imgoH=()=>IMGO.length?`<div style="margin-top:10px">${IMGO.map((o,i)=>`<div class="row" style="cursor:default"><div class="mid"><span class="tag">${o.kind==="illustration"?"Drawing":o.kind==="objects"?"Objects":"People"}</span><b>${esc(o.title)}</b><div class="snip" style="white-space:normal">${esc(o.prompt)}</div></div><span><button class="btn" onclick="useOpt(${i},false)">Use</button> <button class="btn p" data-img onclick="useOpt(${i},true)">Create image</button></span></div>`).join("")}</div>`:"";
+function edit(id){sel=posts.find(p=>p.id===id);const p=sel;p.meta=p.meta||{};if(!p.base)p.base={text:p.text,tags:p.tags};const o=(a,x,d)=>`<option value="">Default (${esc(d)})</option>`+a.map(t=>`<option ${t===x?"selected":""}>${t}</option>`).join("");
+const written=!(p.status==="idea"||p.status==="generating"),KD={auto:"Let the AI decide",people:"People",objects:"Objects",illustration:"Drawing"};
+$("#ed").innerHTML=`<div class="bar" style="justify-content:space-between"><h2 style="font-size:19px">${esc(ttl(p))}</h2><span class="pill s-${p.status}">${ST[p.status]}${p.parked?" · parked":""}</span></div>
 <div class="ed"><div class="pv">${pv(p)}
-<div class="acts"><button class="btn p" onclick="act('approved')">Approve</button><button class="btn" onclick="regen()">Rewrite post</button><button class="btn" onclick="act(sel.status)">Save changes</button><button class="btn d" onclick="act('rejected')">Reject</button><button class="btn d" onclick="delPost()">Delete</button><button class="btn" onclick="$('#ed').close()">Close</button></div></div>
+<div class="acts"><button class="btn p" onclick="act('approved')">Approve</button><button class="btn" onclick="regen()">${written?"Rewrite post":"Write post"}</button><button class="btn" onclick="act(sel.status)">Save changes</button><button class="btn" onclick="copyPost()" title="Copy the text and hashtags">Copy</button><button class="btn" onclick="dupPost()" title="Keep a copy in the Parking lot to reuse later">Duplicate</button><button class="btn d" onclick="act('rejected')">Reject</button><button class="btn d" onclick="delPost()">Delete</button><button class="btn" onclick="$('#ed').close()">Close</button></div></div>
 <div>
-${written?`<label for="t" style="margin-top:0">Post text</label><textarea id="t" rows="10" dir="auto" oninput="$('#pvt').textContent=this.value">${esc(p.text)}</textarea><label for="hs">Hashtags</label><input id="hs" dir="auto" value="${esc(p.tags)}" oninput="$('#pvh').textContent=this.value">`:'<p class="hint">This post has not been written yet. You can still attach a file below and press Rewrite post.</p>'}
-<fieldset><legend>Settings for this post only</legend><div class="g3"><div><label for="tn">Tone</label><select id="tn">${o(TONES,p.tone,D.tone)}</select></div><div><label for="lg">Language</label><select id="lg">${o(LANGS,p.lang,D.lang)}</select></div><div><label for="ln">Length (words)</label><input id="ln" type="number" value="${esc(p.len||"")}" placeholder="Default (${esc(D.len)})"></div></div></fieldset>
+${p.note&&p.status!=="generating"?`<p class="hint" style="color:var(--c5);margin-top:0">⚠ ${esc(p.note)}</p>`:""}${written?`<label for="t" style="margin-top:0">Post text</label><textarea id="t" rows="10" dir="auto" oninput="sel.text=this.value;$('#pvt').innerHTML=pvTxt(sel);$('#cnt').textContent=cnt(sel);$('#srcbox').innerHTML=srcH(sel)">${esc(p.text)}</textarea><p class="hint" id="cnt">${cnt(p)}</p><div id="srcbox">${srcH(p)}</div><label for="hs">Hashtags</label><input id="hs" dir="auto" value="${esc(p.tags)}" oninput="$('#pvh').textContent=this.value">`:'<p class="hint">This post has not been written yet. Choose the platform and settings, then press Write post. You can also attach a file below.</p>'}
+<fieldset><legend>Plan</legend><div class="g3"><div><label for="pf">Platform</label><select id="pf" ${written?"disabled":""}>${PLAT2.map(x=>`<option ${x===p.platform?"selected":""}>${x}</option>`).join("")}</select></div><div><label for="pi">Pillar</label><select id="pi">${pilOpts(p.pillar,"No pillar")}</select></div><div><label for="fm">Format</label><select id="fm"><option value="">Auto (${fmtOf({...p,format:""})})</option>${FMT.map(x=>`<option ${x===p.format?"selected":""}>${x}</option>`).join("")}</select></div></div>
+<div class="g3"><div><label for="gl">Goal</label><select id="gl"><option value="">Not set</option>${GOALS.map(x=>`<option ${x===(p.meta.goal||"")?"selected":""}>${x}</option>`).join("")}</select></div><div><label for="lk">Link / destination</label><input id="lk" value="${esc(p.meta.link||"")}" placeholder="/blog/..."></div><div><label for="ct">Closing line for this post</label><input id="ct" value="${esc(p.meta.cta||"")}" placeholder="Default (${esc(D.cta)})"></div></div><label class="chk" style="margin-top:12px"><input type="checkbox" id="pk" ${p.parked?"checked":""}> Keep in the Parking lot (no date, saved for later)</label>${p.parked&&p.status==="idea"?`<div class="acts"><button class="btn p" onclick="writeNow()">Write this post now</button></div>`:""}</fieldset>
+${p.format==="Carousel"&&p.platform!=="Newsletter"?carH(p,written):""}${written?ckH(p)+histH(p)+trH(p):""}${written?`<fieldset><legend>Make versions for other platforms</legend><div class="bar">${PLAT.filter(x=>x!==p.platform).map(x=>`<label class="chk"><input type="checkbox" class="rp" value="${x}" checked> ${x}</label>`).join("")}</div><div class="acts"><button class="btn" onclick="repurpose()">Create versions</button></div><p class="hint">Each version is rewritten for that platform and added as a new post to review.</p></fieldset>`:""}<fieldset><legend>Settings for this post only</legend><div class="g3"><div><label for="tn">Tone</label><select id="tn">${o(TONES,p.tone,D.tone)}</select></div><div><label for="lg">Language</label><select id="lg">${o(LANGS,p.lang,D.lang)}</select></div><div><label for="ln">Length (words)</label><input id="ln" type="number" value="${esc(p.len||"")}" placeholder="Default (${esc(D.len)})"></div></div></fieldset>
 <fieldset><legend>Use a file (Word, PDF or text)</legend><input id="sf" type="file" accept=".txt,.md,.docx,.pdf" onchange="srcFile(this)">
 ${p.src?`<p class="hint">Using <b>${esc(p.src.name)}</b> (${p.src.text.length} characters${p.src.cut?", cut to the first 6000":""}). Press <b>Rewrite post</b> and the AI will write or edit the post from it.</p><div class="acts" style="margin-top:6px"><button class="btn" onclick="insertSrc()">Put the file text in the post box</button><button class="btn" onclick="clearSrc()">Remove file</button></div>`:'<p class="hint">Pick a file, then press Rewrite post. The AI takes the idea or the facts from it.</p>'}</fieldset>
-<fieldset><legend>Image</legend><label style="display:inline;margin-right:14px"><input type="radio" name="m" value="ai" ${p.mode==="ai"?"checked":""} onchange="sel.mode='ai';keep()" style="width:auto"> Generate with AI</label><label style="display:inline;margin-right:14px"><input type="radio" name="m" value="upload" ${p.mode==="upload"?"checked":""} onchange="sel.mode='upload';keep()" style="width:auto"> Upload my own</label><label style="display:inline"><input type="radio" name="m" value="none" ${p.mode==="none"?"checked":""} onchange="sel.mode='none';keep()" style="width:auto"> No image</label>
-${p.mode==="ai"?`<label for="pr">Image description (written from the post)</label><textarea id="pr" rows="3">${esc(p.prompt||ip(p))}</textarea><div class="acts"><button class="btn p" data-img onclick="imgFromPost()">New image from the post</button><button class="btn" data-img onclick="newImg()">Regenerate image</button></div><p class="hint">“New image from the post” reads the post text, writes a fitting description, then makes the image.</p>`:p.mode==="upload"?`<label for="up">Image file</label><input id="up" type="file" accept="image/*" onchange="upl(this)">`:'<p class="hint">This post will go out without an image.</p>'}</fieldset>
+<fieldset><legend>Image</legend><label class="chk"><input type="radio" name="m" value="ai" ${p.mode==="ai"?"checked":""} onchange="sel.mode='ai';keep()"> Generate with AI</label><label class="chk"><input type="radio" name="m" value="upload" ${p.mode==="upload"?"checked":""} onchange="sel.mode='upload';keep()"> Upload my own</label><label class="chk"><input type="radio" name="m" value="none" ${p.mode==="none"?"checked":""} onchange="sel.mode='none';keep()"> No image</label>
+${p.mode==="ai"?`<label style="margin-top:14px">What should the image show?</label><div class="bar">${Object.keys(KD).map(k=>`<button class="f ${IMGK===k?"on":""}" onclick="IMGK='${k}';keep()">${KD[k]}</button>`).join("")}</div><div class="acts"><button class="btn" data-img onclick="imgOptions()">Suggest 3 ideas from the post</button></div><div id="imgo">${imgoH()}</div><label for="pr">Image description (written from the post)</label><textarea id="pr" rows="3">${esc(p.prompt||ip(p))}</textarea><div class="acts"><button class="btn p" data-img onclick="imgFromPost()">New image from the post</button><button class="btn" data-img onclick="newImg()">Regenerate image</button><button class="btn" onclick="lib()">Choose from previous images</button></div><div id="lib"></div><p class="hint">“New image from the post” reads the post, writes a description in the style you picked above, then makes the image.</p>`:p.mode==="upload"?`<label for="up">Image file</label><input id="up" type="file" accept="image/*" onchange="upl(this)"><div class="acts"><button class="btn" onclick="lib()">Choose from previous images</button></div><div id="lib"></div>`:`<p class="hint">No image yet. Choose how to add one, or leave the post without an image.</p><div class="acts"><button class="btn p" onclick="sel.mode='ai';keep()">Create with AI</button><button class="btn" onclick="sel.mode='upload';keep()">Upload my own</button><button class="btn" onclick="sel.mode='upload';keep();lib()">Choose from previous images</button></div>`}</fieldset>
 <div class="g2"><div><label for="dt">Publish date</label><input id="dt" type="date" value="${p.date}"></div><div><label for="cm">Note for a rewrite</label><input id="cm" placeholder="For example: make it shorter"></div></div>
 </div></div>`;
-if(!$("#ed").open)$("#ed").showModal()}
+if(!$("#ed").open)$("#ed").showModal();setTimeout(renderSlides,0)}
 function keep(){collect();edit(sel.id)}
-function collect(){const p=sel;if($("#t")){p.text=v("#t");p.tags=v("#hs")}p.tone=v("#tn");p.lang=v("#lg");p.len=v("#ln");p.date=v("#dt");if($("#pr"))p.prompt=v("#pr")}
+function collect(){const p=sel;if($("#t")){p.text=v("#t");p.tags=v("#hs")}p.tone=v("#tn");p.lang=v("#lg");p.len=v("#ln");p.date=v("#dt");if($("#pr"))p.prompt=v("#pr");if($("#pi")){p.pillar=v("#pi");p.format=v("#fm");p.parked=$("#pk").checked}if($("#gl")){const m={...(p.meta||{})};[["goal","#gl"],["link","#lk"],["cta","#ct"]].forEach(a=>{const x=v(a[1]).trim();if(x)m[a[0]]=x;else delete m[a[0]]});if($("#sc")){const n=+v("#sc");if(n)m.slides_count=n}p.meta=m}if($("#pf")&&!$("#pf").disabled)p.platform=v("#pf");if(p.date)p.parked=false}
+function writeNow(){$("#pk").checked=false;regen()}
 async function srcFile(i){const s=await takeFile(i);if(!s)return;collect();sel.src=s;edit(sel.id)}
 function clearSrc(){collect();sel.src=null;edit(sel.id)}
 function insertSrc(){collect();sel.text=(sel.text?sel.text+"\n\n":"")+sel.src.text;if(sel.status==="idea")sel.status="needs_review";edit(sel.id);toast("File text added. You can edit it now")}
@@ -168,17 +393,106 @@ function imgBusy(on,msg){const c=document.querySelector("#ed .card");let o=$("#i
 if(on){if(c){c.classList.add("busy");if(!o){o=document.createElement("div");o.id="imgload";o.className="imgload";o.setAttribute("role","status");c.appendChild(o)}o.innerHTML='<span class="sp"></span>'+esc(msg||"Creating image…")}}
 else{if(o)o.remove();if(c)c.classList.remove("busy")}
 document.querySelectorAll("#ed [data-img]").forEach(b=>b.disabled=on)}
-async function newImg(){collect();imgBusy(true,"Creating the image… about 10 to 20 seconds");try{const r=await api("image-regenerate",{id:sel.id,image_prompt:sel.prompt}),x=Array.isArray(r)?r[0]:r;if(x&&x.error){imgBusy(false);return toast(x.error)}if(!x||!x.image_url){imgBusy(false);return toast("No new image came back. Check the n8n execution.")}sel.img=x.image_url;imgBusy(false);if($("#ed").open)edit(sel.id);else render();toast("Image ready")}catch(e){imgBusy(false);fail(e)}}
-async function imgFromPost(){collect();if(!sel.text)return toast("Write the post first");imgBusy(true,"Reading the post…");try{const r=await api("image-prompt",{post_text:sel.text,platform:sel.platform,style:D.style}),x=Array.isArray(r)?r[0]:r;if(!x||!x.image_prompt){imgBusy(false);return toast((x&&x.error)||"No description returned")}$("#pr").value=x.image_prompt;await newImg()}catch(e){imgBusy(false);fail(e)}}
-async function delPost(){if(!sel||!confirm("Delete this post? This cannot be undone."))return;try{await api("post-delete",{id:sel.id});posts=posts.filter(p=>p.id!==sel.id);$("#ed").close();render();toast("Post deleted")}catch(e){fail(e)}}
-function upl(i){const f=i.files[0];if(!f)return;collect();const m=new Image();m.onload=()=>{const k=Math.min(1,1024/Math.max(m.width,m.height)),c=document.createElement("canvas");c.width=m.width*k;c.height=m.height*k;c.getContext("2d").drawImage(m,0,0,c.width,c.height);sel.img=c.toDataURL("image/jpeg",.82);edit(sel.id)};m.src=URL.createObjectURL(f)}
-async function act(s){if(sel.status==="generating"){$("#ed").close();return}if(sel.status==="idea")s="idea";collect();sel.status=s;try{await save(sel);$("#ed").close();render();toast(s==="approved"?"Approved":s==="rejected"?"Rejected":"Saved")}catch(e){fail(e)}}
-async function regen(){if(sel.status==="generating")return;if(!sel.text&&!sel.src)return toast("Nothing to rewrite yet. Attach a file first");
+async function newImg(){collect();imgBusy(true,"Creating the image… about 10 to 20 seconds");try{const r=await api("image-regenerate",{id:sel.id,image_prompt:sel.prompt}),x=Array.isArray(r)?r[0]:r;if(x&&x.error){imgBusy(false);return toast(x.error)}if(!x||!x.image_url){imgBusy(false);return toast("No new image came back. Check the n8n execution.")}{logAct("new image",sel.id,ttl(sel));const raw=x.image_url;sel.imgRaw=raw;sel.img=await stampIf(raw);sel.meta.logo=sel.img!==raw}imgBusy(false);if($("#ed").open)edit(sel.id);else render();toast("Image ready")}catch(e){imgBusy(false);fail(e)}}
+let IMGK="auto";
+async function imgFromPost(){collect();if(!sel.text)return toast("Write the post first");imgBusy(true,"Reading the post…");try{const r=await api("image-prompt",{post_text:sel.text,platform:sel.platform,style:D.style,kind:IMGK}),x=Array.isArray(r)?r[0]:r;if(!x||!x.image_prompt){imgBusy(false);return toast((x&&x.error)||"No description returned")}$("#pr").value=x.image_prompt;await newImg()}catch(e){imgBusy(false);fail(e)}}
+async function imgOptions(){collect();if(!sel.text)return toast("Write the post first");imgBusy(true,"Thinking of 3 image ideas…");try{const r=await api("image-prompt",{post_text:sel.text,platform:sel.platform,style:D.style,options:true}),x=Array.isArray(r)?r[0]:r;imgBusy(false);if(!x||!x.options||!x.options.length)return toast((x&&x.error)||"No ideas came back");IMGO=x.options;$("#imgo").innerHTML=imgoH()}catch(e){imgBusy(false);fail(e)}}
+async function useOpt(i,make){const o=IMGO[i];if(!o)return;$("#pr").value=o.prompt;sel.prompt=o.prompt;if(make)await newImg();else toast("Description filled in. Press Regenerate image when ready")}
+async function delPost(){if(!sel||!confirm("Delete this post? This cannot be undone."))return;await needWho();try{await api("post-delete",{id:sel.id});logAct("deleted",sel.id,ttl(sel));posts=posts.filter(p=>p.id!==sel.id);$("#ed").close();render();toast("Post deleted")}catch(e){fail(e)}}
+function upl(i){const f=i.files[0];if(!f)return;collect();const m=new Image();m.onload=async()=>{const k=Math.min(1,1024/Math.max(m.width,m.height)),c=document.createElement("canvas");c.width=m.width*k;c.height=m.height*k;c.getContext("2d").drawImage(m,0,0,c.width,c.height);const raw=c.toDataURL("image/jpeg",.82);sel.imgRaw=raw;sel.img=await stampIf(raw);sel.meta.logo=sel.img!==raw;edit(sel.id)};m.src=URL.createObjectURL(f)}
+async function act(s){if(sel.status==="generating"){$("#ed").close();return}await needWho();if(sel.status==="idea")s="idea";collect();let chg="";if(sel.base&&sel.base.text&&(sel.base.text!==sel.text||sel.base.tags!==sel.tags)){const d=diffCount(sel.base.text,sel.text);histPush(sel,sel.base.text,sel.base.tags,"Edited by hand");chg=" · +"+d[0]+" / −"+d[1]+" words"}sel.status=s;try{await save(sel);sel.base=null;logAct(s==="approved"?"approved":s==="rejected"?"rejected":"edited",sel.id,ttl(sel)+chg);$("#ed").close();render();toast(s==="approved"?"Approved":s==="rejected"?"Rejected":"Saved")}catch(e){fail(e)}}
+async function regen(){if(sel.status==="generating")return;await needWho();if(!sel.text&&!sel.src&&sel.status!=="idea")return toast("Nothing to rewrite yet. Attach a file first");
 collect();const c=v("#cm");
+if(sel.base&&sel.base.text&&sel.base.text!==sel.text)histPush(sel,sel.base.text,sel.base.tags,"Before your edits");if(sel.text)histPush(sel,sel.text,sel.tags,"Before an AI rewrite"+(c?": "+c.slice(0,60):""));
 sel.note=[c||(sel.src?"Write the post from the source material below.":""),sel.src?srcLine(sel.src):""].filter(Boolean).join("\n\n");
-sel.status="generating";try{await api("post-regenerate",toRow(sel));sel.src=null;$("#ed").close();await load();render();toast("Rewriting…")}catch(e){fail(e)}}
-show("ideas");load(true);
+sel.status="generating";try{await api("post-regenerate",toRow(sel));logAct("rewrite",sel.id,ttl(sel));sel.src=null;$("#ed").close();await load();render();toast("Rewriting…")}catch(e){fail(e)}}
+
 /* ---------- sales: leads, AI emails, replies ---------- */
+let PR={};
+async function loadRules(){try{const r=one(await api("platform-rules-get"));PR=(r&&r.rules)||{};DEFS=(r&&r.defaults)||DEFS;if(r&&r.pillars)PIL={value:csv(r.pillars.value),promo:csv(r.pillars.promo)};if(view==="cp"||view==="ai"||view==="ideas"){if(!document.querySelector("dialog[open]")&&!(view==="ideas"&&document.activeElement&&/^(TEXTAREA|INPUT)$/.test(document.activeElement.tagName)))render()}}catch(e){}}
+const PD=p=>Object.assign({},DEFS[p.toLowerCase()]||{},PR[p.toLowerCase()]||{});
+async function saveRules(){const R={};PLAT2.forEach(p=>{R[p]={style:v("#rs_"+p),max_chars:v("#rc_"+p),max_hashtags:v("#rh_"+p),use_emojis:v("#re_"+p),hook_chars:v("#rk_"+p)}});try{await api("platform-rules-save",{rules:R});PR=Object.fromEntries(PLAT2.map(p=>[p.toLowerCase(),Object.fromEntries(Object.entries(R[p]).filter(x=>x[1]!==""))]));toast("Platform formats saved")}catch(e){fail(e)}}
+async function savePil(){try{await api("platform-rules-save",{rules:{},pillars:{value:v("#pv"),promo:v("#pp")}});PIL={value:csv(v("#pv")),promo:csv(v("#pp"))};toast("Pillars saved")}catch(e){fail(e)}}
+const ruleH=()=>`<p class="hint">Each box shows what is used now. Leave a box empty to use the built-in default (shown in grey). This is where you control emojis and the “See more” point for every platform.</p>${PLAT2.map(p=>{const r=PR[p.toLowerCase()]||{},d=DEFS[p.toLowerCase()]||{};return `<h3>${pn(p)}</h3><div class="g3"><div><label>Max characters</label><input id="rc_${p}" type="number" value="${esc(r.max_chars||"")}" placeholder="${esc(d.max_chars||"")}"></div><div><label>Max hashtags</label><input id="rh_${p}" type="number" value="${esc(r.max_hashtags||"")}" placeholder="${esc(d.max_hashtags||"")}"></div><div><label>Emojis</label><select id="re_${p}"><option value="">Default (${d.use_emojis==="true"?"allowed":"none"})</option><option value="true" ${r.use_emojis==="true"?"selected":""}>Allowed</option><option value="false" ${r.use_emojis==="false"?"selected":""}>None</option></select></div></div>${p==="Newsletter"?"":`<label>“See more” point: characters shown before the rest is hidden</label><input id="rk_${p}" type="number" value="${esc(r.hook_chars||"")}" placeholder="${esc(d.hook_chars||"")}">`}<label>Format and style</label><textarea id="rs_${p}" rows="3" placeholder="${esc(d.style||"")}">${esc(r.style||"")}</textarea>`}).join("")}<div class="acts"><button class="btn p" onclick="saveRules()">Save platform formats</button></div>`;
+async function loadAI(){try{const r=one(await api("prompts-get"));AI=(r&&r.prompts)||[];if(view==="ai"&&!document.querySelector("dialog[open]"))render()}catch(e){fail(e)}}
+const PAI={LinkedIn:["Li","Writes the LinkedIn version: professional, strong first line, up to 3 hashtags."],Facebook:["Fb","Writes the Facebook version: friendly, a hook before “See more”, emojis, ends with a question."],Instagram:["Ig","Writes the Instagram caption: visual, short lines, emojis and hashtags."],X:["X","Writes the X post: a short headline and one or two lines, under 280 characters."],Newsletter:["Nl","Writes the monthly newsletter: subject line, intro and short sections."]};
+const PNAME={post:["Po","Post Writer"],rewrite:["Rw","Rewriter"],ideas:["Id","Idea Spark"],plan:["Pl","Month Planner"],image:["Im","Image Director"],carousel:["Ca","Carousel Writer"],repurpose:["Rp","Repurposer"],imgopts:["Io","Image Ideas"],translate:["Tr","Translator"]};
+function aiH(){const named=AI.map(p=>({...p,...{nm:(PNAME[p.id]||[])[1]||p.name,mk:(PNAME[p.id]||[])[0]||"AI"}}));
+return `<h2>AI models</h2><p class="sub">Every job the AI does, with its own name. Open one to read the full instructions and change them.</p>
+<h3>Platform writers</h3><div class="aigrid">${PLAT2.map(p=>`<div class="aicard" tabindex="0" onclick="openPW('${p}')" onkeydown="if(event.key==='Enter')openPW('${p}')"><div class="top"><span class="aimark">${pi(p)}</span><div><b>${p} Writer</b><small>${PR[p.toLowerCase()]&&Object.keys(PR[p.toLowerCase()]).length?"Customised":"Built-in"}</small></div></div><p>${PAI[p][1]}</p></div>`).join("")}</div>
+<h3 style="margin-top:22px">Core prompts</h3><div class="aigrid">${named.map(p=>`<div class="aicard" tabindex="0" onclick="openAI('${p.id}')" onkeydown="if(event.key==='Enter')openAI('${p.id}')"><div class="top"><span class="aimark">${p.mk}</span><div><b>${esc(p.nm)}</b><small>${p.custom?"Customised":"Built-in"}</small></div></div><p>${esc(p.role)}</p><small class="hint">Used in: ${esc(p.used)}</small></div>`).join("")||'<p class="hint">Loading…</p>'}</div>
+<p class="hint">The Post Writer prompt uses the platform formats above (the {{style}} part). To change how a platform sounds, edit its writer. To change how every post is written, edit the Post Writer.</p>`}
+const REQ={post:["company_info","style"],rewrite:["draft"],ideas:["facts"],image:["post"],carousel:["slides"],repurpose:["draft"],imgopts:["post"],translate:["text"]};
+function dlg(h){let d=$("#ad");if(!d){d=document.createElement("dialog");d.id="ad";document.body.appendChild(d)}d.innerHTML=h;if(!d.open)d.showModal()}
+function openAI(id){const p=AI.find(x=>x.id===id);if(!p)return;PSEL2=id;
+dlg(`<div class="bar" style="justify-content:space-between"><h2 style="font-size:19px">${esc((PNAME[id]||[])[1]||p.name)}</h2><span class="pill">${p.custom?"Customised":"Built-in"}</span></div><p class="hint" style="margin-top:0">${esc(p.role)} Used in: ${esc(p.used)}.</p>
+<label for="ptx" style="margin-top:0">Instructions</label><textarea id="ptx" rows="16" dir="auto" oninput="chkP()" style="font-family:ui-monospace,monospace;font-size:13px">${esc(p.text)}</textarea><div id="pwarn" class="hint"></div>
+<label>Placeholders. Click one to insert it where the cursor is</label><div class="bar">${(p.placeholders||[]).map(x=>`<button class="f" title="${esc(x[1])}" onclick="insP('${x[0]}')">{{${x[0]}}}</button>`).join("")}</div>
+<p class="hint">Hover a placeholder to see what it becomes. The app fills them in before the AI reads the prompt.</p>
+${p.fixed?`<label>Always added at the end (fixed, so the app can read the answer)</label><pre class="fx">${esc(p.fixed)}</pre>`:""}
+<div class="acts"><button class="btn p" onclick="saveAI('${id}')">Save</button><button class="btn" onclick="resetAI('${id}')">Reset to built-in</button><button class="btn" onclick="$('#ad').close()">Close</button></div>`);chkP()}
+let PSEL2="";
+function chkP(){const t=v("#ptx"),m=(REQ[PSEL2]||[]).filter(k=>!new RegExp("\\{\\{\\s*"+k+"\\s*\\}\\}").test(t));$("#pwarn").innerHTML=m.length?`<span class="warn">Missing: ${m.map(x=>"{{"+x+"}}").join(", ")}. Without it the AI will not get that information.</span>`:""}
+function insP(k){const t=$("#ptx"),s=t.selectionStart,e=t.selectionEnd;t.value=t.value.slice(0,s)+"{{"+k+"}}"+t.value.slice(e);t.focus();t.selectionStart=t.selectionEnd=s+k.length+4;chkP()}
+async function saveAI(id){try{await api("prompts-save",{id,text:v("#ptx")});$("#ad").close();await loadAI();toast("Saved. The next post uses it")}catch(e){fail(e)}}
+async function resetAI(id){if(!confirm("Go back to the built-in prompt?"))return;try{await api("prompts-save",{id,reset:true});$("#ad").close();await loadAI();toast("Reset to the built-in prompt")}catch(e){fail(e)}}
+function openPW(p){const r=PR[p.toLowerCase()]||{},d=DEFS[p.toLowerCase()]||{},k=p.toLowerCase();
+dlg(`<h2 style="font-size:19px">${pn(p)} Writer</h2><p class="hint" style="margin-top:0">${PAI[p][1]} These settings are added to the Post Writer prompt as {{style}}, {{emojis}}, {{see_more}} and the limits.</p>
+<label for="w_s" style="margin-top:0">Format and style</label><textarea id="w_s" rows="7" dir="auto" placeholder="${esc(d.style||"")}">${esc(r.style||d.style||"")}</textarea>
+<div class="g3"><div><label for="w_c">Max characters</label><input id="w_c" type="number" value="${esc(r.max_chars||d.max_chars||"")}"></div><div><label for="w_h">Max hashtags</label><input id="w_h" type="number" value="${esc(r.max_hashtags||d.max_hashtags||"")}"></div><div><label for="w_e">Emojis</label><select id="w_e"><option value="true" ${(r.use_emojis||d.use_emojis)==="true"?"selected":""}>Allowed</option><option value="false" ${(r.use_emojis||d.use_emojis)==="false"?"selected":""}>None</option></select></div></div>
+${p==="Newsletter"?"":`<label for="w_k">“See more” point (characters shown first)</label><input id="w_k" type="number" value="${esc(r.hook_chars||d.hook_chars||"")}">`}
+<div class="acts"><button class="btn p" onclick="savePW('${p}')">Save</button><button class="btn" onclick="resetPW('${p}')">Reset to built-in</button><button class="btn" onclick="$('#ad').close()">Close</button></div>`)}
+async function savePW(p){const d0=DEFS[p.toLowerCase()]||{},f={style:v("#w_s"),max_chars:v("#w_c"),max_hashtags:v("#w_h"),use_emojis:v("#w_e")};if($("#w_k"))f.hook_chars=v("#w_k");for(const k in f)if(String(f[k])===String(d0[k]??""))f[k]="";try{await api("platform-rules-save",{rules:{[p]:f}});PR[p.toLowerCase()]=Object.fromEntries(Object.entries(f).filter(x=>x[1]!==""));$("#ad").close();render();toast(p+" Writer saved")}catch(e){fail(e)}}
+async function resetPW(p){if(!confirm("Go back to the built-in settings for "+p+"?"))return;const f={style:"",max_chars:"",max_hashtags:"",use_emojis:"",hook_chars:""};try{await api("platform-rules-save",{rules:{[p]:f}});delete PR[p.toLowerCase()];$("#ad").close();render();toast("Reset")}catch(e){fail(e)}}
+async function loadAS(){try{const r=await api("app-settings-list");ASR=(Array.isArray(r)?r:r?[r]:[]).filter(x=>x&&x.id!=null&&!/^prompt_/.test(x.setting));if(view==="cp"&&!document.querySelector("dialog[open]")&&!/^(INPUT|TEXTAREA)$/.test((document.activeElement||{}).tagName||""))render()}catch(e){}}
+const asH=()=>`<p class="hint">Every saved setting in one table. Change a value and press Save on its row. Prompts are on the AI models page.</p><table class="kv"><tr><th>Setting</th><th>Value</th><th></th></tr>${ASR.map(r=>`<tr><td><code>${esc(r.setting)}</code></td><td><input id="as_${r.id}" value="${esc(r.setting_value)}"></td><td style="white-space:nowrap"><button class="btn" onclick="asSave('${esc(r.setting)}',${r.id})">Save</button> <button class="btn d" onclick="asDel(${r.id})">Delete</button></td></tr>`).join("")||'<tr><td colspan="3" class="hint">No saved settings yet. Defaults are in use.</td></tr>'}<tr><td><input id="as_new_k" placeholder="new_setting_name"></td><td><input id="as_new_v" placeholder="value"></td><td><button class="btn p" onclick="asAdd()">Add</button></td></tr></table>`;
+async function asSave(k,id){try{await api("app-settings-save",{setting:k,scope:(ASR.find(r=>r.id===id)||{}).scope,value:v("#as_"+id)});toast("Saved");loadAS()}catch(e){fail(e)}}
+async function asAdd(){const k=v("#as_new_k").trim();if(!k)return toast("Type the setting name");try{await api("app-settings-save",{setting:k,value:v("#as_new_v")});toast("Added");loadAS()}catch(e){fail(e)}}
+async function asDel(id){if(!confirm("Delete this setting? The default will be used."))return;try{await api("app-settings-delete",{id});ASR=ASR.filter(r=>r.id!==id);render();toast("Deleted")}catch(e){fail(e)}}
+function lib(){const seen=new Set(),L=posts.filter(p=>p.img&&!seen.has(p.img.slice(-60))&&seen.add(p.img.slice(-60)));$("#lib").innerHTML=L.length?`<div class="bar" style="flex-wrap:wrap">${L.map(p=>`<img src="${esc(p.img)}" onclick="pickImg(${p.id})" style="width:96px;height:96px;object-fit:cover;border-radius:8px;cursor:pointer">`).join("")}</div>`:'<p class="hint">No saved images yet.</p>'}
+function pickImg(id){const o=posts.find(x=>x.id===id);if(!o)return;collect();sel.img=o.img;sel.mode="upload";edit(sel.id);toast("Image selected. Press Save to keep it")}
+let kn=[],kflt="all";
+const isOn=r=>r.status==="active"&&String(r.verified)==="true";
+const fk=r=>({id:r.id,title:r.title||"",content:r.content||"",scope:r.scope||"all",status:String(r.status||"").toLowerCase(),verified:String(r.verified)});
+const web=k=>/^from website/i.test(k.title)||/^source:/i.test(k.content.trim());
+async function loadKn(){try{const r=await api("knowledge-list");kn=(Array.isArray(r)?r:r?[r]:[]).filter(x=>x&&x.id!=null).map(fk);if(view==="kn")render()}catch(e){fail(e)}}
+const krow=k=>`<div class="row" style="cursor:default;border-left-color:${isOn(k)?"var(--c4)":"var(--c2)"}"><div class="mid"><b>${esc(k.title)}</b>${web(k)?' <span class="pill">From website</span>':""}<div class="snip" dir="auto" style="white-space:normal">${esc(k.content.slice(0,220))}${k.content.length>220?"…":""}</div></div><span class="pill">${isOn(k)?"AI can use it":"AI will not use it"}</span><span><button class="btn" onclick="knToggle(${k.id})">${isOn(k)?"Turn off":"Turn on"}</button> <button class="btn" onclick="knEdit(${k.id})">Edit</button> <button class="btn d" onclick="knDel(${k.id})">Delete</button></span></div>`;
+function knH(){const L=kn.filter(k=>kflt==="all"||(kflt==="on"?isOn(k):kflt==="web"?web(k):!isOn(k))),f=[["all","All",kn.length],["on","AI can use",kn.filter(isOn).length],["off","Not used",kn.filter(k=>!isOn(k)).length],["web","From websites",kn.filter(web).length]];return `<h2>Knowledge</h2><p class="sub">Facts about your company. The AI writes posts only from entries that are turned on. Anything taken from a website stays off until you turn it on.</p><div class="panel"><div class="acts"><button class="btn p" onclick="knEdit(0)">Add entry</button><button class="btn" onclick="loadKn()">Refresh</button><button class="btn" onclick="knSeed()">Add starter products</button></div></div><div class="bar" style="margin-top:16px">${f.map(x=>`<button class="f ${kflt===x[0]?"on":""}" onclick="kflt='${x[0]}';render()">${x[1]} (${x[2]})</button>`).join("")}</div>${L.map(krow).join("")||'<p class="hint">Nothing here yet.</p>'}`}
+const knSave=o=>api("knowledge-save",o);
+async function knToggle(id){const k=kn.find(x=>x.id===id);if(!k)return;const on=!isOn(k),o={...k,status:on?"active":"inactive",verified:on?"true":"false"};try{await knSave(o);Object.assign(k,o);render()}catch(e){fail(e)}}
+async function knDel(id){const k=kn.find(x=>x.id===id);if(!k||!confirm("Delete "+k.title+"?"))return;try{await api("knowledge-delete",{id});kn=kn.filter(x=>x.id!==id);render()}catch(e){fail(e)}}
+function knEdit(id){const k=kn.find(x=>x.id===id)||{title:"",content:""};let d=$("#kd");if(!d){d=document.createElement("dialog");d.id="kd";document.body.appendChild(d)}
+d.innerHTML=`<h3>${id?"Edit entry":"New entry"}</h3><label for="kt">Title</label><input id="kt" value="${esc(k.title.replace(/^product:\s*/i,""))}"><label for="kc">Content</label><textarea id="kc" rows="12">${esc(k.content)}</textarea><label style="display:inline-flex;gap:6px;align-items:center;margin-top:10px"><input type="checkbox" id="kprod" ${/^product:/i.test(k.title)?"checked":""} style="width:auto"> This entry is a company product</label><br><label style="display:inline-flex;gap:6px;align-items:center;margin-top:10px"><input type="checkbox" id="kon" ${id&&isOn(k)?"checked":""} style="width:auto"> Let the AI use this entry</label><div class="acts"><button class="btn p" onclick="knOk(${id})">Save</button><button class="btn" onclick="$('#kd').close()">Cancel</button></div>`;d.showModal()}
+async function knOk(id){const k=kn.find(x=>x.id===id)||{scope:"all"},on=$("#kon").checked,o={id:id||null,title:($("#kprod").checked?"Product: ":"")+v("#kt").trim(),content:v("#kc"),scope:k.scope||"all",status:on?"active":"inactive",verified:on?"true":"false"};if(!v("#kt").trim()||!o.content.trim())return toast("Title and content are required");try{await knSave(o);$("#kd").close();await loadKn();toast("Saved")}catch(e){fail(e)}}
+async function fromLinks(){const U=v("#lnk").trim();if(!U)return toast("Paste at least one link");toast("Reading the pages… about 30 seconds");try{const r=one(await api("idea-from-link",{urls:U})),R=(r&&r.results)||[],ok=R.filter(x=>x.ok);if(!ok.length)return toast(R[0]&&R[0].error?R[0].error:"No ideas came back");
+for(const x of ok){try{await knSave({id:null,title:"From website: "+x.title,content:"Source: "+x.url+"\n\n"+x.summary,scope:"all",status:"inactive",verified:"false"})}catch(e){}}
+ideasTxt=(ideasTxt.trim()?ideasTxt.trim()+"\n":"")+ok.map(x=>x.idea).join("\n");const keep=U;render();$("#lnk").value=keep;toast(ok.length+" ideas added. Summaries saved in Knowledge, turned off until you turn them on"+(ok.length<R.length?". Some links could not be read":""))}catch(e){fail(e)}}
+let PLAN=null,NP="",BS={};
+const note=p=>BS[p]&&BS[p].trim()?"\n\nSTYLE FOR THIS POST (follow it): "+BS[p].trim():"";
+const planH=()=>!PLAN||!PLAN.length?"":`${sumH()}<p class="hint"><b>${PLAN.length} posts</b> · ${PLAT2.map(p=>[p,PLAN.filter(o=>o.platform===p).length]).filter(x=>x[1]).map(x=>x[0]+" "+x[1]).join(" · ")}. Press Create on the posts you want now, Remove the ones you do not want, change any date, or save the rest for later.</p>${PLAN.map((o,i)=>`<div class="row" style="cursor:default"><input type="date" value="${o.date||""}" onchange="PLAN[${i}].date=this.value" style="width:auto">${pn(o.platform)}<div class="mid"><div class="snip" dir="auto" style="white-space:normal">${esc(o.idea.split("\n")[0])}</div>${o.pillar||o.why||o.cta?`<small class="hint" dir="auto">${esc([o.pillar,o.why,o.cta?"CTA: "+o.cta:""].filter(Boolean).join(" · "))}</small>`:""}${o.asset?`<div class="hint" dir="auto">🎬 Prepare first: ${esc(o.asset)}</div>`:""}${o.gap?`<div class="gap">⚠ Needs proof first: ${esc(o.gap)}</div>`:""}</div>${o.format?`<span class="tag">${esc(o.format)}</span>`:""}<button class="btn p" onclick="createOne(${i})">Create</button><button class="btn d" onclick="PLAN.splice(${i},1);$('#plan').innerHTML=planH()">Remove</button></div>`).join("")}<div class="acts"><button class="btn" onclick="parkPlan()">Save the rest for later</button><button class="btn" onclick="PLAN=null;PLANSUM=null;$('#plan').innerHTML=''">Clear the plan</button></div>`;
+async function preview(){const mon=v("#smon");if(!$("#sch").checked)$("#sch").checked=true;if(!mon)return toast("Pick a month");const it=await buildItems();if(!it)return;PLAN=(+v("#rpw")>0)?rhythm(it,mon,$("#sk").checked,+v("#rpw"),+v("#rcw")||0):spread(it,mon,$("#sk").checked);$("#plan").innerHTML=planH();toast(PLAN.length?"Check the dates, then press Create posts":"No free days left in that month")}
+async function expand(L){const N=+NP||0;if(N&&N<L.length)L=L.slice(0,N);
+if(N>L.length&&L.length){toast("Thinking of "+(N-L.length)+" more ideas…");try{const r=one(await api("ideas-suggest",{count:Math.min(30,N-L.length),platform:pickP()[0]||D.platform,language:D.lang,source:"product",focus:L.join("; ").slice(0,300)}));if(r&&r.ideas&&r.ideas.length)L=L.concat(r.ideas).slice(0,N)}catch(e){}}
+ideasTxt=L.join("\n");if($("#ideas"))$("#ideas").value=ideasTxt;return L}
+const prods=()=>kn.filter(k=>/^product:/i.test(k.title)&&isOn(k)).map(k=>k.title.replace(/^product:\s*/i,""));
+async function knSeed(){const S=[["Mobile application (Android and iOS)","A mobile application for teachers and students that provides interactive learning tools."],["Augmented Reality (AR) kit","Enhances learning through Augmented Reality."],["Learning Management System","Used for monitoring and feedback."],["Web-based application","Used for ideation and in-class activities."],["Facilitator guide and students' activities","Provides structured learning materials."],["3D printing system","Supports hands-on projects."],["AI-based tests (pre and post)","Measure creativity and thinking skills."]];const have=kn.map(k=>k.title.toLowerCase());let n=0;for(const[t,c]of S){if(have.includes(("product: "+t).toLowerCase()))continue;try{await knSave({id:null,title:"Product: "+t,content:c,scope:"all",status:"active",verified:"true"});n++}catch(e){fail(e);break}}await loadKn();toast(n?n+" products added. Edit them to add more detail":"They are already there")}
+const CS={candidate:"New",approved:"Approved",rejected:"Rejected"},CK={candidate:"var(--c2)",approved:"var(--c4)",rejected:"var(--c5)"},SIM={high:"Close match",medium:"Similar",low:"Loosely related"};
+let comps=[],cflt="all",cbusy=false;
+const fc=r=>({id:r.id,name:r.name||r.domain||"",site:r.website||"",domain:r.domain||"",what:r.what_they_do||"",sim:r.similarity||"low",why:r.reason||"",status:r.status||"candidate"});
+async function loadComps(){try{const r=await api("competitors-list");comps=(Array.isArray(r)?r:r?[r]:[]).filter(x=>x&&x.id!=null).map(fc);if(view==="comp")render()}catch(e){fail(e)}}
+async function findComps(){if(cbusy)return;cbusy=true;render();toast("Searching the web. This takes 1 to 2 minutes");try{await api("competitors-find",{});const n=comps.length;for(let i=0;i<24&&comps.length===n;i++){await wait(5000);await loadComps()}toast(comps.length>n?(comps.length-n)+" new competitors found":"Finished. Nothing new yet. Press Refresh in a minute")}catch(e){fail(e)}cbusy=false;if(view==="comp")render()}
+async function setComp(id,st){const c=comps.find(x=>x.id===id);if(!c)return;const o=c.status;c.status=st;render();try{await api("competitor-update",{id,status:st})}catch(e){c.status=o;render();fail(e)}}
+async function delComp(id){const c=comps.find(x=>x.id===id);if(!c||!confirm("Delete "+c.name+"? A new search may find it again. Use Reject to hide it for good."))return;try{await api("competitor-delete",{id});comps=comps.filter(x=>x.id!==id);render();toast("Deleted")}catch(e){fail(e)}}
+const crow=c=>`<div class="row" style="cursor:default;border-left-color:${CK[c.status]||"var(--c1)"}"><div class="mid"><b>${esc(c.name)}</b> <small>· <a href="${/^https?:\/\//.test(c.site)?esc(c.site):"#"}" target="_blank" rel="noopener">${esc(c.domain)}</a></small><div class="snip" dir="auto" style="white-space:normal">${esc(c.what)}</div><small dir="auto">${esc(c.why.replace(/\s*\[source:.*$/,""))}</small></div><span class="pill">${SIM[c.sim]||c.sim}</span><span><button class="btn" onclick="setComp(${c.id},'approved')" ${c.status==="approved"?"disabled":""}>Approve</button> <button class="btn d" onclick="setComp(${c.id},'rejected')" ${c.status==="rejected"?"disabled":""}>Reject</button> <button class="btn d" onclick="delComp(${c.id})">Delete</button></span></div>`;
+function compH(){const L=comps.filter(c=>cflt==="all"||c.status===cflt),n=s=>comps.filter(c=>c.status===s).length;return `<h2>Competitors</h2><p class="sub">The AI searches the web for companies like yours. Approve the real ones. "Suggest ideas" on the Ideas page uses the approved ones.</p><div class="panel"><div class="acts"><button class="btn p" onclick="findComps()" ${cbusy?"disabled":""}>${cbusy?"Searching…":"Find competitors"}</button><button class="btn" onclick="loadComps()">Refresh</button></div><p class="hint">Each search uses a few web-search credits. Nothing is posted or sent.</p></div><div class="bar" style="margin-top:16px">${["all",...Object.keys(CS)].map(k=>`<button class="f ${cflt===k?"on":""}" onclick="cflt='${k}';render()">${k==="all"?"All":CS[k]} (${k==="all"?comps.length:n(k)})</button>`).join("")}</div>${L.map(crow).join("")||'<p class="hint">No competitors here yet. Press Find competitors.</p>'}`}
+const sugH=()=>!SUG||!SUG.length?"":`<p class="hint" style="margin-top:14px"><b>${SUG.length} ideas</b>${SUGN&&SUG.length<SUGN?` (you asked for ${SUGN}, the AI returned fewer. Press Suggest ideas again)`:` (you asked for ${SUGN})`}. Tick the ones you like and edit them. Nothing is written until you press Create posts.</p>${SUG.map((x,i)=>`<div class="row" style="cursor:default"><input type="checkbox" ${x.on?"checked":""} style="width:auto" aria-label="Keep this idea" onchange="SUG[${i}].on=this.checked"><div class="mid"><input value="${esc(x.idea)}" dir="auto" oninput="SUG[${i}].idea=this.value">${x.gap?`<div class="gap">⚠ Needs proof first: ${esc(x.gap)}. Add it on the Knowledge page, or the post will stay general.</div>`:""}</div><button class="btn d" onclick="SUG.splice(${i},1);$('#sug').innerHTML=sugH()">Remove</button></div>`).join("")}<div class="acts"><button class="btn p" onclick="sugAdd()">Add ticked ideas to my ideas box</button><button class="btn" onclick="sugPark()">Save ticked to the Parking lot</button><button class="btn" onclick="SUG=null;$('#sug').innerHTML=''">Clear</button></div>`;
+const sugOn=()=>(SUG||[]).filter(x=>x.on&&String(x.idea).trim()).map(x=>String(x.idea).replace(/\s+/g," ").trim());
+function sugAdd(){const L=sugOn();if(!L.length)return toast("Tick at least one idea");ideasTxt=(ideasTxt.trim()?ideasTxt.trim()+"\n":"")+L.join("\n");if($("#ideas"))$("#ideas").value=ideasTxt;SUG=SUG.filter(x=>!x.on);$("#sug").innerHTML=sugH();PLAN=null;$("#plan").innerHTML="";toast(L.length+" added. The ideas box now has "+ideasTxt.split("\n").filter(Boolean).length+" ideas")}
+async function sugPark(){const L=sugOn();if(!L.length)return toast("Tick at least one idea");const p=pickP()[0]||D.platform;try{await api("ideas-park",{items:L.map(x=>({idea:x,platform:p==="Newsletter"?"LinkedIn":p,pillar:BP}))});logAct("saved ideas for later",0,L.length+" ideas");toast(L.length+" ideas saved in the Parking lot");SUG=SUG.filter(x=>!x.on);$("#sug").innerHTML=sugH();await load()}catch(e){fail(e)}}
+async function suggest(){const S=v("#isrc"),C=Math.min(30,Math.max(1,parseInt(v("#icnt"),10)||5)),F=v("#ifoc"),P0=v("#iprod"),FF=P0||F,S2=P0?"product":S;if(S2==="product"&&!FF.trim())return toast("Type the product or content name first");toast("Thinking of "+C+(C===1?" idea":" ideas")+"… about 10 seconds");
+try{const r=one(await api("ideas-suggest",{count:C,platform:(pickP()[0]||D.platform),language:D.lang,source:S2,focus:FF})),it=r&&(r.items&&r.items.length?r.items:(r.ideas||[]).map(x=>({idea:x,gap:""})));if(!it||!it.length)return toast(r&&r.error?r.error:"No ideas came back");
+SUG=it.slice(0,C).map(x=>({idea:x.idea,gap:x.gap||"",on:true}));SUGN=C;$("#sug").innerHTML=sugH();toast(SUG.length+" ideas to review below")}catch(e){fail(e)}}
+async function repurpose(){const P=[...document.querySelectorAll(".rp:checked")].map(x=>x.value);if(!P.length)return toast("Pick at least one platform");collect();try{await save(sel);await api("post-repurpose",{id:sel.id,platforms:P});logAct("repurposed",sel.id,ttl(sel)+" → "+P.join(", "));$("#ed").close();toast(P.length+" versions are being written");await load();show("posts")}catch(e){fail(e)}}
 const LS={new:"New",drafted:"Draft ready",sent:"Sent",replied:"Replied",answered:"Answered",stopped:"Stopped"};
 let leads=[],lsel=null,lflt="all",SD={offer:"",sig:""};
 const fl=r=>({id:r.id,name:r.name||"",email:r.email||"",company:r.company||"",notes:r.notes||"",status:r.status||"new",subject:r.subject||"",body:r.body||"",thread:r.thread_id||"",msg:r.msg_id||"",reply:r.reply_text||"",draft:r.reply_draft||"",sent:r.sent_at||"",rat:r.replied_at||""});
@@ -230,4 +544,191 @@ ok++;toast(ok+" / "+L.length)}catch(e){console.error(e);toast("Stopped: "+(e.mes
 if(k==="send")await wait(2500)}
 await loadLeads()}
 
+/* ---------- calendar: week table, month, quarter ---------- */
+function wkStart(d){const x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-x.getDay());return x}
+let cw=wkStart(new Date());
+const dnum=k=>new Date(k+"T00:00:00"),fmtD=(d,o)=>d.toLocaleString("en",o);
+function stLabel(p){if(p.status==="approved")return p.date?["Scheduled","sched"]:["Approved","appr"];if(p.status==="needs_review")return["Draft","draft"];if(p.status==="idea")return["Idea","idea"];if(p.status==="generating")return["Writing…","gen"];return["Rejected","rej"]}
+const bdg=p=>{const a=stLabel(p);return `<span class="bdg k-${a[1]}">${a[0]}</span>`};
+const ctaOf=p=>(p.meta&&p.meta.cta)||D.cta;
+const visOf=p=>p.img&&p.mode!=="none"?`<img class="vis" src="${esc(p.img)}" alt="">`:(p.meta&&p.meta.slides&&p.meta.slides.length?`<span class="vis cv">${esc(p.meta.slides[0].title.slice(0,40))}</span>`:`<span class="vis">${p.format==="Carousel"?"Carousel":"No image"}</span>`);
+function calTitle(){if(CM==="week"){const e=new Date(cw);e.setDate(e.getDate()+6);return fmtD(cw,{month:"short",day:"numeric"})+" – "+fmtD(e,{month:"short",day:"numeric",year:"numeric"})}if(CM==="month")return fmtD(cal,{month:"long",year:"numeric"});return "Q"+(Math.floor(cal.getMonth()/3)+1)+" "+cal.getFullYear()}
+function mv(n){if(CM==="week")cw=new Date(cw.getFullYear(),cw.getMonth(),cw.getDate()+7*n);else if(CM==="month")cal=new Date(cal.getFullYear(),cal.getMonth()+n,1);else cal=new Date(cal.getFullYear(),cal.getMonth()+3*n,1);render()}
+function goToday(){cw=wkStart(new Date());cal=new Date();render()}
+function goDay(k){cw=wkStart(dnum(k));CM="week";render()}
+function weekH(live){const e=new Date(cw);e.setDate(e.getDate()+6);const a=dstr(cw),b=dstr(e);const L=live.filter(p=>p.date>=a&&p.date<=b).sort((x,y)=>x.date<y.date?-1:x.date>y.date?1:0);
+if(!L.length)return `<p class="hint">No posts in this week. Use Month or Quarter to find other weeks, or add ideas on the Ideas page.</p>`;
+const wd=k=>{const d=dnum(k);return `<div class="dt"><b>${fmtD(d,{weekday:"short"})}</b><small>${fmtD(d,{month:"short",day:"numeric"})}</small></div>`};
+return `<div class="wrap"><table class="cl"><tr><th>Date</th><th>Platform</th><th>Visual</th><th>Content / Topic</th><th>Format</th><th>Goal</th><th>CTA</th><th>Link / Destination</th><th>Status</th></tr>${L.map(p=>`<tr class="clr" tabindex="0" onclick="openP(${p.id})" onkeydown="if(event.key==='Enter')openP(${p.id})"><td>${wd(p.date)}</td><td>${pn(p.platform)}</td><td>${visOf(p)}</td><td dir="auto">${esc(ttl(p))}${p.pillar?`<br><span class="tag ${isPromo(p)?"promo":"val"}">${esc(p.pillar)}</span>`:""}</td><td>${fmtOf(p)}</td><td>${esc((p.meta||{}).goal||"–")}</td><td title="${esc(ctaOf(p))}">${esc(ctaOf(p).slice(0,34))}</td><td>${esc((p.meta||{}).link||"–")}</td><td>${bdg(p)}</td></tr>`).join("")}</table></div>`}
+const FC={Reel:"#e11d74",Carousel:"#7c3aed",Image:"#2563eb",Text:"#64748b",Video:"#ea580c",Newsletter:"#d97706"};
+function pc(p){const t=stLabel(p),f=fmtOf(p);return `<span class="pc s-${p.status}" tabindex="0" draggable="true" ondragstart="drag=${p.id}" onclick="openP(${p.id})" onkeydown="if(event.key==='Enter')openP(${p.id})" title="${esc(p.platform+(p.pillar?" · "+p.pillar:"")+" · "+f)}"><span class="pc-h">${pi(p.platform)}<em class="st st-${t[1]}">${t[0]}</em></span><span class="pc-t" dir="auto">${esc(ttl(p))}</span><span class="pc-f" style="--fc:${FC[f]||"#64748b"}">${esc(f)}</span></span>`}
+function monthH(live){const y=cal.getFullYear(),mo=cal.getMonth(),f=new Date(y,mo,1).getDay(),n=new Date(y,mo+1,0).getDate();
+let h=`<div class="wrap"><div class="cal">`+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="dh">${d}</div>`).join("");
+const td=dstr(new Date());for(let i=0;i<f;i++)h+='<div class="cell mt"></div>';
+for(let d=1;d<=n;d++){const k=`${y}-${String(mo+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;h+=`<div class="cell${k===td?" td":""}" ondragover="event.preventDefault()" ondrop="drop('${k}')"><i>${d}</i>`+live.filter(p=>p.date===k).map(pc).join("")+"</div>"}
+return h+"</div></div>"}
+function quarterH(live){const y=cal.getFullYear(),q=Math.floor(cal.getMonth()/3);let h='<div class="q3">',tot=0,car=0;
+for(let m=q*3;m<q*3+3;m++){const f=new Date(y,m,1).getDay(),n=new Date(y,m+1,0).getDate();let g=["S","M","T","W","T","F","S"].map(x=>`<i>${x}</i>`).join(""),c=0;for(let i=0;i<f;i++)g+="<span></span>";
+for(let d=1;d<=n;d++){const k=y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0"),L=live.filter(p=>p.date===k);tot+=L.length;c+=L.length;car+=L.filter(p=>p.format==="Carousel").length;g+=`<div class="md ${L.length?"has":""}" ${L.length?`tabindex="0" onclick="goDay('${k}')" onkeydown="if(event.key==='Enter')goDay('${k}')" title="${esc(L.map(p=>p.platform+": "+ttl(p)).join("\n"))}"`:""}>${d}${L.length?`<span class="dots">${L.slice(0,4).map(p=>pi(p.platform)).join("")}</span>`:""}</div>`}
+h+=`<div class="mini"><h4>${fmtD(new Date(y,m,1),{month:"long"})} <span class="hint">· ${c} posts</span></h4><div class="mg">${g}</div></div>`}
+return `<p class="hint">${tot} posts scheduled this quarter, ${car} of them carousels. Click a day to open its week.</p>`+h+"</div>"}
+function calH(){const live=posts.filter(p=>!p.parked),u=live.filter(p=>!p.date);
+const tabs=[["week","Week table"],["month","Month"],["quarter","Quarter"]];
+return `<h2>Calendar</h2><p class="sub">${CM==="month"?"Drag a post to another day to reschedule it.":"Open a post to edit it. Every post shows its platform, format, goal and status."}</p>
+<div class="bar">${tabs.map(t=>`<button class="f ${CM===t[0]?"on":""}" onclick="CM='${t[0]}';render()">${t[1]}</button>`).join("")}<span style="flex:1"></span><button class="btn" onclick="exportCsv()">Export CSV</button></div>
+<div class="bar"><button class="btn" onclick="mv(-1)" aria-label="Previous">‹</button><b>${calTitle()}</b><button class="btn" onclick="mv(1)" aria-label="Next">›</button><button class="btn" onclick="goToday()">Today</button></div>
+${CM==="week"?weekH(live):CM==="month"?monthH(live):quarterH(live)}
+<h2 style="margin-top:26px;font-size:18px">Not scheduled</h2><p class="hint">Posts without a date. Open one to give it a day.</p>${u.map(row).join("")||'<p class="hint">Every post has a date.</p>'}`}
+function exportCsv(){const q=x=>'"'+String(x==null?"":x).replace(/"/g,'""')+'"',R=[["Date","Platform","Topic","Format","Goal","Pillar","CTA","Link","Status","Post text"]];
+posts.filter(p=>!p.parked).sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(p=>R.push([p.date,p.platform,ttl(p),fmtOf(p),(p.meta||{}).goal||"",p.pillar,ctaOf(p),(p.meta||{}).link||"",stLabel(p)[0],p.text+(p.tags?"\n"+p.tags:"")]));
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+R.map(r=>r.map(q).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"}));a.download="content-calendar.csv";a.click();toast("Calendar exported")}
+/* weekly rhythm: N posts a week, some of them carousels */
+function rhythm(it,mon,skip,per,car){const[y,m]=mon.split("-").map(Number),t=new Date();t.setHours(0,0,0,0);const wk={};
+for(let d=1;d<=new Date(y,m,0).getDate();d++){const x=new Date(y,m-1,d);if(x<=t||(skip&&(x.getDay()===5||x.getDay()===6)))continue;const k=dstr(wkStart(x));(wk[k]=wk[k]||[]).push(x)}
+const slots=[];Object.keys(wk).sort().forEach(k=>{const ds=wk[k],n=Math.min(per,ds.length),pk=[];for(let i=0;i<n;i++)pk.push(ds[n===1?0:Math.round(i*(ds.length-1)/(n-1))]);const step=car>0?Math.max(1,Math.round(n/car)):0;pk.forEach((x,j)=>slots.push({date:dstr(x),car:car>0&&j%step===0&&Math.floor(j/step)<car}))});
+return it.map((o,k)=>{const sl=slots[k];if(!sl)return{...o};const can=["LinkedIn","Instagram","Facebook"].includes(o.platform);return{...o,date:sl.date,format:o.format||(sl.car&&can?"Carousel":"")}})}
+
+
+/* ---------- the AI plans a whole month ---------- */
+function planWeeks(mon,skip){const[y,m]=mon.split("-").map(Number),t=new Date();t.setHours(0,0,0,0);const wk={};
+for(let d=1;d<=new Date(y,m,0).getDate();d++){const x=new Date(y,m-1,d);if(x<=t||(skip&&(x.getDay()===5||x.getDay()===6)))continue;const k=dstr(wkStart(x));(wk[k]=wk[k]||[]).push(x)}
+return Object.keys(wk).sort().map(k=>wk[k])}
+function planDates(items,wk){const g={};items.forEach(o=>{const w=Math.min(Math.max(o.week||1,1),wk.length)-1;(g[w]=g[w]||[]).push(o)});
+Object.keys(g).forEach(w=>{const days=wk[w],n=g[w].length;g[w].forEach((o,k)=>{o.date=dstr(days[n===1?0:Math.round(k*(days.length-1)/(n-1))])})});return items}
+const STG={Awareness:"#2563eb",Trust:"#7c3aed",Action:"#16a34a"};
+const sumH=()=>{if(!PLANSUM)return"";const S=PLANSUM,C=S.campaign||{},NL=S.newsletter||{},K=C.kpis||[],B=S.backup||[];return `<div class="panel camp" style="margin:14px 0"><div class="camp-h"><b>${esc(C.name||"How "+S.mon+" will go")}</b><span class="hint">${esc(S.mon)}</span></div>${C.big_idea?`<p dir="auto" style="margin:6px 0"><b>Big idea:</b> ${esc(C.big_idea)}</p>`:""}${C.audience?`<p class="hint" dir="auto">Audience: ${esc(C.audience)}</p>`:""}<p style="margin:6px 0" dir="auto">${esc(S.summary||"")}</p><div class="camp-w">${(S.weeks||[]).map(w=>`<div class="camp-wk" style="--fc:${STG[w.stage]||"#64748b"}"><span><b>Week ${w.week}</b>${w.stage?` <em class="st">${esc(w.stage)}</em>`:""}</span><span dir="auto">${esc(w.theme)}</span>${w.why?`<small class="hint" dir="auto">${esc(w.why)}</small>`:""}</div>`).join("")}</div>${K.length?`<p class="hint" dir="auto"><b>Check at the end of the month:</b> ${K.map(esc).join(" · ")}</p>`:""}${NL.idea?`<div class="camp-nl" dir="auto">📧 <b>Newsletter${NL.week?" (week "+NL.week+")":""}:</b> ${esc(NL.subject||"")}<br><small>${esc(NL.idea)}</small><div class="acts"><button class="btn" onclick="useNewsletter()">Write this newsletter</button></div></div>`:""}${B.length?`<div class="camp-nl" dir="auto">🧰 <b>Backup ideas</b> for when a post slips:<br>${B.map(x=>"• "+esc(x)).join("<br>")}<div class="acts"><button class="btn" onclick="parkBackup()">Save them in the Parking lot</button></div></div>`:""}</div>`};
+function recentPosts(){const t=new Date();t.setHours(0,0,0,0);const lo=dstr(new Date(t.getTime()-60*864e5)),hi=dstr(new Date(t.getTime()+30*864e5));return posts.filter(p=>!p.parked&&p.status!=="rejected"&&p.date&&p.date>=lo&&p.date<=hi).sort((x,y)=>String(y.date).localeCompare(String(x.date))).slice(0,25).map(p=>p.date+" · "+p.platform+" · "+fmtOf(p)+" · "+ttl(p))}
+function useNewsletter(){const NL=PLANSUM&&PLANSUM.newsletter;if(!NL||!NL.idea)return;ideasTxt=(NL.subject?NL.subject+" — ":"")+NL.idea;OUT="newsletter";PLAN=null;PLANSUM=null;render();toast("The newsletter idea is ready. Press Create when you like it")}
+async function parkBackup(){const B=PLANSUM&&PLANSUM.backup;if(!B||!B.length)return;try{await api("ideas-park",{items:B.map(x=>({idea:x,platform:PLANSUM.p0||D.platform,pillar:BP}))});logAct("saved ideas for later",0,B.length+" backup ideas");toast(B.length+" ideas saved in the Parking lot")}catch(e){fail(e)}}
+async function aiPlan(){const P=pickP().filter(x=>x!=="Newsletter");if(!P.length)return toast("Tick at least one platform above");const mon=v("#pmon");if(!mon)return toast("Pick a month");
+const skip=$("#psk").checked,per=Math.min(7,Math.max(1,parseInt(v("#ppw"),10)||3)),car=Math.min(5,Math.max(0,parseInt(v("#pcw"),10)||0)),wk=planWeeks(mon,skip);
+if(!wk.length)return toast("No free days left in that month. Pick a later month");
+const count=Math.min(30,wk.reduce((a,w)=>a+Math.min(per,w.length),0));toast("Planning "+monName(mon)+"… about 20 seconds");
+try{const r=one(await api("ideas-suggest",{mode:"plan",count,weeks:wk.length,perweek:per,carousels:car,platforms:P,platform:P[0],language:D.lang,month_name:monName(mon),goal:v("#pgoal"),value_pillars:PIL.value,promo_pillars:PIL.promo,recent:recentPosts()}));
+if(!r||!r.items||!r.items.length)return toast(r&&r.error?r.error:"No plan came back");
+PLAN=planDates(r.items,wk).map(o=>({idea:o.idea+(o.cta?"\nCTA: "+o.cta:"")+note(o.platform),platform:o.platform,tone:BT,pillar:o.pillar||BP,format:o.format||"",goal:o.goal||BG,link:BL,date:o.date,why:o.why,gap:o.gap,cta:o.cta,asset:o.asset}));
+PLANSUM={summary:r.summary,weeks:r.weeks,mon:monName(mon),campaign:r.campaign,newsletter:r.newsletter,backup:r.backup,p0:P[0]};$("#plan").innerHTML=planH();
+toast(PLAN.length+" posts planned"+(r.short?" (you asked for "+count+")":"")+". Check the plan below");$("#plan").scrollIntoView({behavior:"smooth",block:"start"})}catch(e){fail(e)}}
+
+/* ---------- carousel slides: preview and PNG download ---------- */
+const THEMES={teal:["#0e7c86","#ffffff","#f2a33a"],dark:["#12263a","#ffffff","#4cc3cd"],light:["#f5f8f9","#12263a","#0e7c86"],warm:["#f2a33a","#12263a","#ffffff"]};
+function drawSlide(s,i,n,th,w,h){const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d"),T=THEMES[th]||THEMES.teal,bg=T[0],fg=T[1],ac=T[2],k=w/1080,ar=/[\u0600-\u06ff]/.test((s.title||"")+(s.text||"")),F='"Cairo","Plus Jakarta Sans",system-ui,sans-serif';
+x.fillStyle=bg;x.fillRect(0,0,w,h);x.globalAlpha=.18;x.fillStyle=ac;x.beginPath();x.arc(w*.95,h*.05,w*.38,0,7);x.fill();x.beginPath();x.arc(w*.02,h*.98,w*.22,0,7);x.fill();x.globalAlpha=1;
+x.direction=ar?"rtl":"ltr";x.textAlign=ar?"right":"left";x.textBaseline="alphabetic";const px=ar?w-90*k:90*k,mw=w-180*k;
+const wrap=(t,fs,wt,y,lh,col)=>{x.font=`${wt} ${fs*k}px ${F}`;x.fillStyle=col;let line="",yy=y;for(const wd of String(t||"").split(/\s+/)){const tt=line?line+" "+wd:wd;if(x.measureText(tt).width>mw&&line){x.fillText(line,px,yy);line=wd;yy+=lh*k}else line=tt}if(line){x.fillText(line,px,yy);yy+=lh*k}return yy};
+if(i===0){const y=wrap(s.title,96,800,h*.36,116,fg);if(s.text)wrap(s.text,44,500,y+24*k,62,fg)}
+else{x.font=`800 ${64*k}px ${F}`;x.fillStyle=ac;x.fillText(String(i).padStart(2,"0"),px,190*k);const y=wrap(s.title,70,800,330*k,88,i===n-1?ac:fg);if(s.text)wrap(s.text,46,500,y+28*k,66,fg)}
+const bw=(w-180*k)/n;for(let j=0;j<n;j++){x.globalAlpha=j===i?1:.3;x.fillStyle=fg;x.fillRect(90*k+j*bw,h-190*k,bw-10*k,8*k)}x.globalAlpha=1;
+x.font=`700 ${34*k}px ${F}`;x.fillStyle=fg;x.fillText(BRAND,px,h-100*k);
+if(i<n-1){x.textAlign=ar?"left":"right";x.font=`800 ${56*k}px ${F}`;x.fillStyle=ac;x.fillText(ar?"←":"→",ar?90*k:w-90*k,h-96*k)}
+return c}
+function carH(p,written){const S=p.meta.slides||[],th=p.meta.theme||"teal";
+return `<fieldset><legend>Carousel slides</legend>${S.length?`<div class="bar" style="margin-top:8px"><label class="chk">Colors <select id="sth" style="width:auto" onchange="slTheme(this.value)">${Object.keys(THEMES).map(t=>`<option ${t===th?"selected":""}>${t}</option>`).join("")}</select></label><button class="btn p" onclick="dlSlides()">Download all slides (PNG)</button></div><div class="slides">${S.map((s,i)=>`<img class="slimg" data-i="${i}" alt="Slide ${i+1}" title="Click to download slide ${i+1}" onclick="dlSlides(${i})">`).join("")}</div>${S.map((s,i)=>`<div class="g2"><div><label>Slide ${i+1} title</label><input value="${esc(s.title)}" dir="auto" oninput="slEdit(${i},'title',this.value)"></div><div><label>Text</label><input value="${esc(s.text)}" dir="auto" oninput="slEdit(${i},'text',this.value)"></div></div>`).join("")}<p class="hint">Slides are 1080 × 1350 pixels, the size Instagram and LinkedIn carousels use. Press Save changes to keep your edits.</p>`:`<p class="hint">${written?"No slides yet. Press Rewrite post and the AI writes the caption and the slides.":"Press Write post and the AI writes the caption and the slides."}</p>`}<label for="sc">Number of slides the AI writes</label><input id="sc" type="number" min="4" max="10" value="${p.meta.slides_count||7}" style="max-width:120px"></fieldset>`}
+async function renderSlides(){if(!sel||!document.querySelector(".slimg"))return;const S=sel.meta.slides||[];try{await document.fonts.load('800 40px "Cairo"');await document.fonts.load('800 40px "Plus Jakarta Sans"')}catch(e){}
+document.querySelectorAll(".slimg").forEach(im=>{const i=+im.dataset.i;if(S[i])im.src=drawSlide(S[i],i,S.length,sel.meta.theme||"teal",270,338).toDataURL()})}
+function slEdit(i,k,val){sel.meta.slides[i][k]=val;clearTimeout(slT);slT=setTimeout(renderSlides,250)}
+function slTheme(t){sel.meta.theme=t;renderSlides()}
+async function dlSlides(only){const S=sel.meta.slides||[];try{await document.fonts.load('800 40px "Cairo"');await document.fonts.load('800 40px "Plus Jakarta Sans"')}catch(e){}
+const idx=only===undefined?S.map((_,i)=>i):[only];for(const i of idx){const c=drawSlide(S[i],i,S.length,sel.meta.theme||"teal",1080,1350),b=await new Promise(r=>c.toBlob(r,"image/png")),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="slide-"+String(i+1).padStart(2,"0")+".png";document.body.appendChild(a);a.click();a.remove();await wait(350)}
+toast(idx.length>1?"Slides downloaded. If only one arrived, allow multiple downloads in your browser":"Slide downloaded")}
+
+
+/* ---------- change history: see what changed, and go back ---------- */
+const tokz=t=>String(t||"").split(/(\s+)/).filter(x=>x!=="");
+function diffW(a,b){const A=tokz(a),B=tokz(b),n=A.length,m=B.length;if(n*m>1500000)return[[-1,String(a)],[1,String(b)]];
+const W=m+1,T=new Uint16Array((n+1)*W);for(let i=n-1;i>=0;i--)for(let j=m-1;j>=0;j--)T[i*W+j]=A[i]===B[j]?T[(i+1)*W+j+1]+1:Math.max(T[(i+1)*W+j],T[i*W+j+1]);
+const out=[],push=(t,x)=>{const l=out[out.length-1];if(l&&l[0]===t)l[1]+=x;else out.push([t,x])};let i=0,j=0;
+while(i<n&&j<m){if(A[i]===B[j]){push(0,A[i]);i++;j++}else if(T[(i+1)*W+j]>=T[i*W+j+1]){push(-1,A[i]);i++}else{push(1,B[j]);j++}}
+while(i<n)push(-1,A[i++]);while(j<m)push(1,B[j++]);return out}
+const diffH=(a,b)=>diffW(a,b).map(([t,x])=>t===0?esc(x):t<0?`<del>${esc(x)}</del>`:`<ins>${esc(x)}</ins>`).join("");
+const diffCount=(a,b)=>{let p=0,m=0;diffW(a,b).forEach(([t,x])=>{const n=(x.match(/\S+/g)||[]).length;if(t>0)p+=n;else if(t<0)m+=n});return[p,m]};
+function histPush(p,txt,tags,why){if(!String(txt||"").trim())return;p.meta=p.meta||{};const h=p.meta.history||[];if(h[0]&&h[0].text===txt&&h[0].tags===(tags||""))return;h.unshift({at:new Date().toISOString(),by:who(),text:String(txt).slice(0,5000),tags:String(tags||"").slice(0,400),why});p.meta.history=h.slice(0,8)}
+function histH(p){const h=(p.meta&&p.meta.history)||[];
+return `<fieldset><legend>Changes${h.length?` (${h.length} earlier ${h.length===1?"version":"versions"})`:""}</legend><div class="acts" style="margin-top:6px"><button class="btn" onclick="showEdits()">Show my edits so far</button></div><div id="hd"></div>${h.length?`<p class="hint">Red was removed, green was added.</p>`+h.map((e,i)=>`<div class="row" style="cursor:default"><div class="mid"><b>${esc(e.why||"Earlier version")}</b><br><small>${esc(String(e.at).replace("T"," ").slice(0,16))}${e.by?" · "+esc(e.by):""}</small></div><span><button class="btn" onclick="showDiff(${i})">What changed</button> <button class="btn" onclick="restoreV(${i})">Go back to this</button></span></div><div id="hd${i}"></div>`).join(""):'<p class="hint">Every time you save a change, or the AI rewrites the post, the version before it is kept here. You can see exactly what changed, and go back.</p>'}</fieldset>`}
+function showEdits(){collect();const b=sel.base,e=$("#hd");if(!b||(b.text===sel.text&&b.tags===sel.tags)){e.innerHTML='<p class="hint">You have not changed the text yet.</p>';return}const d=diffCount(b.text,sel.text);e.innerHTML=`<p class="hint">Since you opened this post: ${d[0]} words added, ${d[1]} removed.</p><div class="df" dir="auto">${diffH(b.text,sel.text)}</div>`}
+function showDiff(i){collect();const h=sel.meta.history||[],e=h[i],el=$("#hd"+i);if(!e||!el)return;if(el.innerHTML){el.innerHTML="";return}const nw=i===0?sel.text:h[i-1].text;el.innerHTML=e.text===nw?'<p class="hint">Same text as the next version.</p>':`<div class="df" dir="auto">${diffH(e.text,nw)}</div>`}
+function restoreV(i){collect();const h=sel.meta.history||[],e=h[i];if(!e)return;const t=e.text,g=e.tags;histPush(sel,sel.text,sel.tags,"Before going back");sel.text=t;sel.tags=g;edit(sel.id);toast("Old version is back in the post box. Press Save changes to keep it")}
+
+/* ---------- translate, checklist, copy, duplicate ---------- */
+function trH(p){return `<fieldset><legend>Translate this post</legend><div class="bar" style="margin-top:8px"><select id="trl" style="width:auto">${TRL.map(t=>`<option ${TR&&TR.to===t?"selected":""}>${t}</option>`).join("")}</select><button class="btn" onclick="doTr()">Translate</button></div>${TR?`<div class="card"><div class="ph">Translation · ${esc(TR.to)}</div><div class="tx" dir="auto">${esc(TR.text)}</div><div class="tg" dir="auto">${esc(TR.tags)}</div></div><div class="acts"><button class="btn p" onclick="useTr()">Replace this post with it</button><button class="btn" onclick="saveTr()">Save as a new post</button></div>`:`<p class="hint">The AI keeps the facts, the structure and the emojis, and writes it the way a native marketer would. Read it before you use it.</p>`}</fieldset>`}
+async function doTr(){collect();if(!sel.text)return toast("Write the post first");const to=v("#trl");toast("Translating… about 10 seconds");try{const r=one(await api("post-translate",{text:sel.text,hashtags:sel.tags,to,platform:sel.platform}));if(!r||!r.text)return toast((r&&r.error)||"No translation came back");TR={text:r.text,tags:r.hashtags||"",to};logAct("translated",sel.id,ttl(sel)+" → "+to);edit(sel.id)}catch(e){fail(e)}}
+const lcode=t=>/Arabic/.test(t)?"AR":t==="English"?"EN":"FR";
+function useTr(){sel.text=TR.text;sel.tags=TR.tags;if(/Arabic/.test(TR.to))sel.lang="Arabic";else if(TR.to==="English")sel.lang="English";TR=null;edit(sel.id);toast("The translation is in the post box. Press Save changes")}
+async function saveTr(){collect();try{await api("post-create",{idea:sel.idea+" ("+lcode(TR.to)+")",platform:sel.platform,status:"needs_review",post_text:TR.text,hashtags:TR.tags,language:/Arabic/.test(TR.to)?"Arabic":TR.to==="English"?"English":"",tone:sel.tone,pillar:sel.pillar,format:sel.format,parked:false,meta:JSON.stringify({...sel.meta,slides:undefined,history:undefined})});TR=null;await load();edit(sel.id);toast("Saved as a new post. Find it on the Posts page")}catch(e){fail(e)}}
+
+function proofGaps(p){if(!kn.length)return[];const norm=x=>String(x||"").replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).toLowerCase();
+const facts=norm(kn.filter(isOn).map(k=>k.title+" "+k.content).join(" ")+" "+(p.idea||"")+" "+(p.src?p.src.text:"")+" "+Object.values(p.meta||{}).filter(x=>typeof x==="string").join(" ")),
+t=norm((p.text||"")+" "+((p.meta&&p.meta.slides)||[]).map(x=>x.title+" "+x.text).join(" ")),out=[];
+(t.match(/\d[\d.,]*\s?%?/g)||[]).forEach(x=>{const n=x.trim().replace(/[.,]+$/,"");if(!n)return;const num=+n.replace(/[%,\s]/g,"");if(!/%/.test(n)&&(num<=10||(num>=1990&&num<=2100)))return;if(!facts.includes(n)&&!facts.includes(n.replace(/\s/g,""))&&!out.includes(n))out.push(n)});
+["guarantee","proven","award","studies show","research shows","#1","leading","best in","مضمون","أثبتت","الأفضل","رقم 1"].forEach(w=>{if(t.includes(w)&&!facts.includes(w)&&!out.includes(w))out.push(w)});return out.slice(0,6)}
+function ckH(p){const t=p.text||"",all=(t+" "+(p.tags||"")).trim(),pr=PD(p.platform),mx=+pr.max_chars||0,mh=pr.max_hashtags===undefined||pr.max_hashtags===""?99:+pr.max_hashtags,hk=+pr.hook_chars||0,emo=pr.use_emojis==="true",hasE=/\p{Extended_Pictographic}/u.test(t),first=t.split("\n")[0]||"",nt=(String(p.tags||"").match(/#/g)||[]).length,nl=p.platform==="Newsletter";
+const cta=/(www\.|https?:\/\/|@\w|\.com|contact|message us|dm us|learn more|تواصل|راسل|اتصل)/i.test(t)||(D.cta&&t.toLowerCase().includes(D.cta.toLowerCase().slice(0,14)));
+const ban=csv(D.ban).filter(w=>t.toLowerCase().includes(w.toLowerCase())),sl=(p.meta.slides||[]).length;
+const C=[[!mx||all.length<=mx,"Fits the "+p.platform+" limit"+(mx?" ("+all.length+" / "+mx+")":"")],
+[!hk||nl||first.length<=hk+40,"The first line works before “See more”"+(hk&&!nl?" ("+first.length+" characters, about "+hk+" show)":"")],
+[nl||nt<=mh,"Hashtags within the limit ("+nt+" / "+mh+")"],
+[nl||(emo?hasE:!hasE),emo?"Has emojis, as "+p.platform+" expects":"No emojis, as "+p.platform+" expects"],
+[!!cta,"Ends with a call to action or a contact line"],
+[!ban.length,ban.length?"Contains words to avoid: "+ban.join(", "):"No words to avoid"],
+[!!p.pillar,"Has a content pillar"],[!!p.date,"Has a publish date"],
+[nl||p.format==="Text"||(p.format==="Carousel"?sl>0:(p.mode!=="none"&&!!p.img)),p.format==="Carousel"?"Has the carousel slides":"Has an image"]];
+{const pf=proofGaps(p);C.push([!pf.length,pf.length?"Check these numbers or claims. They are not in your Knowledge: "+pf.join(", "):"Numbers and claims match your Knowledge"])}
+const bad=C.filter(c=>!c[0]).length;
+return `<fieldset><legend>Before you publish ${bad?`(${bad} to check)`:"(all good)"}</legend><ul class="ck">${C.map(c=>`<li class="${c[0]?"ok":"no"}">${c[0]?"✓":"!"} ${esc(c[1])}</li>`).join("")}</ul></fieldset>`}
+async function copyPost(){collect();const t=sel.text+(sel.tags?"\n\n"+sel.tags:"");try{await navigator.clipboard.writeText(t);toast("Copied. Paste it into "+sel.platform)}catch(e){toast("Could not copy. Select the text and copy it yourself")}}
+async function dupPost(){collect();try{await api("post-create",{idea:sel.idea,platform:sel.platform,status:sel.text?"needs_review":"idea",post_text:sel.text,hashtags:sel.tags,language:sel.lang,tone:sel.tone,pillar:sel.pillar,format:sel.format,parked:true,meta:JSON.stringify({...(sel.meta||{}),history:undefined}),image_mode:sel.mode,image_prompt:sel.prompt,image_url:sel.img});await load();toast("A copy is in the Parking lot")}catch(e){fail(e)}}
+
+/* ---------- Brand kit, activity log, plan actions ---------- */
+let BK={},ACTV=[];
+const LOGO0="https://justtolearn.com/assets/j2l-logo-horizontal-BW_aX1s-.webp";
+const bk=k=>BK[k]||"";
+const BKEYS=["brand_name","tagline","voice","say","avoid","hashtags","logo_pos","logo_size","color_primary","color_secondary","color_accent","color_bg","color_text","font_head","font_body","image_style","image_people","link_linkedin","link_facebook","link_instagram","link_x","link_tiktok"];
+const FONTS=["Plus Jakarta Sans","Cairo","Tajawal","Poppins","Montserrat","Inter","Lato","Open Sans"];
+const loadImg=u=>new Promise((res,rej)=>{const i=new Image();i.crossOrigin="anonymous";i.onload=()=>res(i);i.onerror=rej;i.src=u});
+function applyBrand(){const lg=$("#logo");if(lg){lg.src=bk("logo")||LOGO0;lg.style.display="";if(lg.nextElementSibling)lg.nextElementSibling.style.display="none"}
+const r=document.documentElement.style;["--ac","--ac2","--bg"].forEach(x=>r.removeProperty(x));if(bk("apply_colors")==="true"){if(bk("color_primary"))r.setProperty("--ac",bk("color_primary"));if(bk("color_secondary"))r.setProperty("--ac2",bk("color_secondary"));if(bk("color_bg"))r.setProperty("--bg",bk("color_bg"))}
+if(bk("image_style"))D.style=bk("image_style")}
+async function loadBK(){try{const r=await api("brand-get"),o=Array.isArray(r)?r[0]:r;BK=(o&&o.brand)||{};applyBrand();if(view==="bk")render()}catch(e){}}
+function BKcollect(){BKEYS.forEach(k=>{const e=$("#bk_"+k);if(e)BK[k]=e.value});if($("#bk_stamp"))BK.stamp=$("#bk_stamp").checked?"true":"false";if($("#bk_apply"))BK.apply_colors=$("#bk_apply").checked?"true":"false"}
+async function saveBK(){BKcollect();const o={};BKEYS.forEach(k=>o[k]=String(BK[k]||"").trim());o.stamp=BK.stamp==="true"?"true":"false";o.apply_colors=BK.apply_colors==="true"?"true":"false";o.logo=BK.logo||"";try{await api("brand-save",{brand:o});applyBrand();logAct("brand kit saved",0,"");toast("Brand kit saved")}catch(e){fail(e)}}
+function bkLogo(i){const f=i.files[0];if(!f)return;BKcollect();const im=new Image();im.onload=()=>{const k=Math.min(1,500/im.width),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);BK.logo=c.toDataURL("image/png");render();toast("Logo added. Press Save brand kit to keep it")};im.onerror=()=>toast("That file could not be read as a picture");im.src=URL.createObjectURL(f)}
+function bkNoLogo(){BKcollect();BK.logo="";render();toast("Logo removed. Press Save brand kit to keep that")}
+const LOGOSRC=()=>bk("logo")||LOGO0;
+async function stampLogo(url,strict){try{const L=await loadImg(LOGOSRC()),B=await loadImg(url),c=document.createElement("canvas");c.width=B.width;c.height=B.height;const g=c.getContext("2d");g.drawImage(B,0,0);const w=B.width*((+bk("logo_size")||16)/100),h=w*L.height/L.width,m=B.width*.03,p=bk("logo_pos")||"br";g.drawImage(L,p.includes("l")?m:B.width-w-m,p.includes("t")?m:B.height-h-m,w,h);return c.toDataURL("image/jpeg",.92)}catch(e){if(strict)throw e;console.error(e);return url}}
+
+async function bkPrev(){const im=$("#bkpv");if(!im)return;BKcollect();const c=document.createElement("canvas");c.width=720;c.height=480;const g=c.getContext("2d"),gr=g.createLinearGradient(0,0,720,480);gr.addColorStop(0,"#9fd0d6");gr.addColorStop(1,"#f6d8a8");g.fillStyle=gr;g.fillRect(0,0,720,480);g.fillStyle="rgba(255,255,255,.55)";g.beginPath();g.arc(360,250,120,0,7);g.fill();
+try{im.src=await stampLogo(c.toDataURL("image/png"),true);$("#bkpvm").textContent=""}catch(e){im.src=c.toDataURL("image/png");$("#bkpvm").textContent="The logo could not be loaded here. Upload your logo file above and it will show."}}
+async function stampIf(url){return bk("stamp")==="true"?stampLogo(url,false):url}
+async function addLogo(){collect();if(!sel.img)return;imgBusy(true,"Adding the logo…");try{const raw=sel.img,u=await stampLogo(raw,true);sel.imgRaw=raw;sel.img=u;sel.meta.logo=true;imgBusy(false);edit(sel.id);toast("Logo added. Press Save changes to keep it")}catch(e){imgBusy(false);console.error(e);toast("The logo could not be added. Upload your logo in Brand kit, then try again")}}
+function noLogo(){collect();if(sel.imgRaw){sel.img=sel.imgRaw;sel.imgRaw=null}sel.meta.logo=false;edit(sel.id)}
+const bkT=(k,l,ph)=>`<div><label for="bk_${k}">${l}</label><input id="bk_${k}" value="${esc(bk(k))}" placeholder="${esc(ph||"")}"></div>`;
+const bkA=(k,l,ph)=>`<label for="bk_${k}">${l}</label><textarea id="bk_${k}" rows="2" placeholder="${esc(ph||"")}">${esc(bk(k))}</textarea>`;
+const bkC=(k,l,def)=>`<div><label for="bk_${k}">${l}</label><input id="bk_${k}" type="color" value="${esc(bk(k)||def)}" style="height:42px;padding:3px"></div>`;
+const bkS=(k,l,opts)=>`<div><label for="bk_${k}">${l}</label><select id="bk_${k}">${opts.map(o=>`<option value="${o[0]}" ${(bk(k)||opts[0][0])===o[0]?"selected":""}>${o[1]}</option>`).join("")}</select></div>`;
+const bkH=()=>{const lg=bk("logo")||LOGO0,sw=["color_primary","color_secondary","color_accent","color_bg","color_text"].filter(k=>bk(k)).map(k=>`<span title="${k.replace("color_","")}" style="width:34px;height:34px;border-radius:8px;border:1px solid var(--bd);background:${esc(bk(k))};display:inline-block"></span>`).join(" ");
+return `<h2>Brand kit</h2><p class="sub">Your identity in one place. The writer uses your voice and hashtags, the picture tools use your picture style and logo, and this app can use your colours.</p>
+<div class="panel"><h3 style="margin-top:0">Identity</h3><div class="g2">${bkT("brand_name","Brand name","Just to Learn")}${bkT("tagline","Tagline","")}</div></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">Logo</h3><div style="display:flex;gap:14px;flex-wrap:wrap"><div style="background:#fff;border:1px solid var(--bd);border-radius:12px;padding:16px;min-width:190px;display:grid;place-items:center"><img src="${esc(lg)}" alt="Logo on light" style="max-height:56px;max-width:200px;object-fit:contain"></div><div style="background:#12263a;border-radius:12px;padding:16px;min-width:190px;display:grid;place-items:center"><img src="${esc(lg)}" alt="Logo on dark" style="max-height:56px;max-width:200px;object-fit:contain"></div></div>
+<div class="g3"><div><label for="bk_file">Upload your logo (PNG, SVG or WebP)</label><input id="bk_file" type="file" accept="image/*" onchange="bkLogo(this)"></div>${bkS("logo_pos","Where it goes on pictures",[["br","Bottom right"],["bl","Bottom left"],["tr","Top right"],["tl","Top left"]])}${bkT("logo_size","Logo width (% of the picture)","16")}</div>
+<label style="display:inline-flex;gap:8px;align-items:center"><input type="checkbox" id="bk_stamp" ${bk("stamp")==="true"?"checked":""} style="width:auto"> Put the logo on every new picture automatically (AI pictures and pictures you upload)</label><div class="acts"><button class="btn d" onclick="bkNoLogo()">Remove my logo</button></div><p class="hint" style="margin-bottom:6px">How it looks on a picture:</p><img id="bkpv" class="bkpv" alt="Logo preview"><p class="hint" id="bkpvm"></p><p class="hint">Leave it off if you prefer to choose: open a post and press <b>Add logo to this image</b>. If you have not uploaded a logo here, the Just to Learn logo is used. Uploading your own file is the most reliable. Press Save brand kit after changing this.</p></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">Colours</h3><div class="g3">${bkC("color_primary","Primary","#0e7c86")}${bkC("color_secondary","Secondary","#0a5f67")}${bkC("color_accent","Accent","#f2a33a")}${bkC("color_bg","Background","#f5f8f9")}${bkC("color_text","Text","#12263a")}</div><div style="margin-top:10px">${sw}</div>
+<label style="display:inline-flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="bk_apply" ${bk("apply_colors")==="true"?"checked":""} style="width:auto"> Use the primary, secondary and background colours in this app</label></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">Fonts</h3><div class="g2"><div><label for="bk_font_head">Headings</label><input id="bk_font_head" list="bk_fonts" value="${esc(bk("font_head"))}"></div><div><label for="bk_font_body">Body text</label><input id="bk_font_body" list="bk_fonts" value="${esc(bk("font_body"))}"></div></div><datalist id="bk_fonts">${FONTS.map(f=>`<option value="${f}">`).join("")}</datalist><p class="hint">Saved for the carousel and newsletter templates.</p></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">Voice</h3>${bkA("voice","How we sound (3 to 5 words)","warm, clear, curious, never salesy")}${bkA("say","Words and phrases we like","creativity, hands-on, young learners")}${bkA("avoid","Words and phrases we never use","revolutionary, best, #1")}${bkT("hashtags","Our signature hashtags","#JustToLearn #NEOMI")}</div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">Pictures</h3>${bkA("image_style","Picture style","candid photo, natural window light, muted warm colours")}<div class="g2">${bkS("image_people","People in pictures",[["mixed","Mixed"],["people","Children and teachers"],["illustration","Illustrations"]])}</div></div>
+<div class="panel" style="margin-top:14px"><h3 style="margin-top:0">Links</h3><div class="g3">${bkT("link_linkedin","LinkedIn","https://")}${bkT("link_facebook","Facebook","https://")}${bkT("link_instagram","Instagram","https://")}${bkT("link_x","X","https://")}${bkT("link_tiktok","TikTok","https://")}</div></div>
+<div class="acts" style="margin-top:16px"><button class="btn p" onclick="saveBK()">Save brand kit</button></div>`};
+let WHO="";const who=()=>{try{return localStorage.getItem("cs_user")||WHO||"Unknown"}catch(e){return WHO||"Unknown"}};
+function askName(){return new Promise(res=>{const d=document.createElement("dialog");d.style.cssText="border:1px solid var(--bd);border-radius:14px;padding:20px;background:var(--sf);color:inherit";d.innerHTML='<form method="dialog" style="display:grid;gap:10px;min-width:260px"><b>Before you continue, what is your name?</b><small style="color:var(--mu)">Asked only once. It is saved with your edits and approvals so the team can see who did what.</small><input id="whn" required maxlength="40" placeholder="Your name"><button class="btn p">Continue</button></form>';document.body.appendChild(d);d.addEventListener("cancel",e=>e.preventDefault());d.querySelector("form").onsubmit=()=>{const n=d.querySelector("#whn").value.trim();if(!n)return false;WHO=n;try{localStorage.setItem("cs_user",n)}catch(e){}setTimeout(()=>{d.remove();updateWho();res(n)},0)};d.showModal();setTimeout(()=>d.querySelector("#whn").focus(),50)})}
+let _wp=null;function needWho(){let n="";try{n=localStorage.getItem("cs_user")||""}catch(e){}n=n||WHO;if(n)return Promise.resolve(n);if(!_wp)_wp=askName().then(x=>{_wp=null;return x});return _wp}
+function updateWho(){let n="";try{n=localStorage.getItem("cs_user")||""}catch(x){}const e=$("#whoami");if(e)e.innerHTML=n?`Working as <b>${esc(n)}</b> · <a href="#" onclick="return setWho()">change</a>`:`<a href="#" onclick="return setWho()">Set your name</a> for the Activity log`}
+function setWho(){const e=$("#whoami");if(!e)return false;let n="";try{n=localStorage.getItem("cs_user")||""}catch(x){}e.innerHTML=`<input id="whin" value="${esc(n)}" placeholder="Your name" style="padding:5px 8px;font-size:12px;margin-bottom:4px" onkeydown="if(event.key==='Enter')saveWho()"><button class="btn" style="padding:4px 10px;font-size:12px" onclick="saveWho()">Save</button>`;$("#whin").focus();return false}
+function saveWho(){const n=v("#whin").trim();try{if(n)localStorage.setItem("cs_user",n)}catch(e){}updateWho()}
+async function logAct(action,id,detail){try{await needWho();await api("activity-add",{user:who(),action,post_id:String(id||""),detail:String(detail||"").slice(0,200)})}catch(e){if(!window._aw){window._aw=1;toast("Activity was not saved. Check the activity_log table in n8n")}}}
+async function loadAct(){try{const r=await api("activity-list");ACTV=(Array.isArray(r)?r:r?[r]:[]).filter(x=>x&&x.id!=null).sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));if(view==="act")render()}catch(e){fail(e)}}
+const actH=()=>`<h2>Activity</h2><p class="sub">Who did what. Each person types their name once in their own browser, so this is a record, not a security check.</p><div class="panel"><div class="acts"><button class="btn" onclick="loadAct()">Refresh</button><button class="btn" onclick="setWho()">Change my name</button></div></div>${ACTV.slice(0,200).map(a=>`<div class="row" style="cursor:default"><div class="mid"><b>${esc(a.user)}</b> ${esc(a.action)}<br><small>${esc(String(a.createdAt||"").replace("T"," ").slice(0,16))}${a.post_id&&a.post_id!=="0"?" · post "+esc(a.post_id):""}${a.detail?" · "+esc(a.detail):""}</small></div></div>`).join("")||'<p class="hint">Nothing recorded yet.</p>'}`;
+async function createOne(i){const o=PLAN&&PLAN[i];if(!o)return;await needWho();try{await api("ideas-add",{items:[{idea:o.idea,platform:o.platform,date:o.date||null,tone:o.tone||"",pillar:o.pillar||"",format:o.format||"",goal:o.goal||"",link:o.link||""}]});logAct("created",0,o.idea.split("\n")[0].slice(0,80));PLAN.splice(i,1);$("#plan").innerHTML=planH();toast("Writing this post"+(o.date?" for "+o.date:""));await load()}catch(e){fail(e)}}
+async function parkPlan(){if(!PLAN||!PLAN.length)return toast("The plan is empty");try{await api("ideas-park",{items:PLAN.map(o=>({idea:o.idea,platform:o.platform,pillar:o.pillar||"",date:o.date||""}))});logAct("saved a plan for later",0,PLAN.length+" ideas");toast(PLAN.length+" ideas saved for later in the Parking lot, with their planned dates");PLAN=null;ideasTxt="";await load();flt="parked";show("posts")}catch(e){fail(e)}}
+updateWho();loadBK();
+show("ideas");load(true);
 </script></body></html>
