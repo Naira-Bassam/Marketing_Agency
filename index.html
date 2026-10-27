@@ -224,7 +224,9 @@ const save=p=>api("post-update",toRow(p));
 async function load(first){try{const r=await api("posts-list"),R=(Array.isArray(r)?r:r?[r]:[]).filter(x=>x&&x.id!=null);HASX=!R.length||("pillar" in R[0]&&"parked" in R[0]&&"meta" in R[0]);posts=R.map(fromRow);syncBanner();
 if(first){const x=await api("settings-get").catch(()=>null),d=Array.isArray(x)?x[0]:x;if(d&&d.tone){const s={};for(const k of Object.keys(D)){if(d[k]!==undefined&&d[k]!==null&&String(d[k]).trim()!=="")s[k]=String(d[k])}D={...D,...s}}}
 if(!document.querySelector("dialog[open]")&&(view==="posts"||view==="cal"))render()}catch(e){fail(e)}}
-setInterval(()=>{if(posts.some(p=>p.status==="generating"||p.imgBusy))load()},4000);
+let _pw=0,_pn=0;const _gen=()=>posts.some(p=>p.status==="generating"||p.imgBusy);
+setInterval(()=>{if(!_gen()){_pn=0;_pw=0;return}if(document.visibilityState!=="visible")return;const now=Date.now();if(now-_pw<[8,12,15,20,30][Math.min(_pn,4)]*1000)return;_pw=now;_pn++;load()},2000);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&_gen()){_pw=Date.now();load()}});
 const csv=s=>String(s||"").split(",").map(x=>x.trim()).filter(Boolean);
 let sel=null,view="ideas",flt="all",cal=new Date(),drag=0,isrc=null,ideasTxt="";
 let PLANSUM=null,SUG=null,SUGN=0,IMODE="write",ADV=false;
