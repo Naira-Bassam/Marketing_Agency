@@ -221,7 +221,7 @@ const pm=t=>{try{const o=JSON.parse(t||"{}");return o&&typeof o==="object"&&!Arr
 let D={platform:"LinkedIn",tone:"Professional and warm",lang:"English",len:"80",tags:"3",cta:"Contact us to learn more",ban:"revolutionary, best, #1",extra:"",img_on:"true",style:"candid photo, natural window light, 35mm lens, shallow depth of field, real textures, muted warm colors, slight film grain"};
 const ip=p=>`A scene based on the post: “${ttl(p)}”. ${D.style}.`;
 let posts=[];
-const API="https://nairaalawady.app.n8n.cloud/webhook";// when you move n8n to a server or Cloud: "https://YOUR-DOMAIN/webhook"
+const API="https://nairaalawady.app.n8n.cloud/webhook"; // when you move n8n to a server or Cloud: "https://YOUR-DOMAIN/webhook"
 const AIW=new Set(["objection-suggest","followup-plan","mail-triage","roi-onepager","sales-report","lead-draft","lead-reply","battlecard-generate","post-create","post-regenerate","post-repurpose","post-translate","ideas-suggest","ideas-add","idea-from-link","image-prompt","competitors-find","image-regenerate"]),CG=new Set(["settings-get","brand-get","knowledge-list","platform-rules-get","prompts-get","app-settings-list","competitors-list"]),CTTL=300000;
 const ownCfg=k=>{try{const c=JSON.parse(localStorage.getItem("cs_"+k)||"null");return c&&c.provider&&c.provider!=="default"&&c.key?c:null}catch(e){return null}};
 const cget=p=>{try{const c=JSON.parse(localStorage.getItem("cs_c_"+p)||"null");return c&&Date.now()-c.t<CTTL?c.v:undefined}catch(e){}};
@@ -1162,11 +1162,12 @@ scanned+=x.scanned||0;for(const r of x.matched||[])matchedAll.push({...r,box:b})
 if(skipped.length&&skipped.length===ids.length)throw new Error("Could not read: "+skipped.join(", "));
 matchedAll.sort((a,c)=>String(c.received).localeCompare(String(a.received)));const rep=[],done=new Set(),via={};
 for(const r of matchedAll){const l=leads.find(z=>z.id===r.lead_id);if(!l||!r.text||done.has(l.id))continue;if(l.rat&&Date.parse(r.received)<=Date.parse(l.rat))continue;if(l.sent&&Date.parse(r.received)<Date.parse(l.sent))continue;if(["stopped","contract"].includes(l.status))continue;
-l.reply=r.text;l.rat=r.received;if(["sent","quiet","drafted","answered","replied"].includes(l.status))l.status="replied";l.msg=r.id||l.msg;l.thread=r.thread||l.thread;l.m=l.m||{};l.m.mbx_from=String(r.box.from||"").toLowerCase();lsc(l);try{await upd(l);rep.push(l);done.add(l.id);via[l.id]=r.box.from}catch(e){console.error(e)}}
+l.reply=r.text;l.rat=r.received;if(["sent","quiet","drafted","answered","replied"].includes(l.status))l.status="replied";l.msg=r.id||l.msg;l.thread=r.thread||l.thread;l.m=l.m||{};l.m.mbx_from=String(r.box.from||"").toLowerCase();lsc(l);try{await upd(l);await autoRead(l);rep.push(l);done.add(l.id);via[l.id]=r.box.from}catch(e){console.error(e)}}
 const have=new Set(leads.map(l=>(l.email||"").toLowerCase())),ign=ignSet(),U=[...unk.values()].filter(u=>u.from&&!ign.has(u.from)&&!have.has(u.from));let rel=[];
 if(U.length){const t=one(await api("mail-triage",{unknown:U,offer:SD.offer,lang:D.lang}));if(!t||t.ok===false)throw new Error((t&&t.error)||"The AI could not sort the new emails");rel=t.items||[]}
 sInb={at:new Date().toISOString(),scanned,replies:rep.map(l=>l.id),via,rel,dropped:U.length-rel.length,boxes:ids.length-skipped.length,skipped};toast(rep.length+" new "+(rep.length===1?"reply":"replies")+", "+rel.length+" possible new "+(rel.length===1?"client":"clients")+(skipped.length?". Not read: "+skipped.join(", "):""))}
 catch(e){console.error(e);toast(e.message||"Could not read the inbox")}finally{sInbBusy=false;render()}}
+async function autoRead(l){try{const x=one(await api("lead-reply",{name:l.name,company:l.company,role:l.role,subject:l.subject,body:l.body,reply:l.reply,offer:SD.offer,sig:SD.sig,lang:D.lang,tone:D.tone}));if(!x||x.error)return;l.intent=x.intent||"";if(x.reply)l.draft=x.reply;l.status=x.intent==="stop"?"stopped":x.intent==="not_now"?"quiet":"replied";if(x.intent==="not_now")l.due=dueIn(90);lsc(l);await upd(l)}catch(e){console.error(e)}}
 async function inbAdd(i){const it=sInb&&sInb.rel[i];if(!it)return;try{const x=one(await api("leads-add",{leads:[{name:it.name||"",email:it.from,company:it.school||"",notes:("From my inbox: "+(it.subject||"")+(it.why?" — "+it.why:"")).slice(0,500),source:"inbox"}]}));sInb.rel.splice(i,1);toast(x&&x.added?"Added as a lead":"This person is already a lead");await loadLeads()}catch(e){fail(e)}}
 function inbIgn(i){const it=sInb&&sInb.rel[i];if(!it)return;ignAdd(it.from);sInb.rel.splice(i,1);render()}
 async function inbRead(id){editLead(id);await leadClassify()}
